@@ -1,0 +1,687 @@
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
+function Products() {
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [selectedQuantities, setSelectedQuantities] = useState({});
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+  
+  const colors = {
+    darkGreen: '#0f4d2c',
+    deepGreen: '#1b5e3c',
+    mediumGreen: '#1b6b3d',
+    gold: '#d4af37',
+    cream: '#f3eadc',
+    textDark: '#333',
+    white: '#ffffff',
+    background: '#f5f5f5'
+  };
+
+  const products = {
+    rice: [
+      {
+        name: 'RNR 15048',
+        description: 'Premium quality long grain rice with excellent cooking properties',
+        image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop',
+        features: ['Long Grain', 'High Quality', 'Best Aroma'],
+        quantities: [
+          { weight: '25 kg', price: '₹1,200' },
+          { weight: '50 kg', price: '₹2,300' },
+          { weight: '100 kg', price: '₹4,500' }
+        ]
+      },
+      {
+        name: 'BPT 5204',
+        description: 'High-quality parboiled rice perfect for daily consumption',
+        image: 'https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?w=400&h=300&fit=crop',
+        features: ['Parboiled rice', 'Nutritious', 'Easy to Cook'],
+        quantities: [
+          { weight: '25 kg', price: '₹1,100' },
+          { weight: '50 kg', price: '₹2,100' },
+          { weight: '100 kg', price: '₹4,000' }
+        ]
+      },
+      {
+        name: 'SONA MASOORI',
+        description: 'Premium aromatic rice, light and fluffy when cooked',
+        image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop',
+        features: ['Aromatic', 'Low Starch', 'Premium Grade'],
+        quantities: [
+          { weight: '25 kg', price: '₹1,350' },
+          { weight: '50 kg', price: '₹2,600' },
+          { weight: '100 kg', price: '₹5,000' }
+        ]
+      },
+      {
+        name: 'HMT RICE',
+        description: 'Traditional favorite with superior taste and texture',
+        image: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?w=400&h=300&fit=crop',
+        features: ['Traditional', 'Soft Texture', 'Rich Flavor'],
+        quantities: [
+          { weight: '25 kg', price: '₹1,250' },
+          { weight: '50 kg', price: '₹2,400' },
+          { weight: '100 kg', price: '₹4,700' }
+        ]
+      }
+    ],
+    millets: [
+      {
+        name: 'Foxtail Millet (Kangni)',
+        description: 'Nutritious and gluten-free ancient grain rich in fiber',
+        image: 'https://naturechoice.in/eeghoacm/2022/07/Foxtail_millet-1.jpg',
+        features: ['High Fiber', 'Gluten-Free', 'Rich in Iron'],
+        quantities: [
+          { weight: '1 kg', price: '₹120' },
+          { weight: '5 kg', price: '₹550' },
+          { weight: '10 kg', price: '₹1,000' }
+        ]
+      },
+      {
+        name: 'Pearl Millet (Bajra)',
+        description: 'Energy-rich millet perfect for healthy diet',
+        image: 'https://5.imimg.com/data5/SELLER/Default/2024/3/398591092/MM/DW/NO/4351922/domestic-pearl-millet.jpg',
+        features: ['Energy Rich', 'High Protein', 'Diabetic Friendly'],
+        quantities: [
+          { weight: '1 kg', price: '₹100' },
+          { weight: '5 kg', price: '₹450' },
+          { weight: '10 kg', price: '₹850' }
+        ]
+      },
+      {
+        name: 'Finger Millet (Ragi)',
+        description: 'Calcium-rich superfood ideal for bone health',
+        image: 'https://www.milletmaagicmeal.in/cdn/shop/articles/image1.webp?v=1729496969&width=1100',
+        features: ['High Calcium', 'Superfood', 'Natural Coolant'],
+        quantities: [
+          { weight: '1 kg', price: '₹110' },
+          { weight: '5 kg', price: '₹500' },
+          { weight: '10 kg', price: '₹950' }
+        ]
+      },
+      {
+        name: 'Sorghum (Jowar)',
+        description: 'Versatile grain packed with antioxidants and nutrients',
+        image: 'https://jallikatt.in/wp-content/uploads/2023/02/Cholam--scaled.jpg',
+        features: ['Antioxidants', 'Gluten-Free', 'Heart Healthy'],
+        quantities: [
+          { weight: '1 kg', price: '₹95' },
+          { weight: '5 kg', price: '₹425' },
+          { weight: '10 kg', price: '₹800' }
+        ]
+      },
+      {
+        name: 'Proso Millet',
+        description: 'Quick-cooking millet with mild flavor and high nutrition',
+        image: 'https://nuttyyogi.com/cdn/shop/products/Proso_Millet__DSC5342.jpg?v=1606373494',
+        features: ['Quick Cook', 'Mild Flavor', 'High Protein'],
+        quantities: [
+          { weight: '1 kg', price: '₹125' },
+          { weight: '5 kg', price: '₹575' },
+          { weight: '10 kg', price: '₹1,100' }
+        ]
+      },
+      {
+        name: 'Little Millet (Kutki)',
+        description: 'Small grain packed with vitamins and minerals',
+        image: 'https://dhatuorganics.com/wp-content/uploads/2024/09/Stock-Iamges-04.jpg',
+        features: ['Vitamin Rich', 'Low GI', 'Easy Digest'],
+        quantities: [
+          { weight: '1 kg', price: '₹130' },
+          { weight: '5 kg', price: '₹600' },
+          { weight: '10 kg', price: '₹1,150' }
+        ]
+      },
+      {
+        name: 'Kodo Millet',
+        description: 'Nutritious grain excellent for weight management',
+        image: 'https://www.puremart.in/images/products/323-kodo-millet-500-gms-pack-of-250-gm-x-2-1600771999.jpeg',
+        features: ['Weight Loss', 'High Fiber', 'Low Fat'],
+        quantities: [
+          { weight: '1 kg', price: '₹135' },
+          { weight: '5 kg', price: '₹625' },
+          { weight: '10 kg', price: '₹1,200' }
+        ]
+      },
+      {
+        name: 'Barnyard Millet (Sanwa)',
+        description: 'Fast-growing millet ideal for fasting and healthy eating',
+        image: 'https://nuttyyogi.com/cdn/shop/products/Barnyard_Millet_DSC5318.jpg?v=1606373486',
+        features: ['Fasting Food', 'Low Calorie', 'Iron Rich'],
+        quantities: [
+          { weight: '1 kg', price: '₹140' },
+          { weight: '5 kg', price: '₹650' },
+          { weight: '10 kg', price: '₹1,250' }
+        ]
+      }
+    ]
+  };
+
+  const allProducts = [...products.rice, ...products.millets];
+  const displayProducts = activeCategory === 'all' ? allProducts : products[activeCategory];
+
+  return (
+    <div style={{
+      width: '100%',
+      paddingTop: '110px',
+      backgroundColor: colors.background,
+      minHeight: '100vh'
+    }}>
+      {/* Logo Section */}
+      <section style={{
+        padding: 'clamp(40px, 6vw, 60px) clamp(20px, 5vw, 60px) clamp(30px, 4vw, 40px)',
+        backgroundColor: colors.white,
+        textAlign: 'center'
+      }}>
+        <div style={{
+          display: 'inline-block',
+          position: 'relative'
+        }}>
+          <img 
+            src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773032487/logo_utb5wq.jpg'
+            alt="Aluri's Global Rice Logo"
+            style={{
+              width: 'clamp(120px, 30vw, 180px)',
+              height: 'clamp(120px, 30vw, 180px)',
+              objectFit: 'cover',
+              borderRadius: '20px',
+              boxShadow: `0 10px 40px rgba(0,0,0,0.15), 0 0 0 5px ${colors.gold}, 0 0 20px ${colors.gold}80`,
+              border: `5px solid ${colors.gold}`,
+              marginBottom: '30px',
+              transition: 'all 0.4s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = 'scale(1.1) rotate(5deg)';
+              e.target.style.boxShadow = `0 20px 60px rgba(0,0,0,0.25), 0 0 0 8px ${colors.gold}, 0 0 40px ${colors.gold}`;
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = 'scale(1) rotate(0deg)';
+              e.target.style.boxShadow = `0 10px 40px rgba(0,0,0,0.15), 0 0 0 5px ${colors.gold}, 0 0 20px ${colors.gold}80`;
+            }}
+          />
+        </div>
+        <h1 style={{
+          color: colors.gold,
+          fontSize: 'clamp(28px, 6vw, 48px)',
+          fontWeight: '900',
+          letterSpacing: '3px',
+          fontFamily: 'Georgia, serif',
+          marginBottom: '10px'
+        }}>
+          ALURI'S GLOBAL RICE
+        </h1>
+        <p style={{
+          color: colors.darkGreen,
+          fontSize: '20px',
+          fontWeight: '600',
+          letterSpacing: '2px'
+        }}>
+          Our Premium Products
+        </p>
+      </section>
+
+      {/* Hero Section */}
+      {/* <section style={{
+        background: `linear-gradient(135deg, ${colors.darkGreen}f0 0%, ${colors.deepGreen}f0 100%), url('https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1600') center/cover`,
+        minHeight: '50vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 'clamp(40px, 6vw, 80px) clamp(20px, 5vw, 60px)',
+        textAlign: 'center',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        boxShadow: 'inset 0 0 100px rgba(0,0,0,0.4)',
+        animation: 'fadeIn 0.8s ease-in'
+      }}>
+        <style>{`
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+          }
+          @media (max-width: 768px) {
+            .product-card {
+              grid-template-columns: 1fr !important;
+            }
+            .product-card img {
+              height: 240px !important;
+              min-height: 240px !important;
+            }
+          }
+        `}</style>
+        <div style={{ maxWidth: '900px', zIndex: 1, animation: 'slideUp 1s ease-out' }}>
+          <p style={{
+            color: colors.white,
+            fontSize: 'clamp(18px, 4vw, 24px)',
+            fontWeight: '600',
+            textShadow: '2px 2px 6px rgba(0,0,0,0.5)',
+            lineHeight: '1.6'
+          }}>
+            Quality Rice & Millets Directly from Mills
+          </p>
+        </div>
+      </section> */}
+
+      {/* Category Tabs */}
+      <section style={{
+        padding: 'clamp(30px, 5vw, 50px) clamp(20px, 5vw, 60px) 0',
+        backgroundColor: colors.white,
+        animation: 'fadeIn 1.2s ease-in'
+      }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', textAlign: 'center' }}>
+          <div style={{
+            display: 'flex',
+            gap: '15px',
+            justifyContent: 'center',
+            flexWrap: 'nowrap',
+            overflowX: 'auto',
+            marginBottom: '40px',
+            padding: '10px 5px',
+            scrollbarWidth: 'thin',
+            scrollbarColor: `${colors.gold} ${colors.cream}`,
+            WebkitOverflowScrolling: 'touch',
+            msOverflowStyle: 'none'
+          }}>
+            <button
+              onClick={() => setActiveCategory('all')}
+              style={{
+                background: activeCategory === 'all' 
+                  ? `linear-gradient(135deg, ${colors.darkGreen}, ${colors.mediumGreen})`
+                  : colors.cream,
+                color: activeCategory === 'all' ? colors.white : colors.darkGreen,
+                border: `3px solid ${activeCategory === 'all' ? colors.gold : colors.mediumGreen}`,
+                padding: 'clamp(10px, 2vw, 16px) clamp(20px, 4vw, 35px)',
+                fontSize: 'clamp(12px, 2.5vw, 18px)',
+                fontWeight: '900',
+                borderRadius: '50px',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: activeCategory === 'all' 
+                  ? `0 6px 20px rgba(15,77,44,0.3), 0 0 25px ${colors.gold}40`
+                  : '0 3px 12px rgba(0,0,0,0.1)',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                fontFamily: 'Georgia, serif',
+                whiteSpace: 'nowrap',
+                flexShrink: 0
+              }}
+              onMouseEnter={(e) => {
+                if (activeCategory !== 'all') {
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 6px 18px rgba(0,0,0,0.15)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeCategory !== 'all') {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 3px 12px rgba(0,0,0,0.1)';
+                }
+              }}
+            >
+              ✨ All
+            </button>
+            <button
+              onClick={() => setActiveCategory('rice')}
+              style={{
+                background: activeCategory === 'rice' 
+                  ? `linear-gradient(135deg, ${colors.darkGreen}, ${colors.mediumGreen})`
+                  : colors.cream,
+                color: activeCategory === 'rice' ? colors.white : colors.darkGreen,
+                border: `3px solid ${activeCategory === 'rice' ? colors.gold : colors.mediumGreen}`,
+                padding: 'clamp(10px, 2vw, 16px) clamp(20px, 4vw, 35px)',
+                fontSize: 'clamp(12px, 2.5vw, 18px)',
+                fontWeight: '900',
+                borderRadius: '50px',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: activeCategory === 'rice' 
+                  ? `0 6px 20px rgba(15,77,44,0.3), 0 0 25px ${colors.gold}40`
+                  : '0 3px 12px rgba(0,0,0,0.1)',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                fontFamily: 'Georgia, serif',
+                whiteSpace: 'nowrap',
+                flexShrink: 0
+              }}
+              onMouseEnter={(e) => {
+                if (activeCategory !== 'rice') {
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 6px 18px rgba(0,0,0,0.15)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeCategory !== 'rice') {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 3px 12px rgba(0,0,0,0.1)';
+                }
+              }}
+            >
+              🌾 Rice
+            </button>
+            <button
+              onClick={() => setActiveCategory('millets')}
+              style={{
+                background: activeCategory === 'millets' 
+                  ? `linear-gradient(135deg, ${colors.darkGreen}, ${colors.mediumGreen})`
+                  : colors.cream,
+                color: activeCategory === 'millets' ? colors.white : colors.darkGreen,
+                border: `3px solid ${activeCategory === 'millets' ? colors.gold : colors.mediumGreen}`,
+                padding: 'clamp(10px, 2vw, 16px) clamp(20px, 4vw, 35px)',
+                fontSize: 'clamp(12px, 2.5vw, 18px)',
+                fontWeight: '900',
+                borderRadius: '50px',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: activeCategory === 'millets' 
+                  ? `0 6px 20px rgba(15,77,44,0.3), 0 0 25px ${colors.gold}40`
+                  : '0 3px 12px rgba(0,0,0,0.1)',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                fontFamily: 'Georgia, serif',
+                whiteSpace: 'nowrap',
+                flexShrink: 0
+              }}
+              onMouseEnter={(e) => {
+                if (activeCategory !== 'millets') {
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 6px 18px rgba(0,0,0,0.15)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeCategory !== 'millets') {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 3px 12px rgba(0,0,0,0.1)';
+                }
+              }}
+            >
+              🌾 Millets
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Products Grid */}
+      <section style={{
+        padding: 'clamp(30px, 5vw, 50px) clamp(20px, 5vw, 60px) clamp(60px, 8vw, 100px)',
+        backgroundColor: colors.white,
+        animation: 'fadeIn 1.4s ease-in'
+      }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          <h2 style={{
+            textAlign: 'center',
+            color: colors.darkGreen,
+            fontSize: 'clamp(28px, 5vw, 42px)',
+            fontWeight: '900',
+            marginBottom: '50px',
+            fontFamily: 'Georgia, serif',
+            letterSpacing: '2px'
+          }}>
+            {activeCategory === 'all' ? '🌾 All Products' : activeCategory === 'rice' ? '🌾 Premium Rice Varieties' : '🌾 Nutritious Millets'}
+          </h2>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 600px), 1fr))',
+            gap: 'clamp(30px, 4vw, 50px)'
+          }}>
+            {displayProducts.map((product, index) => (
+              <div key={index} className="product-card" style={{
+                backgroundColor: colors.white,
+                borderRadius: '20px',
+                overflow: 'hidden',
+                boxShadow: `0 10px 30px rgba(0,0,0,0.1), 0 0 0 3px ${colors.gold}20`,
+                transition: 'all 0.4s ease',
+                cursor: 'pointer',
+                border: `4px solid ${colors.gold}40`,
+                animation: `scaleIn 0.6s ease-out ${index * 0.1}s backwards`,
+                display: 'grid',
+                gridTemplateColumns: '300px 1fr',
+                alignItems: 'start'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-8px)';
+                e.currentTarget.style.borderColor = colors.gold;
+                e.currentTarget.style.boxShadow = `0 20px 50px rgba(15,77,44,0.2), 0 0 0 4px ${colors.gold}`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.borderColor = `${colors.gold}40`;
+                e.currentTarget.style.boxShadow = `0 10px 30px rgba(0,0,0,0.1), 0 0 0 3px ${colors.gold}20`;
+              }}
+              >
+                <img 
+                  src={product.image}
+                  alt={product.name}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    minHeight: '350px',
+                    objectFit: 'cover'
+                  }}
+                />
+                <div style={{ padding: '30px' }}>
+                  <h3 style={{
+                    color: colors.darkGreen,
+                    fontSize: 'clamp(20px, 4vw, 26px)',
+                    fontWeight: '900',
+                    marginBottom: '15px',
+                    fontFamily: 'Georgia, serif'
+                  }}>
+                    {product.name}
+                  </h3>
+                  <p style={{
+                    color: colors.textDark,
+                    fontSize: 'clamp(15px, 3vw, 17px)',
+                    lineHeight: '1.8',
+                    marginBottom: '20px',
+                    fontWeight: '500'
+                  }}>
+                    {product.description}
+                  </p>
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '10px',
+                    marginBottom: '20px'
+                  }}>
+                    {product.features.map((feature, idx) => (
+                      <span key={idx} style={{
+                        backgroundColor: colors.white,
+                        color: colors.mediumGreen,
+                        padding: '8px 16px',
+                        borderRadius: '20px',
+                        fontSize: '13px',
+                        fontWeight: '700',
+                        border: `2px solid ${colors.mediumGreen}40`,
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+                      }}>
+                        ✓ {feature}
+                      </span>
+                    ))}
+                  </div>
+                  {product.quantities && (
+                    <div style={{ marginBottom: '20px' }}>
+                      <label style={{ display: 'block', color: colors.darkGreen, fontSize: '16px', marginBottom: '10px', fontWeight: '800' }}>Select Quantity:</label>
+                      <select 
+                        value={selectedQuantities[index] || 0}
+                        onChange={(e) => setSelectedQuantities({...selectedQuantities, [index]: parseInt(e.target.value)})}
+                        style={{
+                          width: '100%',
+                          padding: '12px 15px',
+                          fontSize: '16px',
+                          fontWeight: '700',
+                          color: colors.darkGreen,
+                          backgroundColor: colors.white,
+                          border: `2px solid ${colors.gold}`,
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          outline: 'none'
+                        }}
+                      >
+                        {product.quantities.map((qty, idx) => (
+                          <option key={idx} value={idx}>{qty.weight} - {qty.price}</option>
+                        ))}
+                      </select>
+                      <div style={{
+                        marginTop: '15px',
+                        padding: '15px',
+                        backgroundColor: colors.lightGold || colors.cream,
+                        borderRadius: '8px',
+                        textAlign: 'center',
+                        border: `2px solid ${colors.gold}`
+                      }}>
+                        <span style={{ fontSize: '14px', color: colors.darkGreen, fontWeight: '600' }}>Price: </span>
+                        <span style={{ fontSize: '24px', fontWeight: '900', color: colors.mediumGreen }}>
+                          {product.quantities[selectedQuantities[index] || 0].price}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  <Link to="/quote" style={{ textDecoration: 'none' }}>
+                    <button style={{
+                      width: '100%',
+                      background: `linear-gradient(135deg, ${colors.mediumGreen}, ${colors.darkGreen})`,
+                      color: colors.white,
+                      border: 'none',
+                      padding: '14px',
+                      borderRadius: '12px',
+                      fontSize: '16px',
+                      fontWeight: '900',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                      textTransform: 'uppercase',
+                      letterSpacing: '1px',
+                      boxShadow: '0 4px 15px rgba(15,77,44,0.3)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.background = `linear-gradient(135deg, ${colors.gold}, #e6c14a)`;
+                      e.target.style.color = colors.darkGreen;
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 6px 20px rgba(212,175,55,0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.background = `linear-gradient(135deg, ${colors.mediumGreen}, ${colors.darkGreen})`;
+                      e.target.style.color = colors.white;
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = '0 4px 15px rgba(15,77,44,0.3)';
+                    }}
+                    >
+                      📞 Get Quote
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section style={{
+        padding: 'clamp(50px, 8vw, 80px) clamp(20px, 5vw, 60px)',
+        background: `linear-gradient(135deg, ${colors.darkGreen} 0%, ${colors.deepGreen} 100%)`,
+        textAlign: 'center'
+      }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+          <h2 style={{
+            color: colors.gold,
+            fontSize: 'clamp(28px, 5vw, 42px)',
+            fontWeight: '900',
+            marginBottom: '20px',
+            fontFamily: 'Georgia, serif',
+            textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+          }}>
+            Interested in Our Products?
+          </h2>
+          <p style={{
+            color: colors.white,
+            fontSize: 'clamp(16px, 3vw, 20px)',
+            marginBottom: '35px',
+            lineHeight: '1.8'
+          }}>
+            Contact us for bulk orders and competitive pricing
+          </p>
+          <a href="tel:9848930313" style={{
+            background: `linear-gradient(135deg, ${colors.gold} 0%, #e6c14a 100%)`,
+            color: colors.darkGreen,
+            padding: 'clamp(16px, 3vw, 20px) clamp(35px, 6vw, 50px)',
+            fontSize: 'clamp(16px, 3vw, 20px)',
+            fontWeight: '900',
+            borderRadius: '50px',
+            textDecoration: 'none',
+            boxShadow: '0 8px 25px rgba(212,175,55,0.4)',
+            transition: 'all 0.3s ease',
+            display: 'inline-block',
+            textTransform: 'uppercase',
+            letterSpacing: '1px'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.transform = 'translateY(-5px) scale(1.05)';
+            e.target.style.boxShadow = '0 12px 35px rgba(212,175,55,0.6)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.transform = 'translateY(0) scale(1)';
+            e.target.style.boxShadow = '0 8px 25px rgba(212,175,55,0.4)';
+          }}
+          >
+            📞 Call: 98489 30313
+          </a>
+        </div>
+      </section>
+
+      {/* Floating WhatsApp Button */}
+      <a 
+        href="https://wa.me/919848930313"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: 'fixed',
+          bottom: '30px',
+          right: '30px',
+          backgroundColor: '#25D366',
+          width: '70px',
+          height: '70px',
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 6px 20px rgba(37,211,102,0.5)',
+          cursor: 'pointer',
+          transition: 'all 0.3s ease',
+          textDecoration: 'none',
+          zIndex: 1000
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'scale(1.15)';
+          e.currentTarget.style.boxShadow = '0 8px 30px rgba(37,211,102,0.7)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'scale(1)';
+          e.currentTarget.style.boxShadow = '0 6px 20px rgba(37,211,102,0.5)';
+        }}
+      >
+        <svg 
+          width="38" 
+          height="38" 
+          viewBox="0 0 24 24" 
+          fill="white"
+        >
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </a>
+    </div>
+  );
+}
+
+export default Products;

@@ -1,0 +1,292 @@
+import logo from '../assets/logo.jpeg';
+import { Link } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+
+function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (headerRef.current && !headerRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+  const colors = {
+    darkGreen: '#0f4d2c',
+    mediumGreen: '#1b6b3d',
+    gold: '#d4af37',
+    white: '#ffffff',
+    lightGold: '#f4e4b8'
+  };
+
+  return (
+    <header ref={headerRef} style={{
+      background: `linear-gradient(135deg, ${colors.darkGreen} 0%, ${colors.mediumGreen} 100%)`,
+      boxShadow: '0 6px 20px rgba(0,0,0,0.2)',
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      zIndex: 1000,
+      width: '100%',
+      padding: '0',
+      borderBottom: `3px solid ${colors.gold}`
+    }}>
+      <div style={{
+        width: '100%',
+        padding: '18px 20px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        minHeight: '90px',
+        flexWrap: 'wrap',
+        gap: '15px',
+        boxSizing: 'border-box',
+        position: 'relative'
+      }}>
+        {/* Logo/Brand */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <img 
+            src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773032487/logo_utb5wq.jpg'
+            alt="Aluri's Global Rice Logo" 
+            style={{
+              height: '70px',
+              width: '70px',
+              objectFit: 'cover',
+              borderRadius: '12px',
+              backgroundColor: colors.white,
+              padding: '8px',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+              border: `2px solid ${colors.gold}`,
+              display: 'block'
+            }}
+          />
+          <div>
+            <h1 style={{
+              color: colors.white,
+              fontSize: 'clamp(18px, 4vw, 26px)',
+              fontWeight: '900',
+              margin: 0,
+              letterSpacing: '1px',
+              textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+            }}>
+              ALURI'S GLOBAL RICE
+            </h1>
+            <p style={{
+              color: colors.gold,
+              fontSize: 'clamp(10px, 2vw, 13px)',
+              margin: 0,
+              letterSpacing: '2px',
+              fontWeight: '600',
+              textTransform: 'uppercase'
+            }}>
+              ⭐ From fields to Your Home 
+            </p>
+          </div>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button 
+          onClick={() => setMenuOpen(!menuOpen)}
+          style={{
+            display: 'none',
+            backgroundColor: 'transparent',
+            border: `2px solid ${colors.gold}`,
+            color: colors.gold,
+            fontSize: '24px',
+            padding: '8px 12px',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            '@media (maxWidth: 900px)': {
+              display: 'block'
+            }
+          }}
+          className="mobile-menu-btn"
+        >
+          {menuOpen ? '✕' : '☰'}
+        </button>
+
+        {/* Navigation */}
+        <nav style={{ 
+          display: menuOpen ? 'flex' : 'flex',
+          gap: '40px', 
+          alignItems: 'center', 
+          flexWrap: 'wrap',
+          width: menuOpen ? '100%' : 'auto'
+        }} className={menuOpen ? "desktop-nav open" : "desktop-nav"}>
+          <Link
+            to="/"
+            onClick={() => { setMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            style={{
+              color: colors.white,
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '900',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer',
+              position: 'relative',
+              paddingBottom: '8px',
+              textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.color = colors.gold;
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.borderBottom = `3px solid ${colors.gold}`;
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.color = colors.white;
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.borderBottom = 'none';
+            }}
+          >
+            Home
+          </Link>
+          <Link
+            to="/products"
+            onClick={() => { setMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            style={{
+              color: colors.white,
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '900',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer',
+              position: 'relative',
+              paddingBottom: '8px',
+              textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.color = colors.gold;
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.borderBottom = `3px solid ${colors.gold}`;
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.color = colors.white;
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.borderBottom = 'none';
+            }}
+          >
+            Products
+          </Link>
+          <Link
+            to="/about-us"
+            onClick={() => { setMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            style={{
+              color: colors.white,
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '900',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer',
+              position: 'relative',
+              paddingBottom: '8px',
+              textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.color = colors.gold;
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.borderBottom = `3px solid ${colors.gold}`;
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.color = colors.white;
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.borderBottom = 'none';
+            }}
+          >
+            About Us
+          </Link>
+          <Link
+            to="/quality"
+            onClick={() => { setMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            style={{
+              color: colors.white,
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '900',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer',
+              position: 'relative',
+              paddingBottom: '8px',
+              textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.color = colors.gold;
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.borderBottom = `3px solid ${colors.gold}`;
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.color = colors.white;
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.borderBottom = 'none';
+            }}
+          >
+            Quality
+          </Link>
+          <Link
+            to="/contact"
+            onClick={() => { setMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            style={{
+              color: colors.white,
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '900',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer',
+              position: 'relative',
+              paddingBottom: '8px',
+              textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.color = colors.gold;
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.borderBottom = `3px solid ${colors.gold}`;
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.color = colors.white;
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.borderBottom = 'none';
+            }}
+          >
+            Contact
+          </Link>
+          <Link
+            to="/quote"
+            onClick={() => { setMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            style={{
+              background: `linear-gradient(135deg, ${colors.gold} 0%, #e6c14a 100%)`,
+              color: colors.darkGreen,
+              border: `2px solid ${colors.white}`,
+              padding: '14px 32px',
+              borderRadius: '10px',
+              fontSize: '16px',
+              fontWeight: '900',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 15px rgba(212,175,55,0.4)',
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              textDecoration: 'none',
+              display: 'inline-block'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = 'translateY(-3px) scale(1.05)';
+              e.target.style.boxShadow = '0 8px 25px rgba(212,175,55,0.6)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = 'translateY(0) scale(1)';
+              e.target.style.boxShadow = '0 4px 15px rgba(212,175,55,0.4)';
+            }}
+          >
+            📞 Get Quote
+          </Link>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+export default Header;
