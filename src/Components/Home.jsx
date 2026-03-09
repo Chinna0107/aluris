@@ -20,7 +20,7 @@ function Home() {
       name: 'BPT 5204 Rice',
       description: 'High-quality parboiled rice with excellent taste',
       image: '🍚',
-      features: ['Parboiled', 'Nutritious', 'Long Grain']
+      features: ['Parboiled rice', 'Nutritious', 'Long Grain']
     },
     {
       name: 'HMT Rice',
