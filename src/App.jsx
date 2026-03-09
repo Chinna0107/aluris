@@ -1,13 +1,13 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Header from './components/Header'
-import Home from './components/Home'
-import PremiumRice from './components/PremiumRice'
-import Footer from './components/Footer'
-import Products from './components/Products'
-import Contact from './components/Contact'
+import Header from './Components/Header'
+import Home from './Components/Home'
+import PremiumRice from './Components/PremiumRice'
+import Footer from './Components/Footer'
+import Products from './Components/Products'
+import Contact from './Components/Contact'
 import Quality from './Components/Quality'
-import Quote from './components/Quote'
+import Quote from './Components/Quote'
 
 
 function App() {
