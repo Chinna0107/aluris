@@ -38,28 +38,28 @@ function Header() {
     }}>
       <div style={{
         width: '100%',
-        padding: '18px 20px',
+        padding: 'clamp(12px, 2vw, 18px) clamp(15px, 3vw, 20px)',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        minHeight: '90px',
+        minHeight: 'clamp(70px, 12vw, 90px)',
         flexWrap: 'wrap',
         gap: '15px',
         boxSizing: 'border-box',
         position: 'relative'
       }}>
         {/* Logo/Brand */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(8px, 2vw, 12px)' }}>
           <img 
             src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773032487/logo_utb5wq.jpg'
             alt="Aluri's Global Rice Logo" 
             style={{
-              height: '70px',
-              width: '70px',
+              height: 'clamp(50px, 10vw, 70px)',
+              width: 'clamp(50px, 10vw, 70px)',
               objectFit: 'cover',
-              borderRadius: '12px',
+              borderRadius: 'clamp(8px, 2vw, 12px)',
               backgroundColor: colors.white,
-              padding: '8px',
+              padding: 'clamp(4px, 1vw, 8px)',
               boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
               border: `2px solid ${colors.gold}`,
               display: 'block'
@@ -68,21 +68,23 @@ function Header() {
           <div>
             <h1 style={{
               color: colors.white,
-              fontSize: 'clamp(18px, 4vw, 26px)',
+              fontSize: 'clamp(14px, 3.5vw, 26px)',
               fontWeight: '900',
               margin: 0,
-              letterSpacing: '1px',
-              textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+              letterSpacing: 'clamp(0.5px, 0.2vw, 1px)',
+              textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+              lineHeight: '1.2'
             }}>
               ALURI'S GLOBAL RICE
             </h1>
             <p style={{
               color: colors.gold,
-              fontSize: 'clamp(10px, 2vw, 13px)',
+              fontSize: 'clamp(8px, 1.8vw, 13px)',
               margin: 0,
-              letterSpacing: '2px',
+              letterSpacing: 'clamp(0.5px, 0.3vw, 2px)',
               fontWeight: '600',
-              textTransform: 'uppercase'
+              textTransform: 'uppercase',
+              lineHeight: '1.2'
             }}>
               ⭐ From fields to Your Home 
             </p>
@@ -97,13 +99,10 @@ function Header() {
             backgroundColor: 'transparent',
             border: `2px solid ${colors.gold}`,
             color: colors.gold,
-            fontSize: '24px',
-            padding: '8px 12px',
+            fontSize: 'clamp(20px, 4vw, 24px)',
+            padding: 'clamp(6px, 1.5vw, 8px) clamp(10px, 2vw, 12px)',
             borderRadius: '8px',
-            cursor: 'pointer',
-            '@media (maxWidth: 900px)': {
-              display: 'block'
-            }
+            cursor: 'pointer'
           }}
           className="mobile-menu-btn"
         >
@@ -113,7 +112,7 @@ function Header() {
         {/* Navigation */}
         <nav style={{ 
           display: menuOpen ? 'flex' : 'flex',
-          gap: '40px', 
+          gap: 'clamp(25px, 4vw, 40px)', 
           alignItems: 'center', 
           flexWrap: 'wrap',
           width: menuOpen ? '100%' : 'auto'
@@ -124,7 +123,7 @@ function Header() {
             style={{
               color: colors.white,
               textDecoration: 'none',
-              fontSize: '16px',
+              fontSize: 'clamp(14px, 2.5vw, 16px)',
               fontWeight: '900',
               transition: 'all 0.3s ease',
               cursor: 'pointer',
@@ -151,7 +150,7 @@ function Header() {
             style={{
               color: colors.white,
               textDecoration: 'none',
-              fontSize: '16px',
+              fontSize: 'clamp(14px, 2.5vw, 16px)',
               fontWeight: '900',
               transition: 'all 0.3s ease',
               cursor: 'pointer',
@@ -178,7 +177,7 @@ function Header() {
             style={{
               color: colors.white,
               textDecoration: 'none',
-              fontSize: '16px',
+              fontSize: 'clamp(14px, 2.5vw, 16px)',
               fontWeight: '900',
               transition: 'all 0.3s ease',
               cursor: 'pointer',
@@ -205,7 +204,7 @@ function Header() {
             style={{
               color: colors.white,
               textDecoration: 'none',
-              fontSize: '16px',
+              fontSize: 'clamp(14px, 2.5vw, 16px)',
               fontWeight: '900',
               transition: 'all 0.3s ease',
               cursor: 'pointer',
@@ -232,7 +231,7 @@ function Header() {
             style={{
               color: colors.white,
               textDecoration: 'none',
-              fontSize: '16px',
+              fontSize: 'clamp(14px, 2.5vw, 16px)',
               fontWeight: '900',
               transition: 'all 0.3s ease',
               cursor: 'pointer',
@@ -260,9 +259,9 @@ function Header() {
               background: `linear-gradient(135deg, ${colors.gold} 0%, #e6c14a 100%)`,
               color: colors.darkGreen,
               border: `2px solid ${colors.white}`,
-              padding: '14px 32px',
+              padding: 'clamp(10px, 2vw, 14px) clamp(20px, 4vw, 32px)',
               borderRadius: '10px',
-              fontSize: '16px',
+              fontSize: 'clamp(13px, 2.5vw, 16px)',
               fontWeight: '900',
               cursor: 'pointer',
               transition: 'all 0.3s ease',
