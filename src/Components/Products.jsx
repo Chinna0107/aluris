@@ -237,6 +237,25 @@ function Products() {
       backgroundColor: colors.background,
       minHeight: '100vh'
     }}>
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+          from { opacity: 0; transform: scale(0.9); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        @media (max-width: 768px) {
+          .product-card {
+            grid-template-columns: 1fr !important;
+          }
+          .product-card img {
+            height: 200px !important;
+            min-height: 200px !important;
+          }
+        }
+      `}</style>
       {/* Logo Section */}
       <section style={{
         padding: 'clamp(40px, 6vw, 60px) clamp(20px, 5vw, 60px) clamp(30px, 4vw, 40px)',
@@ -538,21 +557,21 @@ function Products() {
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 600px), 1fr))',
-            gap: 'clamp(30px, 4vw, 50px)'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+            gap: 'clamp(20px, 4vw, 50px)'
           }}>
             {displayProducts.map((product, index) => (
               <div key={index} className="product-card" style={{
                 backgroundColor: colors.white,
-                borderRadius: '20px',
+                borderRadius: 'clamp(12px, 3vw, 20px)',
                 overflow: 'hidden',
                 boxShadow: `0 10px 30px rgba(0,0,0,0.1), 0 0 0 3px ${colors.gold}20`,
                 transition: 'all 0.4s ease',
                 cursor: 'pointer',
-                border: `4px solid ${colors.gold}40`,
+                border: `clamp(2px, 0.5vw, 4px) solid ${colors.gold}40`,
                 animation: `scaleIn 0.6s ease-out ${index * 0.1}s backwards`,
                 display: 'grid',
-                gridTemplateColumns: '300px 1fr',
+                gridTemplateColumns: 'minmax(200px, 300px) 1fr',
                 alignItems: 'start'
               }}
               onMouseEnter={(e) => {
@@ -572,11 +591,11 @@ function Products() {
                   style={{
                     width: '100%',
                     height: '100%',
-                    minHeight: '350px',
+                    minHeight: 'clamp(200px, 40vw, 350px)',
                     objectFit: 'cover'
                   }}
                 />
-                <div style={{ padding: '30px' }}>
+                <div style={{ padding: 'clamp(15px, 4vw, 30px)' }}>
                   <h3 style={{
                     color: colors.darkGreen,
                     fontSize: 'clamp(20px, 4vw, 26px)',
@@ -598,16 +617,16 @@ function Products() {
                   <div style={{
                     display: 'flex',
                     flexWrap: 'wrap',
-                    gap: '10px',
-                    marginBottom: '20px'
+                    gap: 'clamp(6px, 2vw, 10px)',
+                    marginBottom: 'clamp(15px, 3vw, 20px)'
                   }}>
                     {product.features.map((feature, idx) => (
                       <span key={idx} style={{
                         backgroundColor: colors.white,
                         color: colors.mediumGreen,
-                        padding: '8px 16px',
-                        borderRadius: '20px',
-                        fontSize: '13px',
+                        padding: 'clamp(6px, 1.5vw, 8px) clamp(10px, 2.5vw, 16px)',
+                        borderRadius: 'clamp(15px, 3vw, 20px)',
+                        fontSize: 'clamp(11px, 2.5vw, 13px)',
                         fontWeight: '700',
                         border: `2px solid ${colors.mediumGreen}40`,
                         boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
@@ -617,20 +636,20 @@ function Products() {
                     ))}
                   </div>
                   {product.quantities && (
-                    <div style={{ marginBottom: '20px' }}>
-                      <label style={{ display: 'block', color: colors.darkGreen, fontSize: '16px', marginBottom: '10px', fontWeight: '800' }}>Select Quantity:</label>
+                    <div style={{ marginBottom: 'clamp(15px, 3vw, 20px)' }}>
+                      <label style={{ display: 'block', color: colors.darkGreen, fontSize: 'clamp(14px, 3vw, 16px)', marginBottom: 'clamp(8px, 2vw, 10px)', fontWeight: '800' }}>Select Quantity:</label>
                       <select 
                         value={selectedQuantities[index] || 0}
                         onChange={(e) => setSelectedQuantities({...selectedQuantities, [index]: parseInt(e.target.value)})}
                         style={{
                           width: '100%',
-                          padding: '12px 15px',
-                          fontSize: '16px',
+                          padding: 'clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 15px)',
+                          fontSize: 'clamp(14px, 3vw, 16px)',
                           fontWeight: '700',
                           color: colors.darkGreen,
                           backgroundColor: colors.white,
                           border: `2px solid ${colors.gold}`,
-                          borderRadius: '8px',
+                          borderRadius: 'clamp(6px, 1.5vw, 8px)',
                           cursor: 'pointer',
                           outline: 'none'
                         }}
@@ -640,15 +659,15 @@ function Products() {
                         ))}
                       </select>
                       <div style={{
-                        marginTop: '15px',
-                        padding: '15px',
+                        marginTop: 'clamp(12px, 3vw, 15px)',
+                        padding: 'clamp(12px, 3vw, 15px)',
                         backgroundColor: colors.lightGold || colors.cream,
-                        borderRadius: '8px',
+                        borderRadius: 'clamp(6px, 1.5vw, 8px)',
                         textAlign: 'center',
                         border: `2px solid ${colors.gold}`
                       }}>
-                        <span style={{ fontSize: '14px', color: colors.darkGreen, fontWeight: '600' }}>Price: </span>
-                        <span style={{ fontSize: '24px', fontWeight: '900', color: colors.mediumGreen }}>
+                        <span style={{ fontSize: 'clamp(12px, 2.5vw, 14px)', color: colors.darkGreen, fontWeight: '600' }}>Price: </span>
+                        <span style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: '900', color: colors.mediumGreen }}>
                           {product.quantities[selectedQuantities[index] || 0].price}
                         </span>
                       </div>
@@ -660,14 +679,14 @@ function Products() {
                       background: `linear-gradient(135deg, ${colors.mediumGreen}, ${colors.darkGreen})`,
                       color: colors.white,
                       border: 'none',
-                      padding: '14px',
-                      borderRadius: '12px',
-                      fontSize: '16px',
+                      padding: 'clamp(12px, 3vw, 14px)',
+                      borderRadius: 'clamp(8px, 2vw, 12px)',
+                      fontSize: 'clamp(14px, 3vw, 16px)',
                       fontWeight: '900',
                       cursor: 'pointer',
                       transition: 'all 0.3s ease',
                       textTransform: 'uppercase',
-                      letterSpacing: '1px',
+                      letterSpacing: 'clamp(0.5px, 0.2vw, 1px)',
                       boxShadow: '0 4px 15px rgba(15,77,44,0.3)'
                     }}
                     onMouseEnter={(e) => {
@@ -753,11 +772,11 @@ function Products() {
         rel="noopener noreferrer"
         style={{
           position: 'fixed',
-          bottom: '30px',
-          right: '30px',
+          bottom: 'clamp(20px, 4vw, 30px)',
+          right: 'clamp(20px, 4vw, 30px)',
           backgroundColor: '#25D366',
-          width: '70px',
-          height: '70px',
+          width: 'clamp(55px, 12vw, 70px)',
+          height: 'clamp(55px, 12vw, 70px)',
           borderRadius: '50%',
           display: 'flex',
           alignItems: 'center',
