@@ -76,7 +76,7 @@ function Header() {
               lineHeight: '1.2',
               fontFamily: 'Cinzel, Georgia, serif'
             }}>
-              ALURI'S GLOBAL RICE
+              ALURI'S GLOBAL TRADE
             </h1>
             <p style={{
               color: colors.gold,

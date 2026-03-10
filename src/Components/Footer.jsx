@@ -9,7 +9,7 @@ const Footer = () => {
           <h3>ALURI'S GLOBAL TRADE</h3>
           <p>Premium rice supplier based in Visakhapatnam, India. We provide high quality rice varieties including Sona Masoori, BPT 5204, HMT Rice, and RNR 15048.</p>
           <div className="trust-indicators">
-            <div className="trust-item">Premium Quality Rice</div>
+            <div className="trust-item">Premium Quality Rice , Millets & Spices</div>
             <div className="trust-item">Trusted Supplier</div>
             <div className="trust-item">Competitive Prices</div>
           </div>
@@ -43,7 +43,7 @@ const Footer = () => {
               📞 <a href="tel:9848930313">98489 30313</a>
             </div>
             <div className="contact-item">
-              ✉️ <a href="mailto:info@alurisglobalrice.com">info@alurisglobalrice.com</a>
+              ✉️ <a href="mailto:info@alurisglobaltrade.com">info@alurisglobaltrade.com</a>
             </div>
           </div>
           <div className="social-icons">
