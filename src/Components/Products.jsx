@@ -233,7 +233,7 @@ function Products() {
   return (
     <div style={{
       width: '100%',
-      paddingTop: '110px',
+      paddingTop: '80px',
       backgroundColor: colors.background,
       minHeight: '100vh'
     }}>
@@ -247,12 +247,27 @@ function Products() {
           to { opacity: 1; transform: scale(1); }
         }
         @media (max-width: 768px) {
+          div[style*="paddingTop: '110px'"] {
+            padding-top: 0 !important;
+          }
           .product-card {
             grid-template-columns: 1fr !important;
           }
           .product-card img {
             height: 200px !important;
             min-height: 200px !important;
+          }
+        }
+        @media (min-width: 1024px) {
+          .products-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .product-card {
+            grid-template-columns: 40% 1fr !important;
+          }
+          .product-card img {
+            height: 100% !important;
+            min-height: 350px !important;
           }
         }
       `}</style>
@@ -267,7 +282,7 @@ function Products() {
           position: 'relative'
         }}>
           <img 
-            src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773032487/logo_utb5wq.jpg'
+            src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773131814/g1_l8mfz2.jpg'
             alt="Aluri's Global Trade Logo"
             style={{
               width: 'clamp(120px, 30vw, 180px)',
@@ -538,7 +553,7 @@ function Products() {
 
       {/* Products Grid */}
       <section style={{
-        padding: 'clamp(30px, 5vw, 50px) clamp(20px, 5vw, 60px) clamp(60px, 8vw, 100px)',
+        padding: 'clamp(30px, 5vw, 50px) clamp(20px, 5vw, 60px) clamp(20px, 4vw, 40px)',
         backgroundColor: colors.white,
         animation: 'fadeIn 1.4s ease-in'
       }}>
@@ -555,9 +570,9 @@ function Products() {
             {activeCategory === 'all' ? '🌾 All Products' : activeCategory === 'rice' ? '🌾 Premium Rice Varieties' : activeCategory === 'millets' ? '🌾 Nutritious Millets' : '🌶️ Premium Spices'}
           </h2>
 
-          <div style={{
+          <div className="products-grid" style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+            gridTemplateColumns: '1fr',
             gap: 'clamp(20px, 4vw, 50px)'
           }}>
             {displayProducts.map((product, index) => (
@@ -571,7 +586,7 @@ function Products() {
                 border: `clamp(2px, 0.5vw, 4px) solid ${colors.gold}40`,
                 animation: `scaleIn 0.6s ease-out ${index * 0.1}s backwards`,
                 display: 'grid',
-                gridTemplateColumns: 'minmax(200px, 300px) 1fr',
+                gridTemplateColumns: '1fr',
                 alignItems: 'start'
               }}
               onMouseEnter={(e) => {

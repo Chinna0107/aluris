@@ -14,11 +14,16 @@ function Contact() {
   };
 
   return (
-    <div style={{ marginTop: '120px', padding: '40px 20px', minHeight: '60vh', animation: 'fadeIn 0.8s ease-in', backgroundColor: '#f9f9f9' }}>
+    <div style={{ marginTop: '80px', padding: '40px 20px', minHeight: '60vh', animation: 'fadeIn 0.8s ease-in', backgroundColor: '#f9f9f9' }}>
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+          body {
+            margin-top: 0 !important;
+          }
         }
       `}</style>
       <h1 style={{ textAlign: 'center', color: colors.darkGreen, fontSize: '42px', marginBottom: '50px' }}>Contact Us</h1>
@@ -37,7 +42,7 @@ function Contact() {
               <h3 style={{ color: colors.mediumGreen, fontSize: '18px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
                 📧 Email
               </h3>
-              <a href="mailto:info@alurisglobalrice.com" style={{ color: colors.darkGreen, fontSize: '18px', textDecoration: 'none' }}>info@alurisglobalrice.com</a>
+              <a href="mailto:info@alurisglobaltrade.com" style={{ color: colors.darkGreen, fontSize: '18px', textDecoration: 'none' }}>info@alurisglobaltrade.com</a>
             </div>
             <div>
               <h3 style={{ color: colors.mediumGreen, fontSize: '18px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>

@@ -13,9 +13,16 @@ function PremiumRice() {
   return (
     <div style={{
       width: '100%',
-      paddingTop: '110px',
+      paddingTop: '80px',
       backgroundColor: colors.background
     }}>
+      <style>{`
+        @media (max-width: 768px) {
+          body {
+            margin-top: 0 !important;
+          }
+        }
+      `}</style>
       {/* Logo Section */}
       <section style={{
         padding: 'clamp(40px, 6vw, 60px) clamp(20px, 5vw, 60px) clamp(30px, 4vw, 40px)',
@@ -27,7 +34,7 @@ function PremiumRice() {
           position: 'relative'
         }}>
           <img 
-            src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773032487/logo_utb5wq.jpg'
+            src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773131814/g1_l8mfz2.jpg'
             alt="Aluri's Global Trade Logo"
             style={{
               width: 'clamp(120px, 30vw, 180px)',

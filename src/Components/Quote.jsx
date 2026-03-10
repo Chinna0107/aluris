@@ -58,11 +58,16 @@ function Quote() {
   };
 
   return (
-    <div style={{ marginTop: '120px', minHeight: '60vh', animation: 'fadeIn 0.8s ease-in', backgroundColor: colors.background }}>
+    <div style={{ marginTop: '70px', minHeight: '60vh', animation: 'fadeIn 0.8s ease-in', backgroundColor: colors.background }}>
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+          body {
+            margin-top: 0 !important;
+          }
         }
         @media (max-width: 768px) {
           .quote-container {
@@ -85,7 +90,7 @@ function Quote() {
       </section>
 
       {/* Main Content */}
-      <section style={{ padding: '80px 20px', maxWidth: '1400px', margin: '0 auto' }}>
+      <section style={{ padding: 'clamp(40px, 5vw, 60px) 20px', maxWidth: '1400px', margin: '0 auto' }}>
         <div className="quote-container" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '50px', alignItems: 'start' }}>
           
           {/* Left Side - Form */}

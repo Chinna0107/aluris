@@ -155,7 +155,7 @@ function Home() {
             animation: 'fadeInDown 1s ease-out'
           }}>
             <img 
-              src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773032487/logo_utb5wq.jpg'
+              src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773131814/g1_l8mfz2.jpg'
               alt="Aluri's Global Trade Logo"
               style={{
                 width: 'clamp(80px, 15vw, 120px)',
@@ -184,7 +184,7 @@ function Home() {
             fontSize: 'clamp(28px, 6vw, 56px)',
             fontWeight: '900',
             marginBottom: 'clamp(8px, 1vw, 12px)',
-            textShadow: `4px 4px 10px rgba(0,0,0,0.7), 0 0 30px ${colors.gold}80`,
+            textShadow: `4px 4px 10px rgba(120, 124, 83, 0.7), 0 0 30px ${colors.gold}80`,
             letterSpacing: 'clamp(3px, 1vw, 6px)',
             fontFamily: 'Cinzel, Georgia, serif',
             textTransform: 'uppercase',

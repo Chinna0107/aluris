@@ -47,18 +47,23 @@ function Quality() {
   ];
 
   return (
-    <div style={{ marginTop: '120px', minHeight: '60vh', animation: 'fadeIn 0.8s ease-in', backgroundColor: colors.background }}>
+    <div style={{ marginTop: '80px', minHeight: '60vh', animation: 'fadeIn 0.8s ease-in', backgroundColor: colors.background }}>
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+          body {
+            margin-top: 0 !important;
+          }
         }
       `}</style>
       
       {/* Hero Section */}
       <section style={{ background: `linear-gradient(135deg, ${colors.darkGreen} 0%, ${colors.mediumGreen} 100%)`, padding: '60px 20px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
         <img 
-          src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773032487/logo_utb5wq.jpg'
+          src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773131814/g1_l8mfz2.jpg'
           alt="Aluri's Global Rice Logo" 
           style={{
             height: '120px',
