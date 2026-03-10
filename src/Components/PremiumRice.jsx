@@ -28,7 +28,7 @@ function PremiumRice() {
         }}>
           <img 
             src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773032487/logo_utb5wq.jpg'
-            alt="Aluri's Global Rice Logo"
+            alt="Aluri's Global Trade Logo"
             style={{
               width: 'clamp(120px, 30vw, 180px)',
               height: 'clamp(120px, 30vw, 180px)',
@@ -58,7 +58,7 @@ function PremiumRice() {
           fontFamily: 'Georgia, serif',
           marginBottom: '10px'
         }}>
-          ALURI'S GLOBAL RICE
+          ALURI'S GLOBAL TRADE
         </h1>
         <p style={{
           color: colors.gold,
@@ -66,7 +66,7 @@ function PremiumRice() {
           fontWeight: '600',
           letterSpacing: '2px'
         }}>
-          Premium Rice Supplier Since 2020
+          Premium Quality
         </p>
       </section>
 
@@ -111,7 +111,7 @@ function PremiumRice() {
               marginBottom: '25px',
               fontWeight: '500'
             }}>
-              <strong style={{ color: colors.gold, fontSize: '22px' }}>ALURI'S GLOBAL RICE</strong> is a premium rice supplier based in <strong>Visakhapatnam, India</strong>.
+              <strong style={{ color: colors.gold, fontSize: '22px' }}>ALURI'S GLOBAL TRADE</strong> is a premium rice supplier based in <strong>Visakhapatnam, India</strong>.
             </p>
             <p style={{
               color: colors.textDark,

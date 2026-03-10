@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-section">
-          <h3>ALURI'S GLOBAL RICE</h3>
+          <h3>ALURI'S GLOBAL TRADE</h3>
           <p>Premium rice supplier based in Visakhapatnam, India. We provide high quality rice varieties including Sona Masoori, BPT 5204, HMT Rice, and RNR 15048.</p>
           <div className="trust-indicators">
             <div className="trust-item">Premium Quality Rice</div>
@@ -57,7 +57,7 @@ const Footer = () => {
       </div>
       <div className="footer-divider"></div>
       <div className="footer-bottom">
-        <p>© 2024 ALURI'S GLOBAL RICE. All rights reserved.</p>
+        <p>© 2024 ALURI'S GLOBAL TRADE. All rights reserved.</p>
         <div className="payment-methods">
           <span className="payment-badge">RTGS</span>
           <span className="payment-badge">NEFT</span>

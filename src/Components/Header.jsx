@@ -73,7 +73,8 @@ function Header() {
               margin: 0,
               letterSpacing: 'clamp(0.5px, 0.2vw, 1px)',
               textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-              lineHeight: '1.2'
+              lineHeight: '1.2',
+              fontFamily: 'Cinzel, Georgia, serif'
             }}>
               ALURI'S GLOBAL RICE
             </h1>
@@ -84,7 +85,9 @@ function Header() {
               letterSpacing: 'clamp(0.5px, 0.3vw, 2px)',
               fontWeight: '600',
               textTransform: 'uppercase',
-              lineHeight: '1.2'
+              lineHeight: '1.2',
+              fontFamily: 'Playfair Display, Georgia, serif',
+              fontStyle: 'italic'
             }}>
               ⭐ From fields to Your Home 
             </p>

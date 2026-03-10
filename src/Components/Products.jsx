@@ -67,6 +67,74 @@ function Products() {
         ]
       }
     ],
+    spices: [
+      {
+        name: 'Turmeric Powder',
+        description: 'Pure and natural turmeric powder with high curcumin content',
+        image: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=400&h=300&fit=crop',
+        features: ['Pure & Natural', 'High Curcumin', 'Anti-inflammatory'],
+        quantities: [
+          { weight: '100 g', price: '₹50' },
+          { weight: '500 g', price: '₹220' },
+          { weight: '1 kg', price: '₹400' }
+        ]
+      },
+      {
+        name: 'Red Chilli Powder',
+        description: 'Premium quality red chilli powder with perfect heat and color',
+        image: 'https://www.jalaramagri.com/wp-content/uploads/2025/06/Black-Papper-5.jpg',
+        features: ['Spicy & Hot', 'Rich Color', 'Premium Quality'],
+        quantities: [
+          { weight: '100 g', price: '₹60' },
+          { weight: '500 g', price: '₹270' },
+          { weight: '1 kg', price: '₹500' }
+        ]
+      },
+      {
+        name: 'Coriander Powder',
+        description: 'Aromatic coriander powder ground from premium quality seeds',
+        image: 'https://www.jalaramagri.com/wp-content/uploads/2025/06/Black-Papper-5.jpg',
+        features: ['Aromatic', 'Fresh Ground', 'Pure Quality'],
+        quantities: [
+          { weight: '100 g', price: '₹45' },
+          { weight: '500 g', price: '₹200' },
+          { weight: '1 kg', price: '₹380' }
+        ]
+      },
+      {
+        name: 'Cumin Seeds',
+        description: 'Premium whole cumin seeds with strong aroma and flavor',
+        image: 'https://www.jalaramagri.com/wp-content/uploads/2025/06/Black-Papper-5.jpg',
+        features: ['Whole Seeds', 'Strong Aroma', 'Premium Grade'],
+        quantities: [
+          { weight: '100 g', price: '₹70' },
+          { weight: '500 g', price: '₹320' },
+          { weight: '1 kg', price: '₹600' }
+        ]
+      },
+      {
+        name: 'Garam Masala',
+        description: 'Traditional blend of aromatic spices for authentic Indian flavor',
+        image: 'https://images.unsplash.com/photo-1505253758473-96b7015fcd40?w=400&h=300&fit=crop',
+        features: ['Authentic Blend', 'Aromatic', 'Traditional Recipe'],
+        quantities: [
+          { weight: '50 g', price: '₹60' },
+          { weight: '100 g', price: '₹110' },
+          { weight: '250 g', price: '₹250' }
+        ]
+      },
+      {
+        name: 'Black Pepper',
+        description: 'Premium quality whole black pepper with intense flavor',
+        image: 'https://www.jalaramagri.com/wp-content/uploads/2025/06/Black-Papper-5.jpg',
+        features: ['Whole Pepper', 'Intense Flavor', 'Premium Quality'],
+        quantities: [
+          { weight: '100 g', price: '₹120' },
+          { weight: '250 g', price: '₹280' },
+          { weight: '500 g', price: '₹530' }
+        ]
+      }
+    ],
     millets: [
       {
         name: 'Foxtail Millet (Kangni)',
@@ -159,7 +227,7 @@ function Products() {
     ]
   };
 
-  const allProducts = [...products.rice, ...products.millets];
+  const allProducts = [...products.rice, ...products.millets, ...products.spices];
   const displayProducts = activeCategory === 'all' ? allProducts : products[activeCategory];
 
   return (
@@ -181,7 +249,7 @@ function Products() {
         }}>
           <img 
             src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773032487/logo_utb5wq.jpg'
-            alt="Aluri's Global Rice Logo"
+            alt="Aluri's Global Trade Logo"
             style={{
               width: 'clamp(120px, 30vw, 180px)',
               height: 'clamp(120px, 30vw, 180px)',
@@ -208,10 +276,10 @@ function Products() {
           fontSize: 'clamp(28px, 6vw, 48px)',
           fontWeight: '900',
           letterSpacing: '3px',
-          fontFamily: 'Georgia, serif',
+          fontFamily: '"Cinzel", serif',
           marginBottom: '10px'
         }}>
-          ALURI'S GLOBAL RICE
+          ALURI'S GLOBAL TRADE
         </h1>
         <p style={{
           color: colors.darkGreen,
@@ -219,7 +287,7 @@ function Products() {
           fontWeight: '600',
           letterSpacing: '2px'
         }}>
-          Our Premium Products
+          Premium Quality
         </p>
       </section>
 
@@ -407,6 +475,44 @@ function Products() {
             >
               🌾 Millets
             </button>
+            <button
+              onClick={() => setActiveCategory('spices')}
+              style={{
+                background: activeCategory === 'spices' 
+                  ? `linear-gradient(135deg, ${colors.darkGreen}, ${colors.mediumGreen})`
+                  : colors.cream,
+                color: activeCategory === 'spices' ? colors.white : colors.darkGreen,
+                border: `3px solid ${activeCategory === 'spices' ? colors.gold : colors.mediumGreen}`,
+                padding: 'clamp(10px, 2vw, 16px) clamp(20px, 4vw, 35px)',
+                fontSize: 'clamp(12px, 2.5vw, 18px)',
+                fontWeight: '900',
+                borderRadius: '50px',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: activeCategory === 'spices' 
+                  ? `0 6px 20px rgba(15,77,44,0.3), 0 0 25px ${colors.gold}40`
+                  : '0 3px 12px rgba(0,0,0,0.1)',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                fontFamily: 'Georgia, serif',
+                whiteSpace: 'nowrap',
+                flexShrink: 0
+              }}
+              onMouseEnter={(e) => {
+                if (activeCategory !== 'spices') {
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 6px 18px rgba(0,0,0,0.15)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeCategory !== 'spices') {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 3px 12px rgba(0,0,0,0.1)';
+                }
+              }}
+            >
+              🌶️ Spices
+            </button>
           </div>
         </div>
       </section>
@@ -427,7 +533,7 @@ function Products() {
             fontFamily: 'Georgia, serif',
             letterSpacing: '2px'
           }}>
-            {activeCategory === 'all' ? '🌾 All Products' : activeCategory === 'rice' ? '🌾 Premium Rice Varieties' : '🌾 Nutritious Millets'}
+            {activeCategory === 'all' ? '🌾 All Products' : activeCategory === 'rice' ? '🌾 Premium Rice Varieties' : activeCategory === 'millets' ? '🌾 Nutritious Millets' : '🌶️ Premium Spices'}
           </h2>
 
           <div style={{

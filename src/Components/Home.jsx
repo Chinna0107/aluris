@@ -156,7 +156,7 @@ function Home() {
           }}>
             <img 
               src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773032487/logo_utb5wq.jpg'
-              alt="Aluri's Global Rice Logo"
+              alt="Aluri's Global Trade Logo"
               style={{
                 width: 'clamp(80px, 15vw, 120px)',
                 height: 'clamp(80px, 15vw, 120px)',
