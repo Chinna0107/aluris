@@ -184,7 +184,7 @@ function Home() {
             fontSize: 'clamp(28px, 6vw, 56px)',
             fontWeight: '900',
             marginBottom: 'clamp(8px, 1vw, 12px)',
-            textShadow: `4px 4px 10px rgba(120, 124, 83, 0.7), 0 0 30px ${colors.gold}80`,
+            textShadow: `4px 4px 10px rgba(122, 129, 38, 0.7), 0 0 30px ${colors.gold}80`,
             letterSpacing: 'clamp(3px, 1vw, 6px)',
             fontFamily: 'Cinzel, Georgia, serif',
             textTransform: 'uppercase',

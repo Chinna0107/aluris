@@ -51,7 +51,7 @@ function Header() {
         {/* Logo/Brand */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(8px, 2vw, 12px)' }}>
           <img 
-            src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773032487/logo_utb5wq.jpg'
+            src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773131814/g1_l8mfz2.jpg'
             alt="Aluri's Global Rice Logo" 
             style={{
               height: 'clamp(50px, 10vw, 70px)',
@@ -67,7 +67,7 @@ function Header() {
           />
           <div>
             <h1 style={{
-              color: colors.white,
+              color: colors.gold,
               fontSize: 'clamp(14px, 3.5vw, 26px)',
               fontWeight: '900',
               margin: 0,
@@ -76,7 +76,7 @@ function Header() {
               lineHeight: '1.2',
               fontFamily: 'Cinzel, Georgia, serif'
             }}>
-              ALURI'S GLOBAL TRADE
+              <span style={{ color: colors.gold }}>ALURI'S</span> <span style={{ color: colors.white }}>GLOBAL TRADE</span>
             </h1>
             <p style={{
               color: colors.gold,
