@@ -118,7 +118,7 @@ function PremiumRice() {
               marginBottom: '25px',
               fontWeight: '500'
             }}>
-              <strong style={{ color: colors.gold, fontSize: '22px' }}>ALURI'S GLOBAL TRADE</strong> is a premium rice supplier based in <strong>Visakhapatnam, India</strong>.
+              <strong style={{ color: colors.gold, fontSize: '22px' }}>ALURI'S GLOBAL TRADE</strong> is a premium supplier of rice, millets, and spices based in <strong>Visakhapatnam, India</strong>.
             </p>
             <p style={{
               color: colors.textDark,
@@ -126,7 +126,7 @@ function PremiumRice() {
               lineHeight: '2',
               fontWeight: '500'
             }}>
-              We specialize in providing high-quality rice directly from mills to buyers without middlemen. Our commitment to quality and direct sourcing ensures the best prices and freshest products for our customers.
+              We specialize in providing high-quality rice, nutritious millets, and authentic spices directly from mills to buyers without middlemen. Our commitment to quality and direct sourcing ensures the best prices and freshest products for our customers.
             </p>
             <div style={{
               marginTop: '35px',
@@ -141,7 +141,9 @@ function PremiumRice() {
                 fontWeight: '700',
                 margin: 0
               }}>
-                🌾 Premium Varieties: Sona Masoori, BPT 5204, HMT Rice, RNR 15048
+                🌾 Premium Rice: Sona Masoori, BPT 5204, HMT Rice, RNR 15048<br/>
+                🌾 Nutritious Millets: Foxtail, Pearl, Finger, Sorghum & More<br/>
+                🌶️ Authentic Spices: Turmeric, Chilli, Coriander, Cumin & More
               </p>
             </div>
           </div>
@@ -267,7 +269,7 @@ function PremiumRice() {
               marginBottom: '25px',
               fontWeight: '500'
             }}>
-              Under the expert leadership of <strong style={{ color: colors.darkGreen }}>M ANNAPURNAMMA</strong>, our company has established itself as a trusted name in the rice trading industry.
+              Under the expert leadership of <strong style={{ color: colors.darkGreen }}>M ANNAPURNAMMA</strong>, our company has established itself as a trusted name in the agricultural trading industry.
             </p>
             <p style={{
               color: colors.textDark,
@@ -276,7 +278,7 @@ function PremiumRice() {
               marginBottom: '25px',
               fontWeight: '500'
             }}>
-              With qualifications in <strong>M.Com</strong> and <strong>LLB</strong>, she brings both business acumen and legal expertise to ensure transparent and ethical trading practices.
+              With qualifications in <strong>M.Com</strong> and <strong>LLB</strong>, she brings both business acumen and legal expertise to ensure transparent and ethical trading practices for rice, millets, and spices.
             </p>
             <div style={{
               marginTop: '35px',
@@ -354,24 +356,24 @@ function PremiumRice() {
           }}>
             {[
               { 
-                title: 'High Quality Rice', 
-                desc: 'Premium varieties sourced directly from trusted mills with strict quality control', 
+                title: 'Premium Quality Products', 
+                desc: 'High-quality rice, nutritious millets, and authentic spices sourced directly from trusted mills with strict quality control', 
                 image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop'
               },
               { 
                 title: 'Direct Mill Supply', 
                 desc: 'No middlemen involved, ensuring best prices and maximum freshness for customers', 
-                image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=300&fit=crop'
+                image: 'https://i.ytimg.com/vi/WbVPUIXqiLE/sddefault.jpg'
               },
               { 
                 title: 'Trusted Service', 
                 desc: 'Years of experience in rice trading with a reputation for reliability and integrity', 
-                image: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400&h=300&fit=crop'
+                image: 'https://content.jdmagicbox.com/comp/def_content/rice-mills/maxresdefault-rice-mills-7-dpeie.jpg'
               },
               { 
                 title: 'Quality Assurance', 
                 desc: 'Every batch rigorously tested to meet the highest purity and quality standards', 
-                image: 'https://images.unsplash.com/photo-1532634922-8fe0b757fb13?w=400&h=300&fit=crop'
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR72TskR32Gg79oC9DUsyN61-5rUaIr3k4NJQ&s'
               }
             ].map((item, index) => (
               <div key={index} style={{
@@ -451,7 +453,7 @@ function PremiumRice() {
             fontFamily: 'Georgia, serif',
             textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
           }}>
-            Ready to Order Premium Rice?
+            Ready to Order Premium Products?
           </h2>
           <p style={{
             color: colors.white,
@@ -459,7 +461,7 @@ function PremiumRice() {
             marginBottom: '40px',
             lineHeight: '1.8'
           }}>
-            Contact us today for the best quality rice at competitive prices
+            Contact us today for the best quality rice, millets, and spices at competitive prices
           </p>
           <a href="tel:9848930313" style={{
             background: `linear-gradient(135deg, ${colors.gold} 0%, #e6c14a 100%)`,

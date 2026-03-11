@@ -57,7 +57,7 @@ const Footer = () => {
       </div>
       <div className="footer-divider"></div>
       <div className="footer-bottom">
-        <p>© 2024 ALURI'S GLOBAL TRADE. All rights reserved.</p>
+        <p>© 2026 ALURI'S GLOBAL TRADE. All rights reserved.</p>
         <div className="payment-methods">
           <span className="payment-badge">RTGS</span>
           <span className="payment-badge">NEFT</span>
