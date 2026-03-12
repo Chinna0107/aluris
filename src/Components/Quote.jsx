@@ -50,7 +50,7 @@ function Quote() {
     const encodedMessage = encodeURIComponent(message);
     
     // Redirect to WhatsApp
-    window.open(`https://wa.me/919848930313?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/918074346568?text=${encodedMessage}`, '_blank');
   };
 
   const handleChange = (e) => {
