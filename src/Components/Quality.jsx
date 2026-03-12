@@ -61,7 +61,20 @@ function Quality() {
       `}</style>
       
       {/* Hero Section */}
-      <section style={{ background: `linear-gradient(135deg, ${colors.darkGreen} 0%, ${colors.mediumGreen} 100%)`, padding: '60px 20px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+      <section style={{ 
+        backgroundImage: 'url(https://4.imimg.com/data4/VW/WH/MY-9709483/modern-rice-mill-machinery.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        padding: '60px 20px', 
+        textAlign: 'center', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        gap: '20px',
+        position: 'relative'
+      }}>
+        <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
         <img 
           src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773131814/g1_l8mfz2.jpg'
           alt="Aluri's Global Rice Logo" 
@@ -79,6 +92,7 @@ function Quality() {
         <h1 style={{ color: colors.gold, fontSize: '48px', marginBottom: '10px', fontFamily: 'Georgia, serif', fontWeight: '900' }}>ALURI'S GLOBAL TRADE</h1>
         <p style={{ color: colors.white, fontSize: '24px', fontWeight: '700', marginBottom: '10px' }}>Quality Assurance</p>
         <p style={{ color: colors.white, fontSize: '20px', fontWeight: '600' }}>📞 80743 46568</p>
+        </div>
       </section>
 
       {/* Quality Cards Alternating Layout */}

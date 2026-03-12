@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-section">
           <h3>ALURI'S GLOBAL TRADE</h3>
-          <p>Premium rice supplier based in Visakhapatnam, India. We provide high quality rice varieties including Sona Masoori, BPT 5204, HMT Rice, and RNR 15048.</p>
+          <p>Premium Global Supplier which includes a wide range of high-quality <b>Rice, Millets, and Spices</b>.</p>
           <div className="trust-indicators">
             <div className="trust-item">Premium Quality Rice , Millets & Spices</div>
             <div className="trust-item">Trusted Supplier</div>

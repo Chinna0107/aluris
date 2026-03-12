@@ -274,7 +274,10 @@ function Products() {
       {/* Logo Section */}
       <section style={{
         padding: 'clamp(30px, 5vw, 50px) clamp(20px, 5vw, 60px) clamp(20px, 3vw, 30px)',
-        backgroundColor: colors.white,
+        backgroundImage: 'url(https://www.pepperhub.in/wp-content/uploads/2024/03/wepik-export-20240319125613Tw8q.jpeg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
         textAlign: 'center'
       }}>
         <div style={{
@@ -306,17 +309,16 @@ function Products() {
           />
         </div>
         <h1 style={{
-          color: colors.gold,
           fontSize: 'clamp(28px, 6vw, 48px)',
           fontWeight: '900',
           letterSpacing: '3px',
           fontFamily: '"Cinzel", serif',
           marginBottom: '8px'
         }}>
-          ALURI'S GLOBAL TRADE
+          <span style={{ color: colors.gold }}>ALURI'S</span> <span style={{ color: colors.white }}>GLOBAL TRADE</span>
         </h1>
         <p style={{
-          color: colors.darkGreen,
+          color: colors.white,
           fontSize: '20px',
           fontWeight: '600',
           letterSpacing: '2px'
