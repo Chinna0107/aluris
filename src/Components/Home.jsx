@@ -35,74 +35,74 @@ function Home() {
 
   const products = [
     {
-      name: 'Sona Masoori Rice',
-      description: 'Premium quality aromatic rice, perfect for daily meals',
-      image: '🌾',
+      name: 'SONA MASOORI',
+      description: 'Premium aromatic rice, light and fluffy when cooked',
+      image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g9_kdvfro.jpg',
       category: 'Rice',
-      features: ['Light & Fluffy', 'Low Starch', 'Aromatic']
+      features: ['Aromatic', 'Low Starch', 'Premium Grade']
     },
     {
-      name: 'BPT 5204 Rice',
-      description: 'High-quality parboiled rice with excellent taste',
-      image: '🍚',
+      name: 'BPT 5204',
+      description: 'High-quality parboiled rice perfect for daily consumption',
+      image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g10_atwwuz.jpg',
       category: 'Rice',
-      features: ['Parboiled', 'Nutritious', 'Long Grain']
+      features: ['Parboiled', 'Nutritious', 'Easy to Cook']
     },
     {
-      name: 'HMT Rice',
-      description: 'Traditional favorite with superior cooking quality',
-      image: '🌾',
+      name: 'HMT RICE',
+      description: 'Traditional favorite with superior taste and texture',
+      image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g8_eqnfcu.jpg',
       category: 'Rice',
-      features: ['Premium Grade', 'Soft Texture', 'Rich Aroma']
+      features: ['Traditional', 'Soft Texture', 'Rich Flavor']
     },
     {
-      name: 'RNR 15048 Rice',
-      description: 'Specially selected variety for authentic taste',
-      image: '🍚',
+      name: 'RNR 15048',
+      description: 'Premium quality long grain rice with excellent cooking properties',
+      image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g11_fzss7c.jpg',
       category: 'Rice',
-      features: ['High Yield', 'Quality Grain', 'Best Value']
+      features: ['Long Grain', 'High Quality', 'Best Aroma']
     },
     {
       name: 'Foxtail Millet',
-      description: 'Nutritious ancient grain rich in fiber and minerals',
-      image: '🌾',
+      description: 'Nutritious and gluten-free ancient grain rich in fiber',
+      image: 'https://naturechoice.in/eeghoacm/2022/07/Foxtail_millet-1.jpg',
       category: 'Millets',
       features: ['High Fiber', 'Gluten-Free', 'Iron Rich']
     },
     {
       name: 'Pearl Millet',
-      description: 'Energy-rich millet perfect for healthy lifestyle',
-      image: '🌾',
+      description: 'Energy-rich millet perfect for healthy diet',
+      image: 'https://5.imimg.com/data5/SELLER/Default/2024/3/398591092/MM/DW/NO/4351922/domestic-pearl-millet.jpg',
       category: 'Millets',
-      features: ['Energy Boost', 'High Protein', 'Diabetic Friendly']
+      features: ['Energy Rich', 'High Protein', 'Diabetic Friendly']
     },
     {
       name: 'Finger Millet',
       description: 'Calcium-rich superfood ideal for bone health',
-      image: '🌾',
+      image: 'https://www.milletmaagicmeal.in/cdn/shop/articles/image1.webp?v=1729496969&width=1100',
       category: 'Millets',
       features: ['High Calcium', 'Superfood', 'Natural Coolant']
     },
     {
       name: 'Turmeric Powder',
-      description: 'Pure and organic turmeric with natural curcumin',
-      image: '🌿',
+      description: 'Pure and natural turmeric powder with high curcumin content',
+      image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g7_clxmr7.jpg',
       category: 'Spices',
-      features: ['Organic', 'Anti-inflammatory', 'Pure']
+      features: ['Pure & Natural', 'High Curcumin', 'Anti-inflammatory']
     },
     {
-      name: 'Red Chili Powder',
-      description: 'Premium quality chili powder with authentic flavor',
-      image: '🌶️',
+      name: 'Red Chilli Powder',
+      description: 'Premium quality red chilli powder with perfect heat and color',
+      image: 'https://5.imimg.com/data5/ANDROID/Default/2024/1/378418449/GQ/SN/UL/19256287/product-jpeg.jpg',
       category: 'Spices',
-      features: ['Spicy', 'Natural Color', 'Fresh']
+      features: ['Spicy & Hot', 'Rich Color', 'Premium Quality']
     },
     {
-      name: 'Coriander Powder',
-      description: 'Aromatic coriander powder for authentic taste',
-      image: '🌿',
+      name: 'Black Pepper',
+      description: 'Premium quality whole black pepper with intense flavor',
+      image: 'https://www.jalaramagri.com/wp-content/uploads/2025/06/Black-Papper-5.jpg',
       category: 'Spices',
-      features: ['Aromatic', 'Fresh Ground', 'Premium']
+      features: ['Whole Pepper', 'Intense Flavor', 'Premium Quality']
     }
   ];
 
@@ -110,7 +110,7 @@ function Home() {
     <div style={{ width: '100%', paddingTop: 'clamp(70px, 12vw, 110px)' }}>
       {/* Hero Section */}
       <section style={{
-        background: `linear-gradient(135deg, ${colors.darkGreen}e8 0%, ${colors.mediumGreen}e8 100%), url('https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1600') center/cover`,
+        background: ` url('https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289306/g17_pvrur3.jpg') `,
         minHeight: 'calc(100vh - clamp(70px, 12vw, 110px))',
         width: '100%',
         display: 'flex',
@@ -184,15 +184,11 @@ function Home() {
             fontSize: 'clamp(28px, 6vw, 56px)',
             fontWeight: '900',
             marginBottom: 'clamp(8px, 1vw, 12px)',
-            textShadow: `4px 4px 10px rgba(122, 129, 38, 0.7), 0 0 30px ${colors.gold}80`,
+            textShadow: `4px 4px 10px rgba(0,0,0,0.7), 0 0 30px ${colors.gold}80`,
             letterSpacing: 'clamp(3px, 1vw, 6px)',
             fontFamily: 'Cinzel, Georgia, serif',
             textTransform: 'uppercase',
             animation: 'fadeInUp 1.2s ease-out',
-            background: `linear-gradient(135deg, ${colors.gold}, #f4e4b8, ${colors.gold})`,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
             lineHeight: '1.2'
           }}>
             ALURI'S
@@ -202,7 +198,7 @@ function Home() {
             fontSize: 'clamp(22px, 4.5vw, 42px)',
             fontWeight: '700',
             marginBottom: 'clamp(12px, 2vw, 20px)',
-            textShadow: `3px 3px 8px rgba(0,0,0,0.7), 0 0 20px rgba(255,255,255,0.3)`,
+            textShadow: `3px 3px 8px rgba(0,0,0,0.2), 0 0 20px rgba(223, 32, 32, 0.3)`,
             letterSpacing: 'clamp(4px, 1.5vw, 8px)',
             fontFamily: 'Cinzel, Georgia, serif',
             fontVariant: 'small-caps',
@@ -224,15 +220,15 @@ function Home() {
           {/* Tagline */}
           <p style={{
             color: colors.gold,
-            fontSize: 'clamp(14px, 2.5vw, 20px)',
-            fontWeight: '600',
-            marginBottom: 'clamp(12px, 2vw, 18px)',
-            textShadow: '2px 2px 6px rgba(0,0,0,0.6)',
-            lineHeight: '1.4',
+            fontSize: 'clamp(16px, 3vw, 24px)',
+            fontWeight: '700',
+            marginBottom: 'clamp(20px, 3vw, 30px)',
+            textShadow: '3px 3px 8px rgba(0,0,0,0.7)',
+            lineHeight: '1.6',
             fontFamily: 'Playfair Display, Georgia, serif',
             fontStyle: 'italic',
-            letterSpacing: '1px',
-            animation: 'fadeInUp 1.6s ease-out'
+            letterSpacing: '1.5px',
+            animation: 'fadeInUp 1.2s ease-out'
           }}>
             From Fields to Your Home
           </p>
@@ -386,14 +382,18 @@ function Home() {
                   {product.category}
                 </div>
                 
-                <div style={{
-                  fontSize: '80px',
-                  textAlign: 'center',
-                  marginBottom: '20px',
-                  marginTop: '20px'
-                }}>
-                  {product.image}
-                </div>
+                <img 
+                  src={product.image}
+                  alt={product.name}
+                  style={{
+                    width: '100%',
+                    height: '200px',
+                    objectFit: 'cover',
+                    borderRadius: '15px',
+                    marginBottom: '20px',
+                    marginTop: '20px'
+                  }}
+                />
                 <h3 style={{
                   color: colors.darkGreen,
                   fontSize: 'clamp(20px, 3vw, 24px)',
@@ -465,7 +465,7 @@ function Home() {
                     e.target.style.boxShadow = '0 4px 15px rgba(15,77,44,0.3)';
                   }}
                   >
-                    Get Quote
+                    View Details
                   </button>
                 </Link>
               </div>

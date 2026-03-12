@@ -11,9 +11,9 @@ function PremiumRice() {
   };
 
   return (
-    <div style={{
+    <div className="about-container" style={{
       width: '100%',
-      paddingTop: '80px',
+      paddingTop: '110px',
       backgroundColor: colors.background
     }}>
       <style>{`
@@ -21,61 +21,38 @@ function PremiumRice() {
           body {
             margin-top: 0 !important;
           }
+          .about-container {
+            padding-top: 80px !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .proprietor-card {
+            padding: 30px 15px !important;
+          }
+          .proprietor-card h3 {
+            font-size: 24px !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+          }
+          .proprietor-card > div {
+            padding: 20px 15px !important;
+          }
         }
       `}</style>
-      {/* Logo Section */}
+      
+      {/* Hero Section */}
       <section style={{
-        padding: 'clamp(40px, 6vw, 60px) clamp(20px, 5vw, 60px) clamp(30px, 4vw, 40px)',
-        backgroundColor: colors.white,
-        textAlign: 'center'
+        backgroundImage: 'url(https://res.cloudinary.com/dgyykbmt6/image/upload/v1773291962/g21_jmpmga.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        minHeight: 'calc(100vh - 80px)',
+        width: '100%'
       }}>
-        <div style={{
-          display: 'inline-block',
-          position: 'relative'
-        }}>
-          <img 
-            src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773131814/g1_l8mfz2.jpg'
-            alt="Aluri's Global Trade Logo"
-            style={{
-              width: 'clamp(120px, 30vw, 180px)',
-              height: 'clamp(120px, 30vw, 180px)',
-              objectFit: 'cover',
-              borderRadius: '20px',
-              boxShadow: `0 10px 40px rgba(0,0,0,0.15), 0 0 0 5px ${colors.gold}, 0 0 20px ${colors.gold}80`,
-              border: `5px solid ${colors.gold}`,
-              marginBottom: '30px',
-              transition: 'all 0.4s ease',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = 'scale(1.1) rotate(5deg)';
-              e.target.style.boxShadow = `0 20px 60px rgba(0,0,0,0.25), 0 0 0 8px ${colors.gold}, 0 0 40px ${colors.gold}`;
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'scale(1) rotate(0deg)';
-              e.target.style.boxShadow = `0 10px 40px rgba(0,0,0,0.15), 0 0 0 5px ${colors.gold}, 0 0 20px ${colors.gold}80`;
-            }}
-          />
-        </div>
-        <h1 style={{
-          color: colors.gold,
-          fontSize: 'clamp(28px, 6vw, 48px)',
-          fontWeight: '900',
-          letterSpacing: '3px',
-          fontFamily: 'Georgia, serif',
-          marginBottom: '10px'
-        }}>
-          ALURI'S GLOBAL TRADE
-        </h1>
-        <p style={{
-          color: colors.gold,
-          fontSize: '20px',
-          fontWeight: '600',
-          letterSpacing: '2px'
-        }}>
-          Premium Quality
-        </p>
       </section>
+
+      {/* Logo Section */}
+      {/* Removed logo and company name section */}
 
       {/* Our Story Section - Content Left, Image Right */}
       <section style={{
@@ -151,7 +128,7 @@ function PremiumRice() {
           {/* Right - Image */}
           <div>
             <img 
-              src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800"
+              src="https://res.cloudinary.com/dgyykbmt6/image/upload/v1773292505/g23_be011k.jpg"
               alt="Premium Rice"
               style={{
                 width: '100%',
@@ -191,7 +168,7 @@ function PremiumRice() {
         }}>
           {/* Left - Image */}
           <div style={{ order: window.innerWidth < 900 ? 2 : 1 }}>
-            <div style={{
+            <div className="proprietor-card" style={{
               background: `linear-gradient(135deg, ${colors.darkGreen}20, ${colors.gold}20)`,
               padding: '50px',
               borderRadius: '20px',
@@ -298,7 +275,7 @@ function PremiumRice() {
                 <span style={{ fontSize: '30px' }}>📞</span>
                 <div>
                   <p style={{ margin: 0, color: colors.textDark, fontSize: '16px', fontWeight: '600' }}>Contact</p>
-                  <p style={{ margin: 0, color: colors.mediumGreen, fontSize: '22px', fontWeight: '900' }}>98489 30313</p>
+                  <p style={{ margin: 0, color: colors.mediumGreen, fontSize: '22px', fontWeight: '900' }}>80743 46568</p>
                 </div>
               </div>
               <div style={{
@@ -373,7 +350,7 @@ function PremiumRice() {
               { 
                 title: 'Quality Assurance', 
                 desc: 'Every batch rigorously tested to meet the highest purity and quality standards', 
-                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR72TskR32Gg79oC9DUsyN61-5rUaIr3k4NJQ&s'
+                image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289306/g13_yillze.jpg'
               }
             ].map((item, index) => (
               <div key={index} style={{

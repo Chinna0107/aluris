@@ -36,7 +36,7 @@ function Contact() {
               <h3 style={{ color: colors.mediumGreen, fontSize: '18px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
                 📞 Phone
               </h3>
-              <a href="tel:9848930313" style={{ color: colors.darkGreen, fontSize: '20px', fontWeight: '700', textDecoration: 'none' }}>98489 30313</a>
+              <a href="tel:8074346568" style={{ color: colors.darkGreen, fontSize: '20px', fontWeight: '700', textDecoration: 'none' }}>80743 46568</a>
             </div>
             <div>
               <h3 style={{ color: colors.mediumGreen, fontSize: '18px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -50,15 +50,16 @@ function Contact() {
               </h3>
               <p style={{ color: colors.darkGreen, fontSize: '16px', lineHeight: '1.6', margin: 0 }}>
                 Aluri's Global Rice<br />
-                Rice Mill Location<br />
-                City, State - PIN Code
+                {/* Rice Mill Location<br /> */}
+                Madhurawada - 
+                Vizag, Andhra Pradesh  <br></br>530041  
               </p>
             </div>
             <div>
               <h3 style={{ color: colors.mediumGreen, fontSize: '18px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
                 💬 WhatsApp
               </h3>
-              <a href="https://wa.me/919848930313" target="_blank" rel="noopener noreferrer" style={{ color: colors.darkGreen, fontSize: '18px', textDecoration: 'none', fontWeight: '700' }}>Chat with us</a>
+              <a href="https://wa.me/918074346568" target="_blank" rel="noopener noreferrer" style={{ color: colors.darkGreen, fontSize: '18px', textDecoration: 'none', fontWeight: '700' }}>Chat with us</a>
             </div>
           </div>
         </div>

@@ -254,8 +254,8 @@ function Quote() {
             {/* Contact Info */}
             <div style={{ backgroundColor: colors.mediumGreen, padding: '30px', borderRadius: '16px', boxShadow: '0 6px 20px rgba(0,0,0,0.1)', textAlign: 'center' }}>
               <h3 style={{ color: colors.gold, fontSize: '22px', fontWeight: '900', marginBottom: '15px' }}>Need Help?</h3>
-              <p style={{ color: colors.white, fontSize: '18px', marginBottom: '10px' }}>📞 Call us: 98489 30313</p>
-              <p style={{ color: colors.white, fontSize: '16px' }}>📧 Email: info@alurisglobalrice.com</p>
+              <p style={{ color: colors.white, fontSize: '18px', marginBottom: '10px' }}>📞 Call us: 80743 46568</p>
+              <p style={{ color: colors.white, fontSize: '16px' }}>📧 Email: info@alurisglobaltrade.com</p>
             </div>
           </div>
         </div>

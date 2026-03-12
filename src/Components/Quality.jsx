@@ -30,7 +30,7 @@ function Quality() {
       description: 'We source premium paddy, millets, and spices directly from experienced farmers who follow sustainable farming practices. Our quality checks begin at the farm level to ensure only the best grains and spices reach our mills.'
     },
     { 
-      image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600', 
+      image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g12_wawcgm.jpg', 
       title: 'Modern Milling & Sortex Technology',
       description: 'Equipped with state-of-the-art milling machinery and advanced Sortex technology, we ensure precise sorting, cleaning, and grading of rice, millets, and spices. This guarantees uniform quality and removes impurities effectively.'
     },
@@ -78,7 +78,7 @@ function Quality() {
         />
         <h1 style={{ color: colors.gold, fontSize: '48px', marginBottom: '10px', fontFamily: 'Georgia, serif', fontWeight: '900' }}>ALURI'S GLOBAL TRADE</h1>
         <p style={{ color: colors.white, fontSize: '24px', fontWeight: '700', marginBottom: '10px' }}>Quality Assurance</p>
-        <p style={{ color: colors.white, fontSize: '20px', fontWeight: '600' }}>📞 98489 30313</p>
+        <p style={{ color: colors.white, fontSize: '20px', fontWeight: '600' }}>📞 80743 46568</p>
       </section>
 
       {/* Quality Cards Alternating Layout */}
