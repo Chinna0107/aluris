@@ -440,7 +440,7 @@ function PremiumRice() {
           }}>
             Contact us today for the best quality rice, millets, and spices at competitive prices
           </p>
-          <a href="tel:9848930313" style={{
+          <a href="tel:8074346568" style={{
             background: `linear-gradient(135deg, ${colors.gold} 0%, #e6c14a 100%)`,
             color: colors.darkGreen,
             padding: '20px 50px',
@@ -463,7 +463,7 @@ function PremiumRice() {
             e.target.style.boxShadow = '0 8px 25px rgba(212,175,55,0.4)';
           }}
           >
-            📞 Call Now: 98489 30313
+            📞 Call Now: 80743 46568
           </a>
         </div>
       </section>
