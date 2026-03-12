@@ -24,6 +24,25 @@ function PremiumRice() {
           .about-container {
             padding-top: 80px !important;
           }
+          .hero-section {
+            min-height: 60vh !important;
+            background-size: cover !important;
+            background-position: center !important;
+          }
+          .story-section img {
+            width: 95% !important;
+            height: 250px !important;
+            object-fit: cover !important;
+            display: block !important;
+            margin: 0 auto !important;
+          }
+          .why-choose-card img {
+            width: 95% !important;
+            height: 200px !important;
+            object-fit: cover !important;
+            display: block !important;
+            margin: 0 auto !important;
+          }
         }
         @media (max-width: 600px) {
           .proprietor-card {
@@ -37,16 +56,37 @@ function PremiumRice() {
           .proprietor-card > div {
             padding: 20px 15px !important;
           }
+          .hero-section {
+            min-height: 50vh !important;
+          }
+          .story-section img {
+            width: 95% !important;
+            height: 200px !important;
+          }
+          .why-choose-card img {
+            width: 95% !important;
+            height: 180px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .story-section img {
+            width: 95% !important;
+            height: 180px !important;
+          }
+          .why-choose-card img {
+            width: 95% !important;
+            height: 160px !important;
+          }
         }
       `}</style>
       
       {/* Hero Section */}
-      <section style={{
+      <section className="hero-section" style={{
         backgroundImage: 'url(https://res.cloudinary.com/dgyykbmt6/image/upload/v1773291962/g21_jmpmga.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        minHeight: 'calc(100vh - 80px)',
+        minHeight: '100vh',
         width: '100%'
       }}>
       </section>
@@ -55,7 +95,7 @@ function PremiumRice() {
       {/* Removed logo and company name section */}
 
       {/* Our Story Section - Content Left, Image Right */}
-      <section style={{
+      <section className="story-section" style={{
         padding: 'clamp(40px, 8vw, 80px) clamp(20px, 5vw, 60px)',
         backgroundColor: colors.cream,
         width: '100%',
@@ -353,7 +393,7 @@ function PremiumRice() {
                 image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289306/g13_yillze.jpg'
               }
             ].map((item, index) => (
-              <div key={index} style={{
+              <div key={index} className="why-choose-card" style={{
                 backgroundColor: colors.white,
                 borderRadius: '20px',
                 border: `4px solid ${colors.gold}40`,
