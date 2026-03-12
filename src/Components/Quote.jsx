@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import bg from '../assets/gp.jpeg';
 
 function Quote() {
   useEffect(() => {
@@ -85,7 +86,7 @@ function Quote() {
 
       {/* Hero Section */}
       <section style={{ 
-        backgroundImage: 'url(https://media.istockphoto.com/id/2162451866/photo/beautiful-sunrise-view-on-foggy-forest-in-tuscany-italy-with-green-hills-and-cypress-trees-on.jpg?s=612x612&w=0&k=20&c=-l2f3yL6TP2M6qx7umgReJB3acHy2CfnRZDitafsKtQ=)',
+        backgroundImage: `url(${bg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
