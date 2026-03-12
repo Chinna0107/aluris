@@ -84,7 +84,15 @@ function Quote() {
       `}</style>
 
       {/* Hero Section */}
-      <section style={{ background: `linear-gradient(135deg, ${colors.darkGreen} 0%, ${colors.mediumGreen} 100%)`, padding: '80px 20px', textAlign: 'center', boxShadow: '0 4px 20px rgba(0,0,0,0.2)' }}>
+      <section style={{ 
+        backgroundImage: 'url(https://media.istockphoto.com/id/2162451866/photo/beautiful-sunrise-view-on-foggy-forest-in-tuscany-italy-with-green-hills-and-cypress-trees-on.jpg?s=612x612&w=0&k=20&c=-l2f3yL6TP2M6qx7umgReJB3acHy2CfnRZDitafsKtQ=)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        padding: '80px 20px', 
+        textAlign: 'center', 
+        boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
+      }}>
         <h1 style={{ color: colors.gold, fontSize: 'clamp(36px, 6vw, 56px)', marginBottom: '20px', fontFamily: 'Georgia, serif', fontWeight: '900', textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }}>Get a Quote</h1>
         <p style={{ color: colors.white, fontSize: 'clamp(16px, 3vw, 22px)', maxWidth: '700px', margin: '0 auto', lineHeight: '1.6' }}>Fill out the form and we'll get back to you with the best prices</p>
       </section>
