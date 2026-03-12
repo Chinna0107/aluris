@@ -243,9 +243,9 @@ function Quote() {
             <div style={{ backgroundColor: colors.gold, padding: '30px', borderRadius: '16px', boxShadow: '0 6px 20px rgba(0,0,0,0.1)' }}>
               <h3 style={{ color: colors.darkGreen, fontSize: '24px', fontWeight: '900', marginBottom: '15px' }}>📢 Important Notice</h3>
               <ul style={{ color: colors.darkGreen, fontSize: '15px', lineHeight: '1.8', paddingLeft: '20px' }}>
-                <li>Minimum order quantity: 50 kg</li>
-                <li>Bulk discounts available for orders above 500 kg</li>
-                <li>Free delivery for orders above 1000 kg</li>
+                <li>Minimum order quantity: 10 tonnes</li>
+                <li>Bulk discounts available for orders above 15 tonnes</li>
+                <li>Free delivery for orders above 15 tonnes</li>
                 <li>Payment: RTGS, NEFT, UPI, PhonePe accepted</li>
                 <li>Delivery time: 2-5 business days</li>
               </ul>
