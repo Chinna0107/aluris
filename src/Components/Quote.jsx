@@ -250,7 +250,7 @@ function Quote() {
 
             {/* Notice */}
             <div style={{ backgroundColor: colors.gold, padding: '30px', borderRadius: '16px', boxShadow: '0 6px 20px rgba(0,0,0,0.1)' }}>
-              <h3 style={{ color: colors.darkGreen, fontSize: '24px', fontWeight: '900', marginBottom: '15px' }}>📢 Important Notice</h3>
+              <h3 style={{ color: colors.darkGreen, fontSize: '24px', fontWeight: '900', marginBottom: '15px' }}>📢 Important Notice for Rice Items.</h3>
               <ul style={{ color: colors.darkGreen, fontSize: '15px', lineHeight: '1.8', paddingLeft: '20px' }}>
                 <li>Minimum order quantity: 10 tonnes</li>
                 <li>Bulk discounts available for orders above 15 tonnes</li>
