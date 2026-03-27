@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-section">
-          <h3>ALURI'S GLOBAL TRADE</h3>
+          <h3>ALURI'S GLOBAL TRADE<sup style={{ fontSize: '0.5em', verticalAlign: 'super' }}>™</sup></h3>
           <p>Premium Global Supplier which includes a wide range of high-quality <b>Rice, Millets, and Spices</b>.</p>
           <div className="trust-indicators">
             <div className="trust-item">Premium Quality Rice , Millets & Spices</div>
@@ -57,14 +57,14 @@ const Footer = () => {
       </div>
       <div className="footer-divider"></div>
       <div className="footer-bottom">
-        <p>© 2026 ALURI'S GLOBAL TRADE. All rights reserved.</p>
+        <p>© 2026 ALURI'S GLOBAL TRADE™. All rights reserved.</p>
         <div className="payment-methods">
           <span className="payment-badge">RTGS</span>
           <span className="payment-badge">NEFT</span>
           <span className="payment-badge">PhonePe</span>
           <span className="payment-badge">UPI</span>
         </div>
-        <p>Made with ❤️ by <a href="https://staffarc.in" target="_blank" rel="noopener noreferrer">StaffArc</a></p>
+        <p>Made with <b>passion</b> by <a href="https://zewo.in" target="_blank" rel="noopener noreferrer">Zewo</a></p>
       </div>
     </footer>
   );

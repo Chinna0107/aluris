@@ -1,13 +1,35 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import config from '../config';
 
 function Products() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedQuantities, setSelectedQuantities] = useState({});
+  const [products, setProducts] = useState({ rice: [], spices: [], millets: [] });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    fetchProducts();
   }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const res = await fetch(`${config.API_URL}/api/products`);
+      const data = await res.json();
+      const list = data.success ? data.products : Array.isArray(data) ? data : [];
+      const grouped = { rice: [], spices: [], millets: [] };
+      list.forEach(p => {
+        const cat = p.category?.toLowerCase();
+        if (grouped[cat]) grouped[cat].push({ ...p, features: p.features ?? [], quantities: p.quantities ?? [] });
+      });
+      setProducts(grouped);
+    } catch (err) {
+      console.error('Failed to fetch products:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
   
   const colors = {
     darkGreen: '#0f4d2c',
@@ -20,215 +42,14 @@ function Products() {
     background: '#f5f5f5'
   };
 
-  const products = {
-    rice: [
-      {
-        name: 'RNR 15048',
-        description: 'Premium quality long grain rice with excellent cooking properties',
-        image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g11_fzss7c.jpg',
-        features: ['Long Grain', 'High Quality', 'Best Aroma'],
-        quantities: [
-          { weight: '25 kg', price: '₹1,200' },
-          { weight: '50 kg', price: '₹2,300' },
-          { weight: '100 kg', price: '₹4,500' }
-        ]
-      },
-      {
-        name: 'BPT 5204',
-        description: 'High-quality parboiled rice perfect for daily consumption',
-        image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g10_atwwuz.jpg',
-        features: ['Parboiled rice', 'Nutritious', 'Easy to Cook'],
-        quantities: [
-          { weight: '25 kg', price: '₹1,100' },
-          { weight: '50 kg', price: '₹2,100' },
-          { weight: '100 kg', price: '₹4,000' }
-        ]
-      },
-      {
-        name: 'SONA MASOORI',
-        description: 'Premium aromatic rice, light and fluffy when cooked',
-        image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g9_kdvfro.jpg',
-        features: ['Aromatic', 'Low Starch', 'Premium Grade'],
-        quantities: [
-          { weight: '25 kg', price: '₹1,350' },
-          { weight: '50 kg', price: '₹2,600' },
-          { weight: '100 kg', price: '₹5,000' }
-        ]
-      },
-      {
-        name: 'HMT RICE',
-        description: 'Traditional favorite with superior taste and texture',
-        image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g8_eqnfcu.jpg',
-        features: ['Traditional', 'Soft Texture', 'Rich Flavor'],
-        quantities: [
-          { weight: '25 kg', price: '₹1,250' },
-          { weight: '50 kg', price: '₹2,400' },
-          { weight: '100 kg', price: '₹4,700' }
-        ]
-      }
-    ],
-    spices: [
-      {
-        name: 'Turmeric Powder',
-        description: 'Pure and natural turmeric powder with high curcumin content',
-        image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g7_clxmr7.jpg',
-        features: ['Pure & Natural', 'High Curcumin', 'Anti-inflammatory'],
-        quantities: [
-          { weight: '100 g', price: '₹50' },
-          { weight: '500 g', price: '₹220' },
-          { weight: '1 kg', price: '₹400' }
-        ]
-      },
-      {
-        name: 'Red Chilli Powder',
-        description: 'Premium quality red chilli powder with perfect heat and color',
-        image: 'https://5.imimg.com/data5/ANDROID/Default/2024/1/378418449/GQ/SN/UL/19256287/product-jpeg.jpg',
-        features: ['Spicy & Hot', 'Rich Color', 'Premium Quality'],
-        quantities: [
-          { weight: '100 g', price: '₹60' },
-          { weight: '500 g', price: '₹270' },
-          { weight: '1 kg', price: '₹500' }
-        ]
-      },
-      {
-        name: 'Coriander Powder',
-        description: 'Aromatic coriander powder ground from premium quality seeds',
-        image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289304/g5_woar2u.jpg',
-        features: ['Aromatic', 'Fresh Ground', 'Pure Quality'],
-        quantities: [
-          { weight: '100 g', price: '₹45' },
-          { weight: '500 g', price: '₹200' },
-          { weight: '1 kg', price: '₹380' }
-        ]
-      },
-      {
-        name: 'Jeera Powder',
-        description: 'Premium whole Jeera  powder from the best cumin seeds for authentic flavor',
-        image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289304/g4_kbzzjl.jpg',
-        features: ['Whole Seeds', 'Strong Aroma', 'Premium Grade'],
-        quantities: [
-          { weight: '100 g', price: '₹70' },
-          { weight: '500 g', price: '₹320' },
-          { weight: '1 kg', price: '₹600' }
-        ]
-      },
-      {
-        name: 'Garam Masala',
-        description: 'Traditional blend of aromatic spices for authentic Indian flavor',
-        image: 'https://www.shutterstock.com/image-photo/garam-masala-spices-indian-curry-260nw-2521904937.jpg',
-        features: ['Authentic Blend', 'Aromatic', 'Traditional Recipe'],
-        quantities: [
-          { weight: '50 g', price: '₹60' },
-          { weight: '100 g', price: '₹110' },
-          { weight: '250 g', price: '₹250' }
-        ]
-      },
-      {
-        name: 'Black Pepper',
-        description: 'Premium quality whole black pepper with intense flavor',
-        image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289304/g2_ggjqxh.jpg',
-        features: ['Whole Pepper', 'Intense Flavor', 'Premium Quality'],
-        quantities: [
-          { weight: '100 g', price: '₹120' },
-          { weight: '250 g', price: '₹280' },
-          { weight: '500 g', price: '₹530' }
-        ]
-      }
-    ],
-    millets: [
-      {
-        name: 'Foxtail Millet (Kangni)',
-        description: 'Nutritious and gluten-free ancient grain rich in fiber',
-        image: 'https://naturechoice.in/eeghoacm/2022/07/Foxtail_millet-1.jpg',
-        features: ['High Fiber', 'Gluten-Free', 'Rich in Iron'],
-        quantities: [
-          { weight: '1 kg', price: '₹120' },
-          { weight: '5 kg', price: '₹550' },
-          { weight: '10 kg', price: '₹1,000' }
-        ]
-      },
-      {
-        name: 'Pearl Millet (Bajra)',
-        description: 'Energy-rich millet perfect for healthy diet',
-        image: 'https://5.imimg.com/data5/SELLER/Default/2024/3/398591092/MM/DW/NO/4351922/domestic-pearl-millet.jpg',
-        features: ['Energy Rich', 'High Protein', 'Diabetic Friendly'],
-        quantities: [
-          { weight: '1 kg', price: '₹100' },
-          { weight: '5 kg', price: '₹450' },
-          { weight: '10 kg', price: '₹850' }
-        ]
-      },
-      {
-        name: 'Finger Millet (Ragi)',
-        description: 'Calcium-rich superfood ideal for bone health',
-        image: 'https://www.milletmaagicmeal.in/cdn/shop/articles/image1.webp?v=1729496969&width=1100',
-        features: ['High Calcium', 'Superfood', 'Natural Coolant'],
-        quantities: [
-          { weight: '1 kg', price: '₹110' },
-          { weight: '5 kg', price: '₹500' },
-          { weight: '10 kg', price: '₹950' }
-        ]
-      },
-      {
-        name: 'Sorghum (Jowar)',
-        description: 'Versatile grain packed with antioxidants and nutrients',
-        image: 'https://jallikatt.in/wp-content/uploads/2023/02/Cholam--scaled.jpg',
-        features: ['Antioxidants', 'Gluten-Free', 'Heart Healthy'],
-        quantities: [
-          { weight: '1 kg', price: '₹95' },
-          { weight: '5 kg', price: '₹425' },
-          { weight: '10 kg', price: '₹800' }
-        ]
-      },
-      {
-        name: 'Proso Millet',
-        description: 'Quick-cooking millet with mild flavor and high nutrition',
-        image: 'https://nuttyyogi.com/cdn/shop/products/Proso_Millet__DSC5342.jpg?v=1606373494',
-        features: ['Quick Cook', 'Mild Flavor', 'High Protein'],
-        quantities: [
-          { weight: '1 kg', price: '₹125' },
-          { weight: '5 kg', price: '₹575' },
-          { weight: '10 kg', price: '₹1,100' }
-        ]
-      },
-      {
-        name: 'Little Millet (Kutki)',
-        description: 'Small grain packed with vitamins and minerals',
-        image: 'https://dhatuorganics.com/wp-content/uploads/2024/09/Stock-Iamges-04.jpg',
-        features: ['Vitamin Rich', 'Low GI', 'Easy Digest'],
-        quantities: [
-          { weight: '1 kg', price: '₹130' },
-          { weight: '5 kg', price: '₹600' },
-          { weight: '10 kg', price: '₹1,150' }
-        ]
-      },
-      {
-        name: 'Kodo Millet',
-        description: 'Nutritious grain excellent for weight management',
-        image: 'https://www.puremart.in/images/products/323-kodo-millet-500-gms-pack-of-250-gm-x-2-1600771999.jpeg',
-        features: ['Weight Loss', 'High Fiber', 'Low Fat'],
-        quantities: [
-          { weight: '1 kg', price: '₹135' },
-          { weight: '5 kg', price: '₹625' },
-          { weight: '10 kg', price: '₹1,200' }
-        ]
-      },
-      {
-        name: 'Barnyard Millet (Sanwa)',
-        description: 'Fast-growing millet ideal for fasting and healthy eating',
-        image: 'https://nuttyyogi.com/cdn/shop/products/Barnyard_Millet_DSC5318.jpg?v=1606373486',
-        features: ['Fasting Food', 'Low Calorie', 'Iron Rich'],
-        quantities: [
-          { weight: '1 kg', price: '₹140' },
-          { weight: '5 kg', price: '₹650' },
-          { weight: '10 kg', price: '₹1,250' }
-        ]
-      }
-    ]
-  };
-
   const allProducts = [...products.rice, ...products.millets, ...products.spices];
-  const displayProducts = activeCategory === 'all' ? allProducts : products[activeCategory];
+  const displayProducts = activeCategory === 'all' ? allProducts : (products[activeCategory] || []);
+
+  if (loading) return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+      <p style={{ color: colors.darkGreen, fontSize: '20px', fontWeight: '700' }}>Loading products...</p>
+    </div>
+  );
 
   return (
     <div style={{
@@ -315,7 +136,7 @@ function Products() {
           fontFamily: '"Cinzel", serif',
           marginBottom: '8px'
         }}>
-          <span style={{ color: colors.gold }}>ALURI'S</span> <span style={{ color: colors.white }}>GLOBAL TRADE</span>
+          <span style={{ color: colors.gold }}>ALURI'S</span> <span style={{ color: colors.white }}>GLOBAL TRADE</span><sup style={{ fontSize: '0.5em', verticalAlign: 'super', color: colors.white }}>™</sup>
         </h1>
         <p style={{
           color: colors.white,
@@ -632,7 +453,9 @@ function Products() {
             gridTemplateColumns: '1fr',
             gap: 'clamp(20px, 4vw, 50px)'
           }}>
-            {displayProducts.map((product, index) => (
+            {displayProducts.map((product, index) => {
+              const imgSrc = product.image || (Array.isArray(product.images) ? product.images[0] : '');
+              return (
               <div key={index} className="product-card" style={{
                 backgroundColor: colors.white,
                 borderRadius: 'clamp(12px, 3vw, 20px)',
@@ -658,7 +481,7 @@ function Products() {
               }}
               >
                 <img 
-                  src={product.image}
+                  src={imgSrc}
                   alt={product.name}
                   style={{
                     width: '100%',
@@ -692,7 +515,7 @@ function Products() {
                     gap: 'clamp(6px, 2vw, 10px)',
                     marginBottom: 'clamp(12px, 2.5vw, 15px)'
                   }}>
-                    {product.features.map((feature, idx) => (
+                    {(product.features ?? []).map((feature, idx) => (
                       <span key={idx} style={{
                         backgroundColor: colors.white,
                         color: colors.mediumGreen,
@@ -707,7 +530,7 @@ function Products() {
                       </span>
                     ))}
                   </div>
-                  {product.quantities && (
+                  {product.quantities?.length > 0 && (
                     <div style={{ marginBottom: 'clamp(12px, 2.5vw, 15px)' }}>
                       <label style={{ display: 'block', color: colors.darkGreen, fontSize: 'clamp(14px, 3vw, 16px)', marginBottom: 'clamp(8px, 2vw, 10px)', fontWeight: '800' }}>Select Quantity:</label>
                       <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
@@ -727,8 +550,8 @@ function Products() {
                             outline: 'none'
                           }}
                         >
-                          {product.quantities.map((qty, idx) => (
-                            <option key={idx} value={idx}>{qty.weight} - {qty.price}</option>
+                          {(product.quantities ?? []).map((qty, idx) => (
+                            <option key={idx} value={idx}>{qty.label ?? qty.weight} - ₹{qty.price}</option>
                           ))}
                         </select>
                         <div style={{
@@ -740,7 +563,7 @@ function Products() {
                           minWidth: '120px'
                         }}>
                           <span style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: '900', color: colors.mediumGreen }}>
-                            {product.quantities[selectedQuantities[index] || 0].price}
+                            ₹{(product.quantities?.[selectedQuantities[index] || 0])?.price ?? '—'}
                           </span>
                         </div>
                       </div>
@@ -780,7 +603,8 @@ function Products() {
                   </Link>
                 </div>
               </div>
-            ))}
+            );
+            })}
           </div>
         </div>
       </section>

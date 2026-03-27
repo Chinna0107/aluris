@@ -76,7 +76,7 @@ function Quality() {
       }}>
         <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
         <img 
-          src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773131814/g1_l8mfz2.jpg'
+          src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1774612536/WhatsApp_Image_2026-03-27_at_17.19.16_yyi5ms.jpg'
           alt="Aluri's Global Rice Logo" 
           style={{
             height: '120px',
@@ -89,7 +89,7 @@ function Quality() {
             border: `4px solid ${colors.gold}`
           }}
         />
-        <h1 style={{ color: colors.gold, fontSize: '48px', marginBottom: '10px', fontFamily: 'Georgia, serif', fontWeight: '900' }}>ALURI'S GLOBAL TRADE</h1>
+        <h1 style={{ color: colors.gold, fontSize: '48px', marginBottom: '10px', fontFamily: 'Georgia, serif', fontWeight: '900' }}>ALURI'S GLOBAL TRADE<sup style={{ fontSize: '0.30em', verticalAlign: 'top', position: 'relative', top: '-0.20em' }}>™</sup></h1>
         <p style={{ color: colors.white, fontSize: '24px', fontWeight: '700', marginBottom: '10px' }}>Quality Assurance</p>
         <p style={{ color: colors.white, fontSize: '20px', fontWeight: '600' }}>📞 80743 46568</p>
         </div>
@@ -165,7 +165,7 @@ function Quality() {
       {/* Bottom Banner */}
       <section style={{ background: `linear-gradient(135deg, ${colors.darkGreen} 0%, ${colors.mediumGreen} 100%)`, padding: '40px 20px' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
-          <h2 style={{ color: colors.gold, fontSize: '32px', fontWeight: '900', margin: 0, fontFamily: 'Georgia, serif' }}>ALURI'S GLOBAL TRADE</h2>
+          <h2 style={{ color: colors.gold, fontSize: '32px', fontWeight: '900', margin: 0, fontFamily: 'Georgia, serif' }}>ALURI'S GLOBAL TRADE<sup style={{ fontSize: '0.35em', verticalAlign: 'top', position: 'relative', top: '-0.3em' }}>™</sup></h2>
           <p style={{ color: colors.white, fontSize: '24px', fontWeight: '700', margin: 0 }}>Supplying Vizag | Prakasam | Nellore</p>
         </div>
       </section>

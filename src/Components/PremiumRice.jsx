@@ -82,7 +82,7 @@ function PremiumRice() {
       
       {/* Hero Section */}
       <section className="hero-section" style={{
-        backgroundImage: 'url(https://res.cloudinary.com/dgyykbmt6/image/upload/v1773291962/g21_jmpmga.jpg)',
+        backgroundImage: 'url(https://res.cloudinary.com/dgyykbmt6/image/upload/v1774613111/WhatsApp_Image_2026-03-27_at_17.34.12_k1h2a6.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -135,7 +135,7 @@ function PremiumRice() {
               marginBottom: '25px',
               fontWeight: '500'
             }}>
-              <strong style={{ color: colors.gold, fontSize: '22px' }}>ALURI'S GLOBAL TRADE</strong> is a premium supplier of rice, millets, and spices based in <strong>Visakhapatnam, India</strong>.
+              <strong style={{ color: colors.gold, fontSize: '22px' }}>ALURI'S GLOBAL TRADE™</strong> is a premium supplier of rice, millets, and spices based in <strong>Visakhapatnam, India</strong>.
             </p>
             <p style={{
               color: colors.textDark,

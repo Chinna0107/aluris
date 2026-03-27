@@ -1,9 +1,18 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
+import config from '../config';
 
 function Home() {
   const scrollRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [products, setProducts] = useState([]);
+
+  // Restart scroll animation whenever products load
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer || products.length === 0) return;
+    scrollContainer.scrollLeft = 0;
+  }, [products]);
   
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -33,78 +42,15 @@ function Home() {
     background: '#f5f5f5'
   };
 
-  const products = [
-    {
-      name: 'SONA MASOORI',
-      description: 'Premium aromatic rice, light and fluffy when cooked',
-      image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g9_kdvfro.jpg',
-      category: 'Rice',
-      features: ['Aromatic', 'Low Starch', 'Premium Grade']
-    },
-    {
-      name: 'BPT 5204',
-      description: 'High-quality parboiled rice perfect for daily consumption',
-      image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g10_atwwuz.jpg',
-      category: 'Rice',
-      features: ['Parboiled', 'Nutritious', 'Easy to Cook']
-    },
-    {
-      name: 'HMT RICE',
-      description: 'Traditional favorite with superior taste and texture',
-      image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g8_eqnfcu.jpg',
-      category: 'Rice',
-      features: ['Traditional', 'Soft Texture', 'Rich Flavor']
-    },
-    {
-      name: 'RNR 15048',
-      description: 'Premium quality long grain rice with excellent cooking properties',
-      image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g11_fzss7c.jpg',
-      category: 'Rice',
-      features: ['Long Grain', 'High Quality', 'Best Aroma']
-    },
-    {
-      name: 'Foxtail Millet',
-      description: 'Nutritious and gluten-free ancient grain rich in fiber',
-      image: 'https://naturechoice.in/eeghoacm/2022/07/Foxtail_millet-1.jpg',
-      category: 'Millets',
-      features: ['High Fiber', 'Gluten-Free', 'Iron Rich']
-    },
-    {
-      name: 'Pearl Millet',
-      description: 'Energy-rich millet perfect for healthy diet',
-      image: 'https://5.imimg.com/data5/SELLER/Default/2024/3/398591092/MM/DW/NO/4351922/domestic-pearl-millet.jpg',
-      category: 'Millets',
-      features: ['Energy Rich', 'High Protein', 'Diabetic Friendly']
-    },
-    {
-      name: 'Finger Millet',
-      description: 'Calcium-rich superfood ideal for bone health',
-      image: 'https://www.milletmaagicmeal.in/cdn/shop/articles/image1.webp?v=1729496969&width=1100',
-      category: 'Millets',
-      features: ['High Calcium', 'Superfood', 'Natural Coolant']
-    },
-    {
-      name: 'Turmeric Powder',
-      description: 'Pure and natural turmeric powder with high curcumin content',
-      image: 'https://res.cloudinary.com/dgyykbmt6/image/upload/v1773289305/g7_clxmr7.jpg',
-      category: 'Spices',
-      features: ['Pure & Natural', 'High Curcumin', 'Anti-inflammatory']
-    },
-    {
-      name: 'Red Chilli Powder',
-      description: 'Premium quality red chilli powder with perfect heat and color',
-      image: 'https://5.imimg.com/data5/ANDROID/Default/2024/1/378418449/GQ/SN/UL/19256287/product-jpeg.jpg',
-      category: 'Spices',
-      features: ['Spicy & Hot', 'Rich Color', 'Premium Quality']
-    },
-    {
-      name: 'Black Pepper',
-      description: 'Premium quality whole black pepper with intense flavor',
-      image: 'https://www.jalaramagri.com/wp-content/uploads/2025/06/Black-Papper-5.jpg',
-      category: 'Spices',
-      features: ['Whole Pepper', 'Intense Flavor', 'Premium Quality']
-    }
-  ];
+  useEffect(() => {
+    fetch(`${config.API_URL}/api/products`)
+      .then(r => r.json())
+      .then(data => {
+        const list = data.success ? data.products : Array.isArray(data) ? data : [];
+        setProducts(list.map(p => ({ ...p, features: p.features ?? [], quantities: p.quantities ?? [] })));
+      })
+      .catch(() => setProducts([]));
+  }, []);
 
   return (
     <div style={{ width: '100%', paddingTop: 'clamp(70px, 12vw, 110px)' }}>
@@ -155,7 +101,7 @@ function Home() {
             animation: 'fadeInDown 1s ease-out'
           }}>
             <img 
-              src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773131814/g1_l8mfz2.jpg'
+              src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1774612536/WhatsApp_Image_2026-03-27_at_17.19.16_yyi5ms.jpg'
               alt="Aluri's Global Trade Logo"
               style={{
                 width: 'clamp(80px, 15vw, 120px)',
@@ -205,7 +151,7 @@ function Home() {
             animation: 'fadeInUp 1.4s ease-out',
             lineHeight: '1.2'
           }}>
-            GLOBAL TRADE
+            GLOBAL TRADE<sup style={{ fontSize: '0.5em', verticalAlign: 'super' }}>™</sup>
           </h2>
           
           {/* Decorative Line */}
@@ -341,7 +287,7 @@ function Home() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           >
-            {[...products, ...products].map((product, index) => (
+            {products.map((product, index) => (
               <div key={index} style={{
                 minWidth: 'clamp(260px, 30vw, 320px)',
                 backgroundColor: colors.white,
