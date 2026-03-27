@@ -76,7 +76,7 @@ function Header() {
               lineHeight: '1.2',
               fontFamily: 'Cinzel, Georgia, serif'
             }}>
-              <span style={{ color: colors.gold }}>ALURI'S</span> <span style={{ color: colors.white }}>GLOBAL TRADE</span><sup style={{ fontSize: '0.5em', verticalAlign: 'super' }}>™</sup>
+              <span style={{ color: colors.gold }}>ALURI'S</span> <span style={{ color: colors.white }}>GLOBAL TRADE</span><sup style={{ fontSize: '0.7em', verticalAlign: 'super' }}>™</sup>
             </h1>
             <p style={{
               color: colors.gold,

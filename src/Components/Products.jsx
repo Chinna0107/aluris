@@ -106,7 +106,7 @@ function Products() {
           position: 'relative'
         }}>
           <img 
-            src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1773131814/g1_l8mfz2.jpg'
+            src='https://res.cloudinary.com/dgyykbmt6/image/upload/v1774612536/WhatsApp_Image_2026-03-27_at_17.19.16_yyi5ms.jpg'
             alt="Aluri's Global Trade Logo"
             style={{
               width: 'clamp(120px, 30vw, 180px)',

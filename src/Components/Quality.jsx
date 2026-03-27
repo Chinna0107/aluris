@@ -89,7 +89,7 @@ function Quality() {
             border: `4px solid ${colors.gold}`
           }}
         />
-        <h1 style={{ color: colors.gold, fontSize: '48px', marginBottom: '10px', fontFamily: 'Georgia, serif', fontWeight: '900' }}>ALURI'S GLOBAL TRADE<sup style={{ fontSize: '0.30em', verticalAlign: 'top', position: 'relative', top: '-0.20em' }}>™</sup></h1>
+        <h1 style={{ color: colors.gold, fontSize: '48px', marginBottom: '10px', fontFamily: 'Georgia, serif', fontWeight: '900' }}>ALURI'S GLOBAL TRADE<sup style={{ fontSize: '0.5em', verticalAlign: 'top', position: 'relative', top: '-0.3em' }}>™</sup></h1>
         <p style={{ color: colors.white, fontSize: '24px', fontWeight: '700', marginBottom: '10px' }}>Quality Assurance</p>
         <p style={{ color: colors.white, fontSize: '20px', fontWeight: '600' }}>📞 80743 46568</p>
         </div>

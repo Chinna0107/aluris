@@ -1,6 +1,6 @@
 const config = {
   API_URL: import.meta.env.MODE === 'production'
-    ? 'https://your-backend.vercel.app'
+    ? 'https://global-be.vercel.app'
     : 'http://localhost:3000'
 };
 

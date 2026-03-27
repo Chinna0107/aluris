@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-section">
-          <h3>ALURI'S GLOBAL TRADE<sup style={{ fontSize: '0.5em', verticalAlign: 'super' }}>™</sup></h3>
+          <h3>ALURI'S GLOBAL TRADE<sup style={{ fontSize: '0.9em', verticalAlign: 'super' }}>™</sup></h3>
           <p>Premium Global Supplier which includes a wide range of high-quality <b>Rice, Millets, and Spices</b>.</p>
           <div className="trust-indicators">
             <div className="trust-item">Premium Quality Rice , Millets & Spices</div>
