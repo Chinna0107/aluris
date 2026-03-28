@@ -14,7 +14,7 @@ const colors = {
 };
 
 const EMPTY_FORM = { name: '', category: 'rice', price: '', unit: 'kg', description: '', image: '', stock: '', features: [], quantities: [] };
-const CATEGORIES = ['rice', 'millets', 'spices'];
+const CATEGORIES = ['rice', 'spices', 'millets', 'millet products'];
 const FALLBACK_IMG = 'https://placehold.co/50x50?text=🌾';
 
 export default function AdminProducts() {
@@ -327,7 +327,7 @@ export default function AdminProducts() {
               color: filterCat === cat ? colors.white : colors.darkGreen,
               fontWeight: '700', fontSize: '13px', cursor: 'pointer', transition: 'all 0.2s',
             }}>
-              {cat === 'all' ? '🌾 All' : cat === 'rice' ? '🍚 Rice' : cat === 'millets' ? '🌿 Millets' : '🌶️ Spices'}
+              {cat === 'all' ? '🌾 All' : cat === 'rice' ? '🍚 Rice' : cat === 'spices' ? '🌶️ Spices' : cat === 'millets' ? '🌿 Millets' : '🌾 Millet Products'}
               <span style={{ marginLeft: '6px', background: filterCat === cat ? 'rgba(255,255,255,0.2)' : colors.cream, borderRadius: '50px', padding: '1px 8px', fontSize: '11px' }}>
                 {cat === 'all' ? products.length : products.filter(p => p.category?.toLowerCase() === cat).length}
               </span>
@@ -376,8 +376,8 @@ export default function AdminProducts() {
                 </div>
                 <span style={{
                   display: 'inline-block', padding: '3px 10px', borderRadius: '50px', fontSize: '11px', fontWeight: '700',
-                  background: p.category === 'rice' ? '#e8f5e9' : p.category === 'millets' ? '#e3f2fd' : '#fce4ec',
-                  color: p.category === 'rice' ? '#2e7d32' : p.category === 'millets' ? '#1565c0' : '#c62828',
+                  background: p.category === 'rice' ? '#e8f5e9' : p.category === 'millets' ? '#e3f2fd' : p.category === 'millet products' ? '#e8eaf6' : '#fce4ec',
+                  color: p.category === 'rice' ? '#2e7d32' : p.category === 'millets' ? '#1565c0' : p.category === 'millet products' ? '#283593' : '#c62828',
                 }}>
                   {p.category}
                 </span>

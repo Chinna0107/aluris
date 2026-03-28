@@ -5,7 +5,7 @@ import config from '../config';
 function Products() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedQuantities, setSelectedQuantities] = useState({});
-  const [products, setProducts] = useState({ rice: [], spices: [], millets: [] });
+  const [products, setProducts] = useState({ rice: [], spices: [], millets: [], 'millet products': [] });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,10 +18,10 @@ function Products() {
       const res = await fetch(`${config.API_URL}/api/products`);
       const data = await res.json();
       const list = data.success ? data.products : Array.isArray(data) ? data : [];
-      const grouped = { rice: [], spices: [], millets: [] };
+      const grouped = { rice: [], spices: [], millets: [], 'millet products': [] };
       list.forEach(p => {
         const cat = p.category?.toLowerCase();
-        if (grouped[cat]) grouped[cat].push({ ...p, features: p.features ?? [], quantities: p.quantities ?? [] });
+        if (grouped[cat] !== undefined) grouped[cat].push({ ...p, features: p.features ?? [], quantities: p.quantities ?? [] });
       });
       setProducts(grouped);
     } catch (err) {
@@ -42,7 +42,7 @@ function Products() {
     background: '#f5f5f5'
   };
 
-  const allProducts = [...products.rice, ...products.millets, ...products.spices];
+  const allProducts = [...products.rice, ...products.spices, ...products.millets, ...products['millet products']];
   const displayProducts = activeCategory === 'all' ? allProducts : (products[activeCategory] || []);
 
   if (loading) return (
@@ -326,56 +326,6 @@ function Products() {
                Rice
             </button>
             <button
-              onClick={() => setActiveCategory('millets')}
-              style={{
-                background: activeCategory === 'millets' 
-                  ? `linear-gradient(135deg, ${colors.darkGreen}, ${colors.mediumGreen})`
-                  : `linear-gradient(135deg, ${colors.white}, ${colors.cream})`,
-                color: activeCategory === 'millets' ? colors.white : colors.darkGreen,
-                border: `3px solid ${activeCategory === 'millets' ? colors.gold : colors.mediumGreen}`,
-                padding: 'clamp(10px, 2vw, 14px) clamp(20px, 4vw, 32px)',
-                fontSize: 'clamp(12px, 2.5vw, 16px)',
-                fontWeight: '900',
-                borderRadius: '50px',
-                cursor: 'pointer',
-                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                boxShadow: activeCategory === 'millets' 
-                  ? `0 8px 25px rgba(15,77,44,0.4), 0 0 30px ${colors.gold}60, inset 0 2px 10px rgba(255,255,255,0.2)`
-                  : '0 4px 15px rgba(0,0,0,0.12)',
-                textTransform: 'uppercase',
-                letterSpacing: '1.5px',
-                fontFamily: '"Cinzel", Georgia, serif',
-                whiteSpace: 'nowrap',
-                flexShrink: 0,
-                position: 'relative',
-                overflow: 'hidden'
-              }}
-              onMouseEnter={(e) => {
-                if (activeCategory !== 'millets') {
-                  e.target.style.transform = 'translateY(-3px) scale(1.05)';
-                  e.target.style.boxShadow = `0 8px 25px rgba(0,0,0,0.2), 0 0 20px ${colors.gold}40`;
-                  e.target.style.borderColor = colors.gold;
-                  e.target.style.background = `linear-gradient(135deg, ${colors.cream}, ${colors.white})`;
-                } else {
-                  e.target.style.transform = 'translateY(-3px) scale(1.05)';
-                  e.target.style.boxShadow = `0 12px 35px rgba(15,77,44,0.5), 0 0 40px ${colors.gold}80`;
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (activeCategory !== 'millets') {
-                  e.target.style.transform = 'translateY(0) scale(1)';
-                  e.target.style.boxShadow = '0 4px 15px rgba(0,0,0,0.12)';
-                  e.target.style.borderColor = colors.mediumGreen;
-                  e.target.style.background = `linear-gradient(135deg, ${colors.white}, ${colors.cream})`;
-                } else {
-                  e.target.style.transform = 'translateY(0) scale(1)';
-                  e.target.style.boxShadow = `0 8px 25px rgba(15,77,44,0.4), 0 0 30px ${colors.gold}60, inset 0 2px 10px rgba(255,255,255,0.2)`;
-                }
-              }}
-            >
-               Millets
-            </button>
-            <button
               onClick={() => setActiveCategory('spices')}
               style={{
                 background: activeCategory === 'spices' 
@@ -425,6 +375,106 @@ function Products() {
             >
                Spices
             </button>
+            <button
+              onClick={() => setActiveCategory('millets')}
+              style={{
+                background: activeCategory === 'millets' 
+                  ? `linear-gradient(135deg, ${colors.darkGreen}, ${colors.mediumGreen})`
+                  : `linear-gradient(135deg, ${colors.white}, ${colors.cream})`,
+                color: activeCategory === 'millets' ? colors.white : colors.darkGreen,
+                border: `3px solid ${activeCategory === 'millets' ? colors.gold : colors.mediumGreen}`,
+                padding: 'clamp(10px, 2vw, 14px) clamp(20px, 4vw, 32px)',
+                fontSize: 'clamp(12px, 2.5vw, 16px)',
+                fontWeight: '900',
+                borderRadius: '50px',
+                cursor: 'pointer',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                boxShadow: activeCategory === 'millets' 
+                  ? `0 8px 25px rgba(15,77,44,0.4), 0 0 30px ${colors.gold}60, inset 0 2px 10px rgba(255,255,255,0.2)`
+                  : '0 4px 15px rgba(0,0,0,0.12)',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                fontFamily: '"Cinzel", Georgia, serif',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+              onMouseEnter={(e) => {
+                if (activeCategory !== 'millets') {
+                  e.target.style.transform = 'translateY(-3px) scale(1.05)';
+                  e.target.style.boxShadow = `0 8px 25px rgba(0,0,0,0.2), 0 0 20px ${colors.gold}40`;
+                  e.target.style.borderColor = colors.gold;
+                  e.target.style.background = `linear-gradient(135deg, ${colors.cream}, ${colors.white})`;
+                } else {
+                  e.target.style.transform = 'translateY(-3px) scale(1.05)';
+                  e.target.style.boxShadow = `0 12px 35px rgba(15,77,44,0.5), 0 0 40px ${colors.gold}80`;
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeCategory !== 'millets') {
+                  e.target.style.transform = 'translateY(0) scale(1)';
+                  e.target.style.boxShadow = '0 4px 15px rgba(0,0,0,0.12)';
+                  e.target.style.borderColor = colors.mediumGreen;
+                  e.target.style.background = `linear-gradient(135deg, ${colors.white}, ${colors.cream})`;
+                } else {
+                  e.target.style.transform = 'translateY(0) scale(1)';
+                  e.target.style.boxShadow = `0 8px 25px rgba(15,77,44,0.4), 0 0 30px ${colors.gold}60, inset 0 2px 10px rgba(255,255,255,0.2)`;
+                }
+              }}
+            >
+               Millet Grains
+            </button>
+            <button
+              onClick={() => setActiveCategory('millet products')}
+              style={{
+                background: activeCategory === 'millet products' 
+                  ? `linear-gradient(135deg, ${colors.darkGreen}, ${colors.mediumGreen})`
+                  : `linear-gradient(135deg, ${colors.white}, ${colors.cream})`,
+                color: activeCategory === 'millet products' ? colors.white : colors.darkGreen,
+                border: `3px solid ${activeCategory === 'millet products' ? colors.gold : colors.mediumGreen}`,
+                padding: 'clamp(10px, 2vw, 14px) clamp(20px, 4vw, 32px)',
+                fontSize: 'clamp(12px, 2.5vw, 16px)',
+                fontWeight: '900',
+                borderRadius: '50px',
+                cursor: 'pointer',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                boxShadow: activeCategory === 'millet products' 
+                  ? `0 8px 25px rgba(15,77,44,0.4), 0 0 30px ${colors.gold}60, inset 0 2px 10px rgba(255,255,255,0.2)`
+                  : '0 4px 15px rgba(0,0,0,0.12)',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                fontFamily: '"Cinzel", Georgia, serif',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+              onMouseEnter={(e) => {
+                if (activeCategory !== 'millet products') {
+                  e.target.style.transform = 'translateY(-3px) scale(1.05)';
+                  e.target.style.boxShadow = `0 8px 25px rgba(0,0,0,0.2), 0 0 20px ${colors.gold}40`;
+                  e.target.style.borderColor = colors.gold;
+                  e.target.style.background = `linear-gradient(135deg, ${colors.cream}, ${colors.white})`;
+                } else {
+                  e.target.style.transform = 'translateY(-3px) scale(1.05)';
+                  e.target.style.boxShadow = `0 12px 35px rgba(15,77,44,0.5), 0 0 40px ${colors.gold}80`;
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeCategory !== 'millet products') {
+                  e.target.style.transform = 'translateY(0) scale(1)';
+                  e.target.style.boxShadow = '0 4px 15px rgba(0,0,0,0.12)';
+                  e.target.style.borderColor = colors.mediumGreen;
+                  e.target.style.background = `linear-gradient(135deg, ${colors.white}, ${colors.cream})`;
+                } else {
+                  e.target.style.transform = 'translateY(0) scale(1)';
+                  e.target.style.boxShadow = `0 8px 25px rgba(15,77,44,0.4), 0 0 30px ${colors.gold}60, inset 0 2px 10px rgba(255,255,255,0.2)`;
+                }
+              }}
+            >
+               Millet Products
+            </button>
           </div>
         </div>
       </section>
@@ -445,7 +495,7 @@ function Products() {
             fontFamily: 'Georgia, serif',
             letterSpacing: '2px'
           }}>
-            {activeCategory === 'all' ? '🌾 All Products' : activeCategory === 'rice' ? '🌾 Premium Rice Varieties' : activeCategory === 'millets' ? '🌾 Nutritious Millets' : '🌶️ Premium Spices'}
+            {activeCategory === 'all' ? '🌾 All Products' : activeCategory === 'rice' ? '🌾 Premium Rice Varieties' : activeCategory === 'millets' ? '🌾 Nutritious Millets' : activeCategory === 'millet products' ? '🌾 Millet Products' : '🌶️ Premium Spices'}
           </h2>
 
           <div className="products-grid" style={{
