@@ -55,41 +55,18 @@ function Products() {
     <div style={{
       width: '100%',
       paddingTop: '80px',
-      backgroundColor: colors.background,
+      background: 'linear-gradient(180deg, #071508 0%, #0a1f0f 30%, #071508 100%)',
       minHeight: '100vh'
     }}>
       <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes scaleIn { from { opacity:0; transform:scale(0.92); } to { opacity:1; transform:scale(1); } }
+        @keyframes shimmer { 0% { background-position:-200% center; } 100% { background-position:200% center; } }
+        @media (max-width: 600px) {
+          .products-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
         }
-        @keyframes scaleIn {
-          from { opacity: 0; transform: scale(0.9); }
-          to { opacity: 1; transform: scale(1); }
-        }
-        @media (max-width: 768px) {
-          div[style*="paddingTop: '110px'"] {
-            padding-top: 0 !important;
-          }
-          .product-card {
-            grid-template-columns: 1fr !important;
-          }
-          .product-card img {
-            height: 200px !important;
-            min-height: 200px !important;
-          }
-        }
-        @media (min-width: 1024px) {
-          .products-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-          .product-card {
-            grid-template-columns: 1fr !important;
-          }
-          .product-card img {
-            height: 350px !important;
-            min-height: 350px !important;
-          }
+        @media (min-width: 601px) and (max-width: 900px) {
+          .products-grid { grid-template-columns: repeat(3, 1fr) !important; }
         }
       `}</style>
       {/* Logo Section */}
@@ -201,7 +178,7 @@ function Products() {
       {/* Category Tabs */}
       <section style={{
         padding: 'clamp(20px, 4vw, 40px) clamp(20px, 5vw, 60px) 0',
-        backgroundColor: colors.white,
+        background: 'transparent',
         animation: 'fadeIn 1.2s ease-in'
       }}>
         <style>{`
@@ -481,175 +458,132 @@ function Products() {
 
       {/* Products Grid */}
       <section style={{
-        padding: 'clamp(20px, 4vw, 40px) clamp(20px, 5vw, 60px) clamp(20px, 4vw, 40px)',
-        backgroundColor: colors.white,
+        padding: 'clamp(20px, 4vw, 40px) clamp(20px, 5vw, 60px) clamp(40px, 6vw, 80px)',
+        background: 'transparent',
         animation: 'fadeIn 1.4s ease-in'
       }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <h2 style={{
-            textAlign: 'center',
-            color: colors.darkGreen,
-            fontSize: 'clamp(28px, 5vw, 42px)',
-            fontWeight: '900',
-            marginBottom: '35px',
-            fontFamily: 'Georgia, serif',
-            letterSpacing: '2px'
+            textAlign: 'center', color: colors.white,
+            fontSize: 'clamp(24px, 4vw, 36px)', fontWeight: '900',
+            marginBottom: '32px', fontFamily: 'Cinzel, Georgia, serif',
+            letterSpacing: '2px',
+            background: `linear-gradient(135deg, ${colors.white} 0%, ${colors.gold} 50%, ${colors.white} 100%)`,
+            backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+            animation: 'shimmer 4s linear infinite',
           }}>
-            {activeCategory === 'all' ? '🌾 All Products' : activeCategory === 'rice' ? '🌾 Premium Rice Varieties' : activeCategory === 'millets' ? '🌾 Nutritious Millets' : activeCategory === 'millet products' ? '🌾 Millet Products' : '🌶️ Premium Spices'}
+            {activeCategory === 'all' ? '🌾 All Products' : activeCategory === 'rice' ? '🌾 Premium Rice Varieties' : activeCategory === 'millets' ? '🌿 Nutritious Millets' : activeCategory === 'millet products' ? '🌿 Millet Products' : '🌶️ Premium Spices'}
           </h2>
 
           <div className="products-grid" style={{
             display: 'grid',
-            gridTemplateColumns: '1fr',
-            gap: 'clamp(20px, 4vw, 50px)'
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: 'clamp(14px, 2.5vw, 24px)'
           }}>
             {displayProducts.map((product, index) => {
               const imgSrc = product.image || (Array.isArray(product.images) ? product.images[0] : '');
               return (
-              <div key={index} className="product-card" style={{
-                backgroundColor: colors.white,
-                borderRadius: 'clamp(12px, 3vw, 20px)',
-                overflow: 'hidden',
-                boxShadow: `0 10px 30px rgba(0,0,0,0.1), 0 0 0 3px ${colors.gold}20`,
-                transition: 'all 0.4s ease',
-                cursor: 'pointer',
-                border: `clamp(2px, 0.5vw, 4px) solid ${colors.gold}40`,
-                animation: `scaleIn 0.6s ease-out ${index * 0.1}s backwards`,
-                display: 'grid',
-                gridTemplateColumns: '1fr',
-                alignItems: 'start'
+              <div key={index} style={{
+                background: 'linear-gradient(160deg, #0f3d20 0%, #071a0d 100%)',
+                borderRadius: '18px', overflow: 'hidden',
+                boxShadow: `0 4px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)`,
+                transition: 'all 0.45s cubic-bezier(0.34,1.56,0.64,1)',
+                cursor: 'pointer', position: 'relative',
+                border: `1px solid rgba(212,175,55,0.25)`,
+                animation: `scaleIn 0.5s ease-out ${index * 0.04}s backwards`,
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-8px)';
+                e.currentTarget.style.transform = 'translateY(-12px) scale(1.03)';
+                e.currentTarget.style.boxShadow = `0 28px 56px rgba(0,0,0,0.5), 0 0 0 1.5px ${colors.gold}, 0 0 50px ${colors.gold}30, inset 0 1px 0 rgba(255,255,255,0.1)`;
                 e.currentTarget.style.borderColor = colors.gold;
-                e.currentTarget.style.boxShadow = `0 20px 50px rgba(15,77,44,0.2), 0 0 0 4px ${colors.gold}`;
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = `${colors.gold}40`;
-                e.currentTarget.style.boxShadow = `0 10px 30px rgba(0,0,0,0.1), 0 0 0 3px ${colors.gold}20`;
+                e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                e.currentTarget.style.boxShadow = `0 4px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)`;
+                e.currentTarget.style.borderColor = 'rgba(212,175,55,0.25)';
               }}
               >
-                <img 
-                  src={imgSrc}
-                  alt={product.name}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    minHeight: 'clamp(200px, 40vw, 350px)',
-                    objectFit: 'cover'
-                  }}
-                />
-                <div style={{ padding: 'clamp(12px, 3vw, 20px)' }}>
+                {/* Image */}
+                <div style={{ position: 'relative', height: '230px', background: 'linear-gradient(180deg, #0a2410 0%, #051008 100%)', overflow: 'hidden' }}>
+                  <img src={imgSrc} alt={product.name}
+                    style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', padding: '10px', boxSizing: 'border-box', display: 'block', filter: 'drop-shadow(0 4px 16px rgba(0,0,0,0.6))' }}
+                  />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.8) 100%)' }} />
+                  {/* Corner accent */}
+                  <div style={{ position: 'absolute', top: 0, right: 0, width: '50px', height: '50px', background: `linear-gradient(225deg, ${colors.gold}35 0%, transparent 60%)`, borderBottomLeftRadius: '50px' }} />
+                  <div style={{
+                    position: 'absolute', top: '10px', left: '10px',
+                    background: `linear-gradient(135deg, ${colors.gold} 0%, #b8860b 100%)`,
+                    color: '#071a0d', padding: '3px 10px', borderRadius: '20px',
+                    fontSize: '9px', fontWeight: '900', textTransform: 'uppercase',
+                    letterSpacing: '1px', boxShadow: `0 2px 10px rgba(212,175,55,0.5)`
+                  }}>{product.category}</div>
                   <h3 style={{
-                    color: colors.darkGreen,
-                    fontSize: 'clamp(20px, 4vw, 26px)',
-                    fontWeight: '900',
-                    marginBottom: 'clamp(12px, 2.5vw, 15px)',
-                    fontFamily: 'Georgia, serif'
-                  }}>
-                    {product.name}
-                  </h3>
-                  <p style={{
-                    color: colors.textDark,
-                    fontSize: 'clamp(15px, 3vw, 17px)',
-                    lineHeight: '1.8',
-                    marginBottom: '15px',
-                    fontWeight: '500'
-                  }}>
+                    position: 'absolute', bottom: '10px', left: '10px', right: '10px',
+                    color: colors.white, fontSize: '14px', fontWeight: '800',
+                    margin: 0, fontFamily: 'Cinzel, Georgia, serif',
+                    textShadow: '0 2px 12px rgba(0,0,0,1)', textAlign: 'center',
+                    letterSpacing: '0.8px', lineHeight: '1.4'
+                  }}>{product.name}</h3>
+                </div>
+
+                {/* Gold shimmer divider */}
+                <div style={{ height: '1px', background: `linear-gradient(90deg, transparent 0%, ${colors.gold}80 30%, ${colors.gold} 50%, ${colors.gold}80 70%, transparent 100%)`, boxShadow: `0 0 8px ${colors.gold}50` }} />
+
+                {/* Content */}
+                <div style={{ padding: '12px 12px 14px' }}>
+                  <p style={{ color: '#6fa882', fontSize: '11px', lineHeight: '1.6', marginBottom: '8px', textAlign: 'center', fontStyle: 'italic' }}>
                     {product.description}
                   </p>
-                  <div style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: 'clamp(6px, 2vw, 10px)',
-                    marginBottom: 'clamp(12px, 2.5vw, 15px)'
-                  }}>
-                    {(product.features ?? []).map((feature, idx) => (
-                      <span key={idx} style={{
-                        backgroundColor: colors.white,
-                        color: colors.mediumGreen,
-                        padding: 'clamp(6px, 1.5vw, 8px) clamp(10px, 2.5vw, 16px)',
-                        borderRadius: 'clamp(15px, 3vw, 20px)',
-                        fontSize: 'clamp(11px, 2.5vw, 13px)',
-                        fontWeight: '700',
-                        border: `2px solid ${colors.mediumGreen}40`,
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
-                      }}>
-                        ✓ {feature}
-                      </span>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', justifyContent: 'center', marginBottom: '10px' }}>
+                    {(product.features ?? []).slice(0, 3).map((f, i) => (
+                      <span key={i} style={{
+                        background: 'rgba(212,175,55,0.08)', color: `${colors.gold}cc`,
+                        padding: '3px 9px', borderRadius: '20px', fontSize: '10px',
+                        fontWeight: '700', border: `1px solid ${colors.gold}25`, letterSpacing: '0.3px'
+                      }}>✦ {f}</span>
                     ))}
                   </div>
                   {product.quantities?.length > 0 && (
-                    <div style={{ marginBottom: 'clamp(12px, 2.5vw, 15px)' }}>
-                      <label style={{ display: 'block', color: colors.darkGreen, fontSize: 'clamp(14px, 3vw, 16px)', marginBottom: 'clamp(8px, 2vw, 10px)', fontWeight: '800' }}>Select Quantity:</label>
-                      <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-                        <select 
-                          value={selectedQuantities[index] || 0}
-                          onChange={(e) => setSelectedQuantities({...selectedQuantities, [index]: parseInt(e.target.value)})}
-                          style={{
-                            flex: 1,
-                            padding: 'clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 15px)',
-                            fontSize: 'clamp(14px, 3vw, 16px)',
-                            fontWeight: '700',
-                            color: colors.darkGreen,
-                            backgroundColor: colors.white,
-                            border: `2px solid ${colors.gold}`,
-                            borderRadius: 'clamp(6px, 1.5vw, 8px)',
-                            cursor: 'pointer',
-                            outline: 'none'
-                          }}
-                        >
-                          {(product.quantities ?? []).map((qty, idx) => (
-                            <option key={idx} value={idx}>{qty.label ?? qty.weight} - ₹{qty.price}</option>
-                          ))}
-                        </select>
-                        <div style={{
-                          padding: 'clamp(12px, 3vw, 15px)',
-                          backgroundColor: colors.lightGold || colors.cream,
-                          borderRadius: 'clamp(6px, 1.5vw, 8px)',
-                          textAlign: 'center',
-                          border: `2px solid ${colors.gold}`,
-                          minWidth: '120px'
-                        }}>
-                          <span style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: '900', color: colors.mediumGreen }}>
-                            ₹{(product.quantities?.[selectedQuantities[index] || 0])?.price ?? '—'}
-                          </span>
-                        </div>
-                      </div>
+                    <div style={{ marginBottom: '10px' }}>
+                      <select
+                        value={selectedQuantities[index] || 0}
+                        onChange={(e) => setSelectedQuantities({ ...selectedQuantities, [index]: parseInt(e.target.value) })}
+                        style={{
+                          width: '100%', padding: '6px 8px', fontSize: '10px',
+                          fontWeight: '700', color: colors.gold,
+                          background: 'rgba(212,175,55,0.08)',
+                          border: `1px solid ${colors.gold}40`,
+                          borderRadius: '8px', cursor: 'pointer', outline: 'none'
+                        }}
+                      >
+                        {(product.quantities ?? []).map((qty, i) => (
+                          <option key={i} value={i} style={{ background: '#071a0d' }}>{qty.label ?? qty.weight} — ₹{qty.price}</option>
+                        ))}
+                      </select>
                     </div>
                   )}
                   <Link to="/quote" style={{ textDecoration: 'none' }}>
                     <button style={{
                       width: '100%',
-                      background: `linear-gradient(135deg, ${colors.mediumGreen}, ${colors.darkGreen})`,
-                      color: colors.white,
-                      border: 'none',
-                      padding: 'clamp(12px, 3vw, 14px)',
-                      borderRadius: 'clamp(8px, 2vw, 12px)',
-                      fontSize: 'clamp(14px, 3vw, 16px)',
-                      fontWeight: '900',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease',
-                      textTransform: 'uppercase',
-                      letterSpacing: 'clamp(0.5px, 0.2vw, 1px)',
-                      boxShadow: '0 4px 15px rgba(15,77,44,0.3)'
+                      background: `linear-gradient(135deg, ${colors.gold} 0%, #e8c547 50%, #b8860b 100%)`,
+                      color: '#071a0d', border: 'none', padding: '9px 6px',
+                      borderRadius: '10px', fontSize: '9.5px', fontWeight: '900',
+                      cursor: 'pointer', transition: 'all 0.3s ease',
+                      textTransform: 'uppercase', letterSpacing: '1.2px',
+                      boxShadow: `0 4px 16px rgba(212,175,55,0.35), inset 0 1px 0 rgba(255,255,255,0.2)`
                     }}
                     onMouseEnter={(e) => {
-                      e.target.style.background = `linear-gradient(135deg, ${colors.gold}, #e6c14a)`;
-                      e.target.style.color = colors.darkGreen;
+                      e.target.style.background = `linear-gradient(135deg, #f5d76e 0%, ${colors.gold} 100%)`;
                       e.target.style.transform = 'translateY(-2px)';
-                      e.target.style.boxShadow = '0 6px 20px rgba(212,175,55,0.4)';
+                      e.target.style.boxShadow = `0 8px 24px rgba(212,175,55,0.55)`;
                     }}
                     onMouseLeave={(e) => {
-                      e.target.style.background = `linear-gradient(135deg, ${colors.mediumGreen}, ${colors.darkGreen})`;
-                      e.target.style.color = colors.white;
+                      e.target.style.background = `linear-gradient(135deg, ${colors.gold} 0%, #e8c547 50%, #b8860b 100%)`;
                       e.target.style.transform = 'translateY(0)';
-                      e.target.style.boxShadow = '0 4px 15px rgba(15,77,44,0.3)';
+                      e.target.style.boxShadow = `0 4px 16px rgba(212,175,55,0.35), inset 0 1px 0 rgba(255,255,255,0.2)`;
                     }}
-                    >
-                      📞 Get Quote
-                    </button>
+                    >📞 Get Quote ›</button>
                   </Link>
                 </div>
               </div>
