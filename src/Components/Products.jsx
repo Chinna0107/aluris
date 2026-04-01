@@ -532,14 +532,14 @@ function Products() {
 
                 {/* Content */}
                 <div style={{ padding: '12px 12px 14px' }}>
-                  <p style={{ color: '#6fa882', fontSize: '11px', lineHeight: '1.6', marginBottom: '8px', textAlign: 'center', fontStyle: 'italic' }}>
+                  <p style={{ color: '#6fa882', fontSize: '15px', lineHeight: '1.7', marginBottom: '8px', textAlign: 'center', fontStyle: 'italic' }}>
                     {product.description}
                   </p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', justifyContent: 'center', marginBottom: '10px' }}>
                     {(product.features ?? []).slice(0, 3).map((f, i) => (
                       <span key={i} style={{
                         background: 'rgba(212,175,55,0.08)', color: `${colors.gold}cc`,
-                        padding: '3px 9px', borderRadius: '20px', fontSize: '10px',
+                        padding: '5px 12px', borderRadius: '20px', fontSize: '13px',
                         fontWeight: '700', border: `1px solid ${colors.gold}25`, letterSpacing: '0.3px'
                       }}>✦ {f}</span>
                     ))}
