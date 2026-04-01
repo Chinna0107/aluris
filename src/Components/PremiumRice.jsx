@@ -135,7 +135,7 @@ function PremiumRice() {
               marginBottom: '25px',
               fontWeight: '500'
             }}>
-              <strong style={{ color: colors.gold, fontSize: '22px' }}>ALURI'S GLOBAL TRADE™</strong> is a premium supplier of rice, millets, and spices based in <strong>Visakhapatnam, India</strong>.
+              <strong style={{ color: colors.gold, fontSize: '22px' }}>ALURI'S GLOBAL TRADE<sup style={{ fontSize: '0.5em', verticalAlign: 'top', position: 'relative', top: '0.1em' }}>™</sup></strong> is a premium supplier of rice, millets, and spices based in <strong>Visakhapatnam, India</strong>.
             </p>
             <p style={{
               color: colors.textDark,
