@@ -357,7 +357,7 @@ function Home() {
                       }}>✦ {f}</span>
                     ))}
                   </div>
-                  <Link to="/products" style={{ textDecoration: 'none' }}>
+                  <Link to={`/products/${product.id}`} style={{ textDecoration: 'none' }}>
                     <button style={{
                       width: '100%',
                       background: `linear-gradient(135deg, ${colors.gold} 0%, #e8c547 50%, #b8860b 100%)`,

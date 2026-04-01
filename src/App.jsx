@@ -10,6 +10,7 @@ import Quality from './Components/Quality'
 import Quote from './Components/Quote'
 import Login from './Components/Login'
 import AdminProducts from './Components/AdminProducts'
+import ProductDetail from './Components/ProductDetail'
 
 const HIDE_LAYOUT = ['/login', '/admin/products'];
 
@@ -29,6 +30,7 @@ function Layout() {
         <Route path="/quote" element={<Quote />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin/products" element={<AdminProducts />} />
+        <Route path="/products/:slug" element={<ProductDetail />} />
       </Routes>
       {!hideLayout && <Footer />}
     </div>

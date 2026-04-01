@@ -1,22 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
-
-const colors = {
-  darkGreen: '#0f4d2c',
-  mediumGreen: '#1b6b3d',
-  gold: '#d4af37',
-  cream: '#f3eadc',
-  white: '#ffffff',
-  error: '#c0392b',
-};
-
-const ADMIN_CREDENTIALS = { username: 'admin', password: 'admin123' };
+import farmerImage from '../assets/gp.jpeg';
 
 export default function Login() {
   const [form, setForm] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -35,7 +26,7 @@ export default function Login() {
         localStorage.setItem('adminToken', data.token);
         navigate('/admin/products');
       } else {
-        setError(data.message || 'Invalid username or password');
+        setError(data.message || 'Invalid credentials');
       }
     } catch {
       setError('Server error. Please try again.');
@@ -47,136 +38,197 @@ export default function Login() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: `linear-gradient(135deg, ${colors.darkGreen} 0%, ${colors.mediumGreen} 60%, #2d8a50 100%)`,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '20px',
-      position: 'relative',
-      overflow: 'hidden',
+      background: 'linear-gradient(135deg, #020d05 0%, #071508 40%, #0a1f0f 70%, #071508 100%)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: '20px', position: 'relative', overflow: 'hidden',
     }}>
-      {/* Background decorative circles */}
-      <div style={{ position: 'absolute', top: '-80px', left: '-80px', width: '300px', height: '300px', borderRadius: '50%', background: 'rgba(212,175,55,0.08)', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', bottom: '-100px', right: '-60px', width: '350px', height: '350px', borderRadius: '50%', background: 'rgba(212,175,55,0.06)', pointerEvents: 'none' }} />
+      <style>{`
+        @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+        @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        .login-input:focus { border-color:#d4af37 !important; box-shadow:0 0 0 3px rgba(212,175,55,0.15) !important; }
+        .login-btn:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 12px 35px rgba(212,175,55,0.5) !important; }
+        .login-panel { display:grid; grid-template-columns:minmax(260px, 1.05fr) minmax(320px, 0.95fr); }
+        @media (max-width: 900px) {
+          .login-panel { grid-template-columns: 1fr; }
+          .login-left { min-height: 240px; }
+        }
+      `}</style>
 
-      <div style={{
-        background: colors.white,
-        borderRadius: '24px',
-        padding: 'clamp(32px, 5vw, 52px) clamp(28px, 5vw, 48px)',
-        width: '100%',
-        maxWidth: '420px',
-        boxShadow: '0 25px 60px rgba(0,0,0,0.3)',
+      {/* Ambient orbs */}
+      <div style={{ position:'absolute', top:'-120px', left:'-120px', width:'400px', height:'400px', borderRadius:'50%', background:'radial-gradient(circle, rgba(212,175,55,0.07) 0%, transparent 70%)', pointerEvents:'none' }} />
+      <div style={{ position:'absolute', bottom:'-150px', right:'-100px', width:'500px', height:'500px', borderRadius:'50%', background:'radial-gradient(circle, rgba(15,77,44,0.3) 0%, transparent 70%)', pointerEvents:'none' }} />
+      <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', width:'700px', height:'700px', borderRadius:'50%', background:'radial-gradient(circle, rgba(212,175,55,0.03) 0%, transparent 60%)', pointerEvents:'none' }} />
+
+      {/* Split panel */}
+      <div className="login-panel" style={{
+        width: '100%', maxWidth: '980px',
+        background: '#0b120d',
+        borderRadius: '28px',
+        border: '1px solid rgba(212,175,55,0.22)',
+        overflow: 'hidden',
+        boxShadow: '0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.1)',
         position: 'relative',
         zIndex: 1,
+        animation: 'fadeUp 0.6s ease-out',
       }}>
-        {/* Logo & Title */}
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+        {/* Left: Farmer image */}
+        <div className="login-left" style={{
+          background: `linear-gradient(140deg, rgba(7,21,8,0.85), rgba(15,77,44,0.4)), url(${farmerImage}) center/cover no-repeat`,
+          padding: '42px',
+          color: '#fff',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          position: 'relative',
+        }}>
           <div style={{
-            width: '72px', height: '72px', borderRadius: '50%',
-            background: `linear-gradient(135deg, ${colors.darkGreen}, ${colors.mediumGreen})`,
+            width: '76px', height: '76px', borderRadius: '50%',
+            background: 'rgba(255,255,255,0.15)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            margin: '0 auto 16px',
-            boxShadow: `0 8px 24px rgba(15,77,44,0.35)`,
-            fontSize: '32px',
+            fontSize: '34px',
+            border: '1px solid rgba(255,255,255,0.35)',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+            animation: 'float 4s ease-in-out infinite',
           }}>🌾</div>
-          <h1 style={{ margin: 0, fontSize: '26px', fontWeight: '800', color: colors.darkGreen, fontFamily: '"Cinzel", serif', letterSpacing: '1px' }}>
-            Admin Portal
-          </h1>
-          <p style={{ margin: '6px 0 0', color: '#777', fontSize: '14px' }}>
-            Aluri's Global Trade™ — Farm Management
-          </p>
+          <div>
+            <h2 style={{ margin: '16px 0 8px', fontSize: '30px', fontWeight: '900', letterSpacing: '0.5px' }}>
+              Welcome Back
+            </h2>
+            <p style={{ margin: 0, fontSize: '15px', lineHeight: 1.7, color: 'rgba(255,255,255,0.85)' }}>
+              Access the admin panel to manage inventory, pricing, and product listings with confidence.
+            </p>
+          </div>
+          <div style={{
+            padding: '14px 16px',
+            borderRadius: '14px',
+            background: 'rgba(255,255,255,0.12)',
+            border: '1px solid rgba(255,255,255,0.25)',
+            fontSize: '12px',
+            letterSpacing: '0.6px',
+          }}>
+            Aluri&apos;s Global Trade
+            <div style={{ fontSize: '11px', opacity: 0.8, marginTop: '6px' }}>Premium grains, trusted sourcing</div>
+          </div>
         </div>
 
-        {/* Divider */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '28px' }}>
-          <div style={{ flex: 1, height: '1px', background: colors.cream }} />
-          <span style={{ fontSize: '18px' }}>🌱</span>
-          <div style={{ flex: 1, height: '1px', background: colors.cream }} />
+        {/* Right: Login form */}
+        <div style={{
+          background: 'linear-gradient(160deg, #0f3d20 0%, #071a0d 100%)',
+          padding: 'clamp(32px, 4vw, 50px)',
+          position: 'relative',
+        }}>
+          <div style={{ position:'absolute', top:0, left:'12%', right:'12%', height:'2px', background:'linear-gradient(90deg, transparent, #d4af37, transparent)', borderRadius:'2px' }} />
+
+          <div style={{ textAlign:'left', marginBottom:'30px' }}>
+            <h1 style={{
+              margin:'0 0 6px', fontSize:'28px', fontWeight:'900',
+              fontFamily:'"Cinzel", serif', letterSpacing:'2px',
+              background:'linear-gradient(135deg, #ffffff 0%, #d4af37 50%, #ffffff 100%)',
+              backgroundSize:'200% auto', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent',
+              animation:'shimmer 4s linear infinite',
+            }}>Admin Portal</h1>
+            <p style={{ margin:0, color:'rgba(212,175,55,0.6)', fontSize:'12px', letterSpacing:'3px', textTransform:'uppercase', fontWeight:'700' }}>
+              Aluri's Global Trade
+            </p>
+          </div>
+
+          <div style={{ display:'flex', alignItems:'center', gap:'12px', marginBottom:'26px' }}>
+            <div style={{ flex:1, height:'1px', background:'linear-gradient(90deg, transparent, rgba(212,175,55,0.3))' }} />
+            <span style={{ color:'rgba(212,175,55,0.5)', fontSize:'14px' }}>✦</span>
+            <div style={{ flex:1, height:'1px', background:'linear-gradient(90deg, rgba(212,175,55,0.3), transparent)' }} />
+          </div>
+
+          <form onSubmit={handleSubmit}>
+            <div style={{ marginBottom:'20px' }}>
+              <label style={{ display:'block', fontSize:'11px', fontWeight:'800', color:'rgba(212,175,55,0.8)', marginBottom:'8px', letterSpacing:'2px', textTransform:'uppercase' }}>
+                Username
+              </label>
+              <div style={{ position:'relative' }}>
+                <span style={{ position:'absolute', left:'14px', top:'50%', transform:'translateY(-50%)', fontSize:'16px', opacity:0.6 }}>👤</span>
+                <input
+                  className="login-input"
+                  type="text" value={form.username}
+                  onChange={e => setForm(f => ({ ...f, username: e.target.value }))}
+                  placeholder="Enter username"
+                  required
+                  style={{
+                    width:'100%', padding:'13px 14px 13px 44px',
+                    background:'rgba(255,255,255,0.04)', border:'1px solid rgba(212,175,55,0.2)',
+                    borderRadius:'12px', fontSize:'15px', outline:'none',
+                    boxSizing:'border-box', color:'#fff', fontFamily:'inherit',
+                    transition:'all 0.2s',
+                  }}
+                />
+              </div>
+            </div>
+
+            <div style={{ marginBottom:'26px' }}>
+              <label style={{ display:'block', fontSize:'11px', fontWeight:'800', color:'rgba(212,175,55,0.8)', marginBottom:'8px', letterSpacing:'2px', textTransform:'uppercase' }}>
+                Password
+              </label>
+              <div style={{ position:'relative' }}>
+                <span style={{ position:'absolute', left:'14px', top:'50%', transform:'translateY(-50%)', fontSize:'16px', opacity:0.6 }}>🔒</span>
+                <input
+                  className="login-input"
+                  type={showPass ? 'text' : 'password'} value={form.password}
+                  onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
+                  placeholder="Enter password"
+                  required
+                  style={{
+                    width:'100%', padding:'13px 44px 13px 44px',
+                    background:'rgba(255,255,255,0.04)', border:'1px solid rgba(212,175,55,0.2)',
+                    borderRadius:'12px', fontSize:'15px', outline:'none',
+                    boxSizing:'border-box', color:'#fff', fontFamily:'inherit',
+                    transition:'all 0.2s',
+                  }}
+                />
+                <button type="button" onClick={() => setShowPass(s => !s)} style={{
+                  position:'absolute', right:'14px', top:'50%', transform:'translateY(-50%)',
+                  background:'none', border:'none', cursor:'pointer', fontSize:'16px', opacity:0.5, padding:0,
+                }}>{showPass ? '🙈' : '👁️'}</button>
+              </div>
+            </div>
+
+            {error && (
+              <div style={{
+                background:'rgba(192,57,43,0.12)', border:'1px solid rgba(192,57,43,0.4)',
+                borderRadius:'10px', padding:'12px 16px', marginBottom:'20px',
+                color:'#ff6b6b', fontSize:'13px', fontWeight:'600',
+                display:'flex', alignItems:'center', gap:'8px',
+              }}>⚠️ {error}</div>
+            )}
+
+            <button
+              type="submit" disabled={loading} className="login-btn"
+              style={{
+                width:'100%', padding:'15px',
+                background: loading ? 'rgba(212,175,55,0.3)' : 'linear-gradient(135deg, #d4af37 0%, #e8c547 50%, #b8860b 100%)',
+                color: loading ? 'rgba(255,255,255,0.5)' : '#071a0d',
+                border:'none', borderRadius:'12px', fontSize:'15px', fontWeight:'900',
+                cursor: loading ? 'not-allowed' : 'pointer', letterSpacing:'1.5px',
+                textTransform:'uppercase', transition:'all 0.3s',
+                boxShadow: loading ? 'none' : '0 6px 24px rgba(212,175,55,0.4)',
+              }}
+            >
+              {loading ? (
+                <span style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:'8px' }}>
+                  <span style={{ display:'inline-block', width:'14px', height:'14px', border:'2px solid rgba(255,255,255,0.3)', borderTopColor:'#fff', borderRadius:'50%', animation:'spin 0.8s linear infinite' }} />
+                  Signing in...
+                </span>
+              ) : 'Sign In to Dashboard'}
+            </button>
+          </form>
+
+          <div style={{ display:'flex', alignItems:'center', gap:'12px', marginTop:'28px' }}>
+            <div style={{ flex:1, height:'1px', background:'linear-gradient(90deg, transparent, rgba(212,175,55,0.2))' }} />
+            <p style={{ margin:0, fontSize:'11px', color:'rgba(255,255,255,0.2)', letterSpacing:'1px', whiteSpace:'nowrap' }}>Empowering Farmers</p>
+            <div style={{ flex:1, height:'1px', background:'linear-gradient(90deg, rgba(212,175,55,0.2), transparent)' }} />
+          </div>
+
+          <div style={{ position:'absolute', bottom:0, left:'12%', right:'12%', height:'2px', background:'linear-gradient(90deg, transparent, #d4af37, transparent)', borderRadius:'2px' }} />
         </div>
-
-        <form onSubmit={handleSubmit}>
-          {/* Username */}
-          <div style={{ marginBottom: '18px' }}>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: colors.darkGreen, marginBottom: '6px', letterSpacing: '0.5px' }}>
-              USERNAME
-            </label>
-            <div style={{ position: 'relative' }}>
-              <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '16px' }}>👤</span>
-              <input
-                type="text"
-                value={form.username}
-                onChange={e => setForm(f => ({ ...f, username: e.target.value }))}
-                placeholder="Enter your username"
-                required
-                style={{
-                  width: '100%', padding: '12px 14px 12px 42px',
-                  border: `2px solid ${colors.cream}`, borderRadius: '10px',
-                  fontSize: '15px', outline: 'none', boxSizing: 'border-box',
-                  transition: 'border-color 0.2s',
-                  fontFamily: 'inherit',
-                }}
-                onFocus={e => e.target.style.borderColor = colors.mediumGreen}
-                onBlur={e => e.target.style.borderColor = colors.cream}
-              />
-            </div>
-          </div>
-
-          {/* Password */}
-          <div style={{ marginBottom: '24px' }}>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: colors.darkGreen, marginBottom: '6px', letterSpacing: '0.5px' }}>
-              PASSWORD
-            </label>
-            <div style={{ position: 'relative' }}>
-              <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '16px' }}>🔒</span>
-              <input
-                type="password"
-                value={form.password}
-                onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
-                placeholder="Enter your password"
-                required
-                style={{
-                  width: '100%', padding: '12px 14px 12px 42px',
-                  border: `2px solid ${colors.cream}`, borderRadius: '10px',
-                  fontSize: '15px', outline: 'none', boxSizing: 'border-box',
-                  transition: 'border-color 0.2s',
-                  fontFamily: 'inherit',
-                }}
-                onFocus={e => e.target.style.borderColor = colors.mediumGreen}
-                onBlur={e => e.target.style.borderColor = colors.cream}
-              />
-            </div>
-          </div>
-
-          {error && (
-            <div style={{
-              background: '#fdf0ef', border: `1px solid ${colors.error}`,
-              borderRadius: '8px', padding: '10px 14px', marginBottom: '18px',
-              color: colors.error, fontSize: '13px', fontWeight: '600',
-              display: 'flex', alignItems: 'center', gap: '8px',
-            }}>
-              ⚠️ {error}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              width: '100%', padding: '14px',
-              background: loading ? '#aaa' : `linear-gradient(135deg, ${colors.darkGreen}, ${colors.mediumGreen})`,
-              color: colors.white, border: 'none', borderRadius: '10px',
-              fontSize: '16px', fontWeight: '800', cursor: loading ? 'not-allowed' : 'pointer',
-              letterSpacing: '1px', transition: 'all 0.3s',
-              boxShadow: loading ? 'none' : `0 6px 20px rgba(15,77,44,0.4)`,
-            }}
-          >
-            {loading ? '🌾 Signing in...' : '🚜 Sign In'}
-          </button>
-        </form>
-
-        <p style={{ textAlign: 'center', marginTop: '24px', fontSize: '12px', color: '#aaa' }}>
-          🌿 Empowering Farmers · Aluri's Global Trade™
-        </p>
       </div>
     </div>
   );

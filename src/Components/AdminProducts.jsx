@@ -13,7 +13,7 @@ const colors = {
   success: '#27ae60',
 };
 
-const EMPTY_FORM = { name: '', category: 'rice', price: '', unit: 'kg', description: '', image: '', stock: '', features: [], quantities: [] };
+const EMPTY_FORM = { name: '', category: 'rice', unit: 'kg', description: '', images: ['', '', '', '', ''], features: [], quantities: [] };
 const CATEGORIES = ['rice', 'spices', 'millets', 'millet products'];
 const FALLBACK_IMG = 'https://placehold.co/50x50?text=🌾';
 
@@ -26,6 +26,8 @@ export default function AdminProducts() {
   const [toast, setToast] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [filterCat, setFilterCat] = useState('all');
+  const [lastFetch, setLastFetch] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const token = localStorage.getItem('adminToken');
@@ -54,6 +56,7 @@ export default function AdminProducts() {
       const data = await res.json();
       const list = data.success ? data.products : Array.isArray(data) ? data : [];
       setProducts(list.map(p => ({ ...p, features: p.features ?? [], quantities: p.quantities ?? [] })));
+      setLastFetch(new Date());
     } catch {
       showToast('Failed to fetch products', 'error');
       setProducts([]);
@@ -64,6 +67,7 @@ export default function AdminProducts() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
     const method = editId ? 'PUT' : 'POST';
     const url = editId
       ? `${config.API_URL}/api/admin/products/${editId}`
@@ -82,6 +86,8 @@ export default function AdminProducts() {
       }
     } catch {
       showToast('Server error', 'error');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -104,7 +110,7 @@ export default function AdminProducts() {
   };
 
   const startEdit = (p) => {
-    setForm({ name: p.name, category: p.category, price: p.price, unit: p.unit || 'kg', description: p.description || '', image: p.image || '', stock: p.stock || '', features: p.features ?? [], quantities: p.quantities ?? [] });
+    setForm({ name: p.name, category: p.category, unit: p.unit || 'kg', description: p.description || '', images: p.images?.length ? [...p.images, ...Array(5).fill('')].slice(0, 5) : [p.image || '', '', '', '', ''], features: p.features ?? [], quantities: p.quantities ?? [] });
     setEditId(p.id);
     setShowForm(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -112,12 +118,46 @@ export default function AdminProducts() {
 
   const cancelForm = () => { setForm(EMPTY_FORM); setEditId(null); setShowForm(false); };
 
-  const filtered = filterCat === 'all' ? products : products.filter(p => p.category?.toLowerCase() === filterCat);
+  const normalized = (value) => (value ?? '').toString().toLowerCase();
+  const formatTime = (d) => (d ? d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '');
+  const filtered = products.filter(p => {
+    const catMatch = filterCat === 'all' ? true : normalized(p.category) === filterCat;
+    return catMatch;
+  });
+
+  const visible = [...filtered].sort((a, b) => normalized(a.name).localeCompare(normalized(b.name)));
+
+  const totalCount = products.length;
+  const categoryCounts = CATEGORIES.reduce((acc, c) => ({ ...acc, [c]: products.filter(p => normalized(p.category) === c).length }), {});
 
   const inputStyle = {
     width: '100%', padding: '10px 12px', border: `2px solid ${colors.cream}`,
     borderRadius: '8px', fontSize: '14px', outline: 'none', boxSizing: 'border-box',
     fontFamily: 'inherit', transition: 'border-color 0.2s',
+  };
+
+  const exportCSV = () => {
+    const rows = [
+      ['Name', 'Category', 'Unit', 'Description', 'Image'],
+      ...visible.map(p => [
+        p.name ?? '',
+        p.category ?? '',
+        p.unit ?? '',
+        (p.description ?? '').replace(/\n/g, ' '),
+        (p.images?.[0] || p.image || ''),
+      ]),
+    ];
+    const escape = (v) => `"${String(v).replace(/"/g, '""')}"`;
+    const csv = rows.map(r => r.map(escape).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `products_${new Date().toISOString().slice(0,10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -151,16 +191,51 @@ export default function AdminProducts() {
         </div>
       )}
 
-      <style>{`@keyframes fadeIn { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }`}</style>
+      <style>{`
+        @keyframes fadeIn { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes softPulse { 0% { box-shadow: 0 0 0 0 rgba(212,175,55,0.3); } 70% { box-shadow: 0 0 0 12px rgba(212,175,55,0); } 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); } }
+        @keyframes glowIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+        .admin-table { overflow-x: auto; }
+        .admin-row { min-width: 620px; }
+        @media (max-width: 900px) {
+          .admin-row { min-width: 560px; }
+        }
+      `}</style>
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '24px 20px' }}>
+        {/* Banner */}
+        <div style={{
+          background: `linear-gradient(120deg, ${colors.darkGreen} 0%, ${colors.mediumGreen} 60%, #2a7f4a 100%)`,
+          color: colors.white, borderRadius: '18px', padding: '18px 22px',
+          boxShadow: '0 8px 24px rgba(15,77,44,0.25)', marginBottom: '18px',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap',
+          animation: 'glowIn 0.4s ease',
+        }}>
+          <div>
+            <div style={{ fontSize: '12px', letterSpacing: '1px', opacity: 0.8, fontWeight: '700' }}>ADMIN WORKSPACE</div>
+            <div style={{ fontSize: '20px', fontWeight: '900', marginTop: '4px' }}>Manage your catalog with confidence</div>
+          </div>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            <div style={{ background: 'rgba(255,255,255,0.14)', borderRadius: '12px', padding: '10px 14px', fontSize: '12px', fontWeight: '700' }}>
+              Total Products: {totalCount}
+            </div>
+            <div style={{ background: 'rgba(255,255,255,0.14)', borderRadius: '12px', padding: '10px 14px', fontSize: '12px', fontWeight: '700' }}>
+              Last Sync: {formatTime(lastFetch) || '—'}
+            </div>
+          </div>
+        </div>
+
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '28px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '18px' }}>
           <div>
             <h1 style={{ margin: 0, fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: '900', color: colors.darkGreen, fontFamily: '"Cinzel", serif' }}>
               🌾 Product Management
             </h1>
-            <p style={{ margin: '4px 0 0', color: '#777', fontSize: '14px' }}>{products.length} products total</p>
+            <p style={{ margin: '4px 0 0', color: '#777', fontSize: '14px' }}>
+              {totalCount} products total
+              {lastFetch && <span style={{ marginLeft: '10px', color: '#9a9a9a' }}>• Last sync {formatTime(lastFetch)}</span>}
+            </p>
           </div>
           <div style={{ display: 'flex', gap: '10px' }}>
             <button
@@ -175,12 +250,61 @@ export default function AdminProducts() {
               {showForm ? '✕ Cancel' : '+ Add Product'}
             </button>
             <button
+              onClick={fetchProducts}
+              style={{ padding: '10px 18px', borderRadius: '10px', border: `2px solid ${colors.cream}`, background: colors.white, color: colors.darkGreen, fontWeight: '700', fontSize: '14px', cursor: 'pointer' }}
+            >
+              Refresh
+            </button>
+            <button
+              onClick={exportCSV}
+              style={{ padding: '10px 18px', borderRadius: '10px', border: `2px solid ${colors.gold}`, background: colors.white, color: colors.darkGreen, fontWeight: '800', fontSize: '14px', cursor: 'pointer' }}
+            >
+              Export CSV
+            </button>
+            <button
               onClick={() => { localStorage.removeItem('isAdmin'); localStorage.removeItem('adminToken'); navigate('/login'); }}
               style={{ padding: '10px 18px', borderRadius: '10px', border: `2px solid ${colors.error}`, background: colors.white, color: colors.error, fontWeight: '700', fontSize: '14px', cursor: 'pointer' }}
             >
               Logout
             </button>
           </div>
+        </div>
+
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+          gap: '12px', marginBottom: '22px',
+        }}>
+          {[
+            { label: 'Total Products', value: totalCount, accent: colors.darkGreen },
+            { label: 'Categories', value: new Set(products.map(p => normalized(p.category)).filter(Boolean)).size, accent: colors.mediumGreen },
+          ].map(card => (
+            <div key={card.label} style={{
+              background: colors.white, borderRadius: '14px', padding: '14px 16px',
+              border: `1px solid ${colors.cream}`, boxShadow: '0 8px 20px rgba(0,0,0,0.04)',
+              position: 'relative',
+            }}>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: '#777', letterSpacing: '0.6px' }}>{card.label.toUpperCase()}</div>
+              <div style={{ fontSize: '22px', fontWeight: '900', color: card.accent, marginTop: '6px' }}>{card.value}</div>
+              {card.pulse && card.value > 0 && (
+                <span style={{
+                  position: 'absolute', top: '14px', right: '14px', width: '10px', height: '10px',
+                  borderRadius: '50%', background: colors.gold, animation: 'softPulse 1.8s infinite',
+                }} />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Category Quick Chips */}
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '14px' }}>
+          {CATEGORIES.map(cat => (
+            <div key={cat} style={{
+              background: '#fff', border: `1px solid ${colors.cream}`, borderRadius: '999px',
+              padding: '6px 12px', fontSize: '12px', fontWeight: '700', color: colors.darkGreen,
+            }}>
+              {cat} • {categoryCounts[cat]}
+            </div>
+          ))}
         </div>
 
         {/* Add/Edit Form */}
@@ -197,15 +321,27 @@ export default function AdminProducts() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
                 {[
                   { label: 'Product Name', key: 'name', type: 'text', placeholder: 'e.g. Sona Masoori Rice' },
-                  { label: 'Price (₹)', key: 'price', type: 'number', placeholder: 'e.g. 60' },
-                  { label: 'Stock (qty)', key: 'stock', type: 'number', placeholder: 'e.g. 100' },
-                  { label: 'Image URL', key: 'image', type: 'url', placeholder: 'https://...' },
                 ].map(({ label, key, type, placeholder }) => (
                   <div key={key}>
                     <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: colors.darkGreen, marginBottom: '5px', letterSpacing: '0.5px' }}>{label.toUpperCase()}</label>
                     <input
                       type={type} value={form[key]} placeholder={placeholder} required={key !== 'image'}
                       onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
+                      style={inputStyle}
+                      onFocus={e => e.target.style.borderColor = colors.mediumGreen}
+                      onBlur={e => e.target.style.borderColor = colors.cream}
+                    />
+                  </div>
+                ))}
+
+                {/* 5 Image URLs */}
+                {[0,1,2,3,4].map(i => (
+                  <div key={`img-${i}`}>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: colors.darkGreen, marginBottom: '5px', letterSpacing: '0.5px' }}>IMAGE {i + 1} URL {i === 0 ? '(MAIN) *' : '(OPTIONAL)'}</label>
+                    <input
+                      type="url" value={form.images[i]} placeholder="https://..."
+                      required={i === 0}
+                      onChange={e => setForm(f => { const imgs = [...f.images]; imgs[i] = e.target.value; return { ...f, images: imgs }; })}
                       style={inputStyle}
                       onFocus={e => e.target.style.borderColor = colors.mediumGreen}
                       onBlur={e => e.target.style.borderColor = colors.cream}
@@ -270,14 +406,14 @@ export default function AdminProducts() {
                 <div style={{ gridColumn: '1 / -1' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
                     <label style={{ fontSize: '12px', fontWeight: '700', color: colors.darkGreen, letterSpacing: '0.5px' }}>QUANTITIES & PRICES</label>
-                    <button type="button" onClick={() => setForm(f => ({ ...f, quantities: [...f.quantities, { label: '', price: '' }] }))}
+                    <button type="button" onClick={() => setForm(f => ({ ...f, quantities: [...f.quantities, { label: '', price: '', originalPrice: '' }] }))}
                       style={{ fontSize: '12px', fontWeight: '700', color: colors.mediumGreen, background: 'none', border: `1px solid ${colors.mediumGreen}`, borderRadius: '6px', padding: '3px 10px', cursor: 'pointer' }}>
                       + Add Quantity
                     </button>
                   </div>
                   {form.quantities.length === 0 && <p style={{ fontSize: '12px', color: '#bbb', margin: 0 }}>No quantity options added yet.</p>}
                   {form.quantities.map((q, i) => (
-                    <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: '8px', marginBottom: '8px' }}>
+                    <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', gap: '8px', marginBottom: '8px' }}>
                       <input
                         type="text" value={q.label} placeholder="Label, e.g. 25 kg bag"
                         onChange={e => setForm(f => { const arr = [...f.quantities]; arr[i] = { ...arr[i], label: e.target.value }; return { ...f, quantities: arr }; })}
@@ -286,7 +422,14 @@ export default function AdminProducts() {
                         onBlur={e => e.target.style.borderColor = colors.cream}
                       />
                       <input
-                        type="number" value={q.price} placeholder="Price (₹)"
+                        type="number" value={q.originalPrice ?? ''} placeholder="MRP (₹)"
+                        onChange={e => setForm(f => { const arr = [...f.quantities]; arr[i] = { ...arr[i], originalPrice: e.target.value }; return { ...f, quantities: arr }; })}
+                        style={inputStyle}
+                        onFocus={e => e.target.style.borderColor = colors.mediumGreen}
+                        onBlur={e => e.target.style.borderColor = colors.cream}
+                      />
+                      <input
+                        type="number" value={q.price} placeholder="Our Price (₹)"
                         onChange={e => setForm(f => { const arr = [...f.quantities]; arr[i] = { ...arr[i], price: e.target.value }; return { ...f, quantities: arr }; })}
                         style={inputStyle}
                         onFocus={e => e.target.style.borderColor = colors.mediumGreen}
@@ -302,13 +445,26 @@ export default function AdminProducts() {
               </div>
 
               <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
-                <button type="submit" style={{
+                <button type="submit" disabled={submitting} style={{
                   padding: '12px 28px', borderRadius: '10px', border: 'none',
-                  background: `linear-gradient(135deg, ${colors.darkGreen}, ${colors.mediumGreen})`,
-                  color: colors.white, fontWeight: '800', fontSize: '15px', cursor: 'pointer',
-                  boxShadow: `0 4px 15px rgba(15,77,44,0.35)`,
+                  background: submitting ? '#aaa' : `linear-gradient(135deg, ${colors.darkGreen}, ${colors.mediumGreen})`,
+                  color: colors.white, fontWeight: '800', fontSize: '15px',
+                  cursor: submitting ? 'not-allowed' : 'pointer',
+                  boxShadow: submitting ? 'none' : `0 4px 15px rgba(15,77,44,0.35)`,
+                  display: 'flex', alignItems: 'center', gap: '8px', transition: 'all 0.2s',
                 }}>
-                  {editId ? '💾 Update Product' : '🌾 Add Product'}
+                  {submitting ? (
+                    <>
+                      <span style={{
+                        width: '16px', height: '16px', border: '2px solid rgba(255,255,255,0.4)',
+                        borderTopColor: colors.white, borderRadius: '50%',
+                        display: 'inline-block', animation: 'spin 0.7s linear infinite',
+                      }} />
+                      {editId ? 'Updating...' : 'Adding...'}
+                    </>
+                  ) : (
+                    editId ? '💾 Update Product' : '🌾 Add Product'
+                  )}
                 </button>
                 <button type="button" onClick={cancelForm} style={{ padding: '12px 20px', borderRadius: '10px', border: `2px solid ${colors.cream}`, background: colors.white, fontWeight: '700', fontSize: '14px', cursor: 'pointer', color: '#666' }}>
                   Cancel
@@ -333,30 +489,44 @@ export default function AdminProducts() {
               </span>
             </button>
           ))}
+          {filterCat !== 'all' && (
+            <button
+              onClick={() => { setFilterCat('all'); }}
+              style={{ padding: '8px 16px', borderRadius: '50px', border: `2px dashed ${colors.cream}`, background: colors.white, color: '#777', fontWeight: '700', fontSize: '12px', cursor: 'pointer' }}
+            >
+              Reset Filters
+            </button>
+          )}
         </div>
 
         {/* Products Table */}
         {loading ? (
           <div style={{ textAlign: 'center', padding: '60px', color: colors.darkGreen, fontWeight: '700', fontSize: '18px' }}>🌾 Loading products...</div>
-        ) : filtered.length === 0 ? (
+        ) : visible.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '60px', background: colors.white, borderRadius: '16px', color: '#aaa' }}>
             <div style={{ fontSize: '48px', marginBottom: '12px' }}>🌱</div>
-            <p style={{ fontWeight: '700', fontSize: '16px' }}>No products found</p>
+            <p style={{ fontWeight: '700', fontSize: '16px' }}>No products match your filters</p>
+            <button
+              onClick={() => { setFilterCat('all'); setSearch(''); }}
+              style={{ marginTop: '12px', padding: '8px 16px', borderRadius: '20px', border: `1px solid ${colors.cream}`, background: colors.white, fontWeight: '700', cursor: 'pointer' }}
+            >
+              Clear Filters
+            </button>
           </div>
         ) : (
-          <div style={{ background: colors.white, borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}>
-            <div style={{
-              display: 'grid', gridTemplateColumns: '60px 1fr 100px 80px 80px 80px 140px',
+          <div className="admin-table" style={{ background: colors.white, borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}>
+            <div className="admin-row" style={{
+              display: 'grid', gridTemplateColumns: '60px 1fr 120px 90px 140px',
               background: `linear-gradient(135deg, ${colors.darkGreen}, ${colors.mediumGreen})`,
               padding: '14px 20px', color: colors.white, fontWeight: '800', fontSize: '12px', letterSpacing: '0.5px',
-              gap: '10px', alignItems: 'center',
+              gap: '10px', alignItems: 'center', position: 'sticky', top: 0, zIndex: 1,
             }}>
-              <span>IMAGE</span><span>PRODUCT</span><span>CATEGORY</span><span>PRICE</span><span>UNIT</span><span>STOCK</span><span style={{ textAlign: 'center' }}>ACTIONS</span>
+              <span>IMAGE</span><span>PRODUCT</span><span>CATEGORY</span><span>UNIT</span><span style={{ textAlign: 'center' }}>ACTIONS</span>
             </div>
 
-            {filtered.map((p, i) => (
-              <div key={p.id} style={{
-                display: 'grid', gridTemplateColumns: '60px 1fr 100px 80px 80px 80px 140px',
+            {visible.map((p, i) => (
+              <div key={p.id} className="admin-row" style={{
+                display: 'grid', gridTemplateColumns: '60px 1fr 120px 90px 140px',
                 padding: '14px 20px', gap: '10px', alignItems: 'center',
                 borderBottom: `1px solid ${colors.cream}`,
                 background: i % 2 === 0 ? colors.white : '#fafafa',
@@ -366,7 +536,7 @@ export default function AdminProducts() {
                 onMouseLeave={e => e.currentTarget.style.background = i % 2 === 0 ? colors.white : '#fafafa'}
               >
                 <img
-                  src={p.image || FALLBACK_IMG} alt={p.name}
+                  src={p.images?.[0] || p.image || FALLBACK_IMG} alt={p.name}
                   style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '8px', border: `2px solid ${colors.cream}` }}
                   onError={e => { e.target.src = FALLBACK_IMG; }}
                 />
@@ -381,9 +551,7 @@ export default function AdminProducts() {
                 }}>
                   {p.category}
                 </span>
-                <span style={{ fontWeight: '700', color: colors.darkGreen, fontSize: '14px' }}>₹{p.price}</span>
                 <span style={{ color: '#666', fontSize: '13px' }}>{p.unit || 'kg'}</span>
-                <span style={{ fontWeight: '600', color: p.stock > 10 ? colors.success : colors.error, fontSize: '13px' }}>{p.stock ?? '—'}</span>
                 <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
                   <button onClick={() => startEdit(p)} style={{
                     padding: '6px 14px', borderRadius: '7px', border: `2px solid ${colors.gold}`,
