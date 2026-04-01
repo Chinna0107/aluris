@@ -532,7 +532,7 @@ function Products() {
 
                 {/* Content */}
                 <div style={{ padding: '12px 12px 14px' }}>
-                  <p style={{ color: '#6fa882', fontSize: '15px', lineHeight: '1.7', marginBottom: '8px', textAlign: 'center', fontStyle: 'italic' }}>
+                  <p style={{ color: '#6fa882', fontSize: '15px', lineHeight: '1.7', marginBottom: '8px', textAlign: 'center', fontStyle: 'italic', fontWeight: '700' }}>
                     {product.description}
                   </p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', justifyContent: 'center', marginBottom: '10px' }}>
