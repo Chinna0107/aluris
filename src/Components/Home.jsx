@@ -318,7 +318,7 @@ function Home() {
               >
                 {/* Image */}
                 <div style={{ position: 'relative', height: '190px', background: 'linear-gradient(180deg, #0a2410 0%, #051008 100%)', overflow: 'hidden' }}>
-                  <img src={product.image} alt={product.name}
+                  <img src={Array.isArray(product.images) && product.images[0] ? product.images[0] : product.image} alt={product.name}
                     style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', padding: '10px', boxSizing: 'border-box', display: 'block', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))' }}
                   />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 55%, rgba(0,0,0,0.75) 100%)' }} />
@@ -345,19 +345,7 @@ function Home() {
 
                 {/* Content */}
                 <div style={{ padding: '10px 10px 12px' }}>
-                  <p style={{ color: '#6fa882', fontSize: '9.5px', lineHeight: '1.6', marginBottom: '8px', textAlign: 'center', fontStyle: 'italic' }}>
-                    {product.description?.slice(0, 50)}{product.description?.length > 50 ? '…' : ''}
-                  </p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', justifyContent: 'center', marginBottom: '10px' }}>
-                    {(product.features ?? []).slice(0, 2).map((f, i) => (
-                      <span key={i} style={{
-                        background: 'rgba(212,175,55,0.08)', color: `${colors.gold}cc`,
-                        padding: '2px 7px', borderRadius: '20px', fontSize: '8.5px',
-                        fontWeight: '700', border: `1px solid ${colors.gold}25`, letterSpacing: '0.3px'
-                      }}>✦ {f}</span>
-                    ))}
-                  </div>
-                  <Link to={`/products/${product.id}`} style={{ textDecoration: 'none' }}>
+                  <Link to={`/products/${product.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}-${product._id || product.id}`} style={{ textDecoration: 'none' }}>
                     <button style={{
                       width: '100%',
                       background: `linear-gradient(135deg, ${colors.gold} 0%, #e8c547 50%, #b8860b 100%)`,
