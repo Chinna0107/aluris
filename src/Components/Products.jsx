@@ -459,7 +459,8 @@ function Products() {
           }}>
             {displayProducts.map((product, index) => {
               const imgSrc = Array.isArray(product.images) && product.images[0] ? product.images[0] : (product.image || '');
-              const price = product.quantities?.length > 0 ? `From ₹${product.quantities[0].price}` : product.price ? `₹${product.price}` : null;
+              const fmt = (n) => Number(n).toLocaleString('en-IN');
+              const price = product.quantities?.length > 0 ? `From ₹${fmt(product.quantities[0].price)}` : product.price ? `₹${fmt(product.price)}` : null;
               const slug = `${product.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}-${product._id || product.id}`;
               return (
               <div key={product._id || product.id || index} style={{

@@ -23,6 +23,9 @@ export default function ProductDetail() {
   const [liked, setLiked] = useState(false);
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState('description');
+  const [quoteModal, setQuoteModal] = useState(false);
+  const [quoteForm, setQuoteForm] = useState({ name: '', email: '', phone: '' });
+  const [quoteSubmitting, setQuoteSubmitting] = useState(false);
 
   // Zoom state
   const [zoomed, setZoomed] = useState(false);
@@ -37,6 +40,18 @@ export default function ProductDetail() {
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
     setZoomPos({ x, y });
+  };
+
+  const handleQuoteSubmit = (e) => {
+    e.preventDefault();
+    setQuoteSubmitting(true);
+    const q = product.quantities?.[selectedQty];
+    const priceStr = q ? `${q.label ?? currentLabel} — ₹${fmt(q.price)}` : product.price ? `₹${fmt(product.price)} / ${product.unit || 'kg'}` : 'Price on request';
+    const msg = `Quote Request\n\nName: ${quoteForm.name}\nPhone: ${quoteForm.phone}${quoteForm.email ? `\nEmail: ${quoteForm.email}` : ''}\n\nProduct: ${product.name}\nCategory: ${product.category}\nSelected Price: ${priceStr}`;
+    window.open(`https://wa.me/918074346568?text=${encodeURIComponent(msg)}`, '_blank');
+    setQuoteSubmitting(false);
+    setQuoteModal(false);
+    setQuoteForm({ name: '', email: '', phone: '' });
   };
 
   const handleShare = () => {
@@ -56,6 +71,8 @@ export default function ProductDetail() {
   );
 
   if (!product) return null;
+
+  const fmt = (n) => Number(n).toLocaleString('en-IN');
 
   const images = (
     Array.isArray(product.images) && product.images.length
@@ -267,9 +284,9 @@ export default function ProductDetail() {
                           {q.label ?? q.weight}
                         </p>
                         {orig && orig > our ? (
-                          <p style={{ color: '#888', fontSize: '12px', fontWeight: '600', margin: '0 0 2px', textDecoration: 'line-through' }}>₹{orig}</p>
+                          <p style={{ color: '#888', fontSize: '12px', fontWeight: '600', margin: '0 0 2px', textDecoration: 'line-through' }}>₹{fmt(orig)}</p>
                         ) : null}
-                        <p style={{ color: colors.gold, fontSize: '18px', fontWeight: '900', margin: 0, fontFamily: 'Cinzel, serif' }}>₹{our || q.price}</p>
+                        <p style={{ color: colors.gold, fontSize: '18px', fontWeight: '900', margin: 0, fontFamily: 'Cinzel, serif' }}>₹{fmt(our || q.price)}</p>
                       </div>
                     );
                   })}
@@ -286,9 +303,9 @@ export default function ProductDetail() {
                     <div style={{ background: 'rgba(212,175,55,0.07)', border: `1px solid rgba(212,175,55,0.25)`, borderRadius: '14px', padding: '16px 20px' }}>
                       <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', flexWrap: 'wrap', marginBottom: saved ? '10px' : 0 }}>
                         {orig && orig > our ? (
-                          <span style={{ fontSize: '16px', color: '#888', textDecoration: 'line-through', fontWeight: '600' }}>₹{orig}</span>
+                          <span style={{ fontSize: '16px', color: '#888', textDecoration: 'line-through', fontWeight: '600' }}>₹{fmt(orig)}</span>
                         ) : null}
-                        <span style={{ fontSize: 'clamp(26px, 3.5vw, 34px)', fontWeight: '900', color: colors.gold, fontFamily: 'Cinzel, serif' }}>₹{our || q?.price}</span>
+                        <span style={{ fontSize: 'clamp(26px, 3.5vw, 34px)', fontWeight: '900', color: colors.gold, fontFamily: 'Cinzel, serif' }}>₹{fmt(our || q?.price)}</span>
                         <span style={{ fontSize: '13px', color: colors.muted }}>/ {q?.label ?? currentLabel}</span>
                         {disc && (
                           <span style={{ background: '#e74c3c', color: '#fff', fontSize: '12px', fontWeight: '900', padding: '3px 10px', borderRadius: '20px' }}>{disc}% OFF</span>
@@ -296,8 +313,8 @@ export default function ProductDetail() {
                       </div>
                       {saved && (
                         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                          <span style={{ color: '#4caf50', fontSize: '13px', fontWeight: '700' }}>✅ You save ₹{saved}</span>
-                          <span style={{ color: colors.muted, fontSize: '13px' }}>MRP: ₹{orig}</span>
+                          <span style={{ color: '#4caf50', fontSize: '13px', fontWeight: '700' }}>✅ You save ₹{fmt(saved)}</span>
+                          <span style={{ color: colors.muted, fontSize: '13px' }}>MRP: ₹{fmt(orig)}</span>
                         </div>
                       )}
                     </div>
@@ -307,7 +324,7 @@ export default function ProductDetail() {
             ) : (
               <div style={{ marginBottom: '20px' }}>
                 <span style={{ fontSize: 'clamp(28px, 4vw, 38px)', fontWeight: '900', color: colors.gold, fontFamily: 'Cinzel, serif' }}>
-                  {product.price ? `₹${product.price}` : 'Price on request'}
+                  {product.price ? `₹${fmt(product.price)}` : 'Price on request'}
                 </span>
                 {product.price && <span style={{ fontSize: '14px', color: colors.muted, marginLeft: '8px' }}>/ {product.unit || 'kg'}</span>}
               </div>
@@ -330,18 +347,16 @@ export default function ProductDetail() {
 
             {/* CTA Buttons */}
             <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', flexWrap: 'wrap' }}>
-              <Link to="/quote" style={{ textDecoration: 'none', flex: 1 }}>
-                <button style={{
-                  width: '100%', padding: '14px', borderRadius: '12px', border: 'none', cursor: 'pointer',
-                  background: `linear-gradient(135deg, ${colors.gold} 0%, #e8c547 50%, #b8860b 100%)`,
-                  color: '#071a0d', fontWeight: '900', fontSize: '14px', letterSpacing: '1px',
-                  textTransform: 'uppercase', boxShadow: `0 6px 20px rgba(212,175,55,0.4)`,
-                  transition: 'all 0.3s',
-                }}
-                onMouseEnter={e => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = `0 10px 28px rgba(212,175,55,0.55)`; }}
-                onMouseLeave={e => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = `0 6px 20px rgba(212,175,55,0.4)`; }}
-                >📞 Get Quote</button>
-              </Link>
+              <button onClick={() => setQuoteModal(true)} style={{
+                flex: 1, padding: '14px', borderRadius: '12px', border: 'none', cursor: 'pointer',
+                background: `linear-gradient(135deg, ${colors.gold} 0%, #e8c547 50%, #b8860b 100%)`,
+                color: '#071a0d', fontWeight: '900', fontSize: '14px', letterSpacing: '1px',
+                textTransform: 'uppercase', boxShadow: `0 6px 20px rgba(212,175,55,0.4)`,
+                transition: 'all 0.3s',
+              }}
+              onMouseEnter={e => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = `0 10px 28px rgba(212,175,55,0.55)`; }}
+              onMouseLeave={e => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = `0 6px 20px rgba(212,175,55,0.4)`; }}
+              >📞 Get Quote</button>
               <a href={`https://wa.me/918074346568?text=Hi, I'm interested in ${encodeURIComponent(product.name)}`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', flex: 1 }}>
                 <button style={{
                   width: '100%', padding: '14px', borderRadius: '12px', border: `2px solid #25D366`, cursor: 'pointer',
@@ -423,6 +438,80 @@ export default function ProductDetail() {
           >← Back to Products</button>
         </div>
       </div>
+
+      {/* Quote Modal */}
+      {quoteModal && (
+        <div onClick={() => setQuoteModal(false)} style={{
+          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', zIndex: 9999,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px',
+          backdropFilter: 'blur(4px)',
+        }}>
+          <div onClick={e => e.stopPropagation()} style={{
+            background: 'linear-gradient(160deg, #0f3d20 0%, #071a0d 100%)',
+            border: `1px solid rgba(212,175,55,0.35)`, borderRadius: '20px',
+            padding: '32px', width: '100%', maxWidth: '460px',
+            boxShadow: `0 24px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.2)`,
+            animation: 'fadeUp 0.25s ease',
+          }}>
+            {/* Header */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
+              <div>
+                <h2 style={{ color: colors.gold, fontFamily: 'Cinzel, serif', fontSize: '20px', fontWeight: '900', margin: 0 }}>Get a Quote</h2>
+                <p style={{ color: colors.muted, fontSize: '12px', margin: '4px 0 0' }}>We’ll reach out with the best price</p>
+              </div>
+              <button onClick={() => setQuoteModal(false)} style={{ background: 'none', border: 'none', color: colors.muted, fontSize: '20px', cursor: 'pointer', lineHeight: 1 }}>×</button>
+            </div>
+
+            {/* Product summary */}
+            <div style={{
+              background: 'rgba(212,175,55,0.07)', border: `1px solid rgba(212,175,55,0.2)`,
+              borderRadius: '12px', padding: '14px 16px', marginBottom: '22px',
+            }}>
+              <p style={{ color: colors.muted, fontSize: '10px', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', margin: '0 0 6px' }}>Selected Product</p>
+              <p style={{ color: colors.white, fontWeight: '800', fontSize: '15px', margin: '0 0 4px', fontFamily: 'Cinzel, serif' }}>{product.name}</p>
+              <p style={{ color: colors.gold, fontSize: '11px', fontWeight: '700', margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{product.category}</p>
+              {(() => {
+                const q = product.quantities?.[selectedQty];
+                if (q) return <p style={{ color: colors.gold, fontSize: '14px', fontWeight: '900', margin: 0 }}>{q.label ?? currentLabel} — ₹{fmt(q.price)}</p>;
+                if (product.price) return <p style={{ color: colors.gold, fontSize: '14px', fontWeight: '900', margin: 0 }}>₹{fmt(product.price)} / {product.unit || 'kg'}</p>;
+                return null;
+              })()}
+            </div>
+
+            {/* Form */}
+            <form onSubmit={handleQuoteSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              {[
+                { label: 'Full Name', key: 'name', type: 'text', placeholder: 'Your name', required: true },
+                { label: 'Phone Number', key: 'phone', type: 'tel', placeholder: 'Your phone number', required: true },
+                { label: 'Email (optional)', key: 'email', type: 'email', placeholder: 'your@email.com', required: false },
+              ].map(({ label, key, type, placeholder, required }) => (
+                <div key={key}>
+                  <label style={{ display: 'block', color: colors.muted, fontSize: '11px', fontWeight: '700', letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '6px' }}>{label}</label>
+                  <input
+                    type={type} required={required} placeholder={placeholder}
+                    value={quoteForm[key]}
+                    onChange={e => setQuoteForm(f => ({ ...f, [key]: e.target.value }))}
+                    style={{
+                      width: '100%', padding: '11px 14px', borderRadius: '10px', boxSizing: 'border-box',
+                      background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(212,175,55,0.25)',
+                      color: colors.white, fontSize: '14px', outline: 'none', fontFamily: 'inherit',
+                    }}
+                    onFocus={e => e.target.style.borderColor = colors.gold}
+                    onBlur={e => e.target.style.borderColor = 'rgba(212,175,55,0.25)'}
+                  />
+                </div>
+              ))}
+              <button type="submit" disabled={quoteSubmitting} style={{
+                marginTop: '6px', padding: '13px', borderRadius: '12px', border: 'none', cursor: 'pointer',
+                background: `linear-gradient(135deg, ${colors.gold}, #e8c547 50%, #b8860b)`,
+                color: '#071a0d', fontWeight: '900', fontSize: '14px', letterSpacing: '1px',
+                textTransform: 'uppercase', boxShadow: `0 4px 16px rgba(212,175,55,0.4)`,
+                transition: 'all 0.2s',
+              }}>📤 Send via WhatsApp</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
