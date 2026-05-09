@@ -64,7 +64,7 @@ const Footer = () => {
           <span className="payment-badge">PhonePe</span>
           <span className="payment-badge">UPI</span>
         </div>
-        <p>Made with <b>passion</b> by <a href="https://zewo.in" target="_blank" rel="noopener noreferrer">Zewo</a></p>
+        <p>Made with <b>passion</b> by <a href="https://staffarc.in" target="_blank" rel="noopener noreferrer">Zewo</a></p>
       </div>
     </footer>
   );
